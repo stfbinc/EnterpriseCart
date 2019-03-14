@@ -76,7 +76,10 @@ class controller{
             //$ascope = json_decode(json_encode($scope), true);
             //$keyString = $this->user["CompanyID"] . "__" . $this->user["DivisionID"] . "__" . $this->user["DepartmentID"];
             //require 'models/menuCategoriesGenerated.php';
-            require 'views/index.php';
+            if(key_exists("action", $_GET))
+                require "views/pages/{$_GET["action"]}.php";
+            else
+                require 'views/index.php';
         }
     }
 }
