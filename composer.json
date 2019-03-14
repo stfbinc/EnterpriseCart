@@ -1,0 +1,6 @@
+{
+    "require": {
+        "gregwar/captcha": "1.*",
+        "asgrim/ofxparser": "^1.2"
+    }
+}
