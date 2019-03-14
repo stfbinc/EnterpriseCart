@@ -1,0 +1,48 @@
+.header-bottom-area .logo span,.header-search button,.user-icon:hover,.main-menu-area,.my-account-holder .button,.main-menu ul li:hover a,a.btn-icon:hover,
+.subscribe-title button,.widget-icon a:hover,a#scrollUp:hover,.product-action a:hover, .button a:hover,.footer-widget .footer-logo span,
+.single-about-team:hover,.price_filter .ui-slider-range,.price_slider_amount > input[type="submit"]:hover,.pagination ul li.active,.upcoming-pro,
+.widget-tags ul li a:hover,ul.pro-details-tab li.active,.review-form-wrapper input[type="submit"]:hover,.readmore:hover,.comment-respond input[type="submit"]:hover,
+.color-scheme-select-btn,.buttons-cart input:hover, .coupon input[type="submit"]:hover, .buttons-cart a:hover,.wc-proceed-to-checkout a:hover,
+.order-button-payment input:hover,.coupon-info p.form-row input[type="submit"]:hover, p.checkout-coupon input[type="submit"]:hover,
+.wishlist-table table .product-add-to-cart > a:hover,.form-action input[type="submit"]:hover,.contact-form input[type="submit"]:hover,
+.home-3 .total-cart:hover{
+    background-color: #8BC34A;
+}
+
+.main-menu ul li:hover ul li a:hover,.pro-price span.normal,.copyright p a,.top-menu ul li:hover a,.my-account-holder a:hover,
+footer address a,footer .box-address .fa,.owl-theme .owl-controls .owl-buttons div,.post-category > a,ul.footer-menu li a:hover,.main-menu ul li:hover .mega-menu span a:hover,
+.about-text h2 span,.about-team-info .widget-icon a,.top-menu ul#language li:hover ul li a:hover, .top-menu ul#currency li:hover ul li a:hover,ul.shop-tab li.active a,
+ul.shop-tab li a:hover,ul.sidebar-menu li a:hover,.breadcrumb li a:hover,.single-product .product-info a:hover,ul.pro-details-tab li a:hover,.your-rating span:hover a i,
+.comments-content-wrap span a:hover,.table-content table td.product-name a:hover, .buttons-cart1 a:hover,.cart_totals table td .amount,.total-cart ul li .cart-info h4 a:hover,
+.your-order-table table tr.order-total td span,.coupon-accordion span:hover, p.lost-password a:hover,.panel-title > a:hover,.wishlist-table table .product-remove > a:hover,
+.wishlist-table table .wishlist-in-stock,.wishlist-table table td a:hover,.form-action p.lost_password a:hover,.contact-info ul li a:hover,
+.btn-banner-shop-now:hover,.banner-box-content a:hover
+{
+    color: #8BC34A;
+}
+
+.main-menu ul li ul,.section-title h2::after,footer,.footer-widget h3::after,.widget-icon a:hover,.owl-theme .owl-controls .owl-buttons div,
+.main-menu ul li .mega-menu,.about-team-info .widget-icon a,.widget-categories,.price_filter .ui-slider-handle.ui-state-default.ui-corner-all,
+.pagination ul li a:hover,.widget,.widget-tags ul li a:hover,ul.pro-details-tab li.active,blockquote,.coupon-accordion h3,
+.home-3 .main-menu-area,.home-3 .main-menu-area,.btn-banner-shop-now:hover
+{
+    border-color: #8BC34A;
+}
+
+
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="color"]:focus,
+textarea:focus,
+select:focus{
+    -webkit-box-shadow: 0px 0px 5px #8BC34A !important;
+    -moz-box-shadow: 0px 0px 5px #8BC34A !important;
+    box-shadow: 0px 0px 5px #8BC34A !important;
+}
