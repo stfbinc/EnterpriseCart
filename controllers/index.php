@@ -48,9 +48,9 @@ class controller{
         if(key_exists("user", $_SESSION))
             $user = Session::get("user");
         else
-            $user = [
+            Session::set("user",$user = [
                 "language" => "English"
-            ];
+            ]);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }else if($_SERVER['REQUEST_METHOD'] === 'GET') {
             /*$users = new users();

@@ -29,7 +29,6 @@
   Last Modified by: Nikita Zaharov
 */
 
-require 'models/users.php';
 require 'models/translation.php';
 
 class controller{
@@ -48,9 +47,9 @@ class controller{
         if(key_exists("user", $_SESSION))
             $user = Session::get("user");
         else
-            $user = [
+            Session::set("user",$user = [
                 "language" => "English"
-            ];
+            ]);
         
         $action = $this->action = $this->path =  $_GET["action"];
 

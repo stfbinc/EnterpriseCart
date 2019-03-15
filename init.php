@@ -42,7 +42,10 @@ class DB{
 //class for emulating global Session class from laravel
 class Session{
     public static function get($key){
-        return $_SESSION[$key];
+        if(key_exists($key, $_SESSION))
+            return $_SESSION[$key];
+        else
+            null;
     }
     public static function set($key, $value){
         return $_SESSION[$key] = $value;

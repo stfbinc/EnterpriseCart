@@ -75,7 +75,7 @@
 	<?php require "nav/topbar.php"; ?>
 
 	<div id="content">
-	    Cart
+	    
 	</div>
 	
 	<!-- footer start -->
