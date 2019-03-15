@@ -26,7 +26,18 @@
 
 class users{
     public function login(){
-        print_r($_POST);
+        $result = DB::select("SELECT * from customerinformation WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerLogin=? AND CustomerPassword=?", array('DINOS', 'DEFAULT', 'DEFAULT', $_POST["username"], $_POST["password"]));
+        if(!count($result)){
+            http_response_code(401);
+            echo "login failed";
+        }else{
+            $user = [
+                "Customer" => $result[0],
+                "language" => Session::get("user") ? Session::get("user")["language"] : "English"
+            ];
+            Session::set("user", $user);
+            echo json_encode($user, JSON_PRETTY_PRINT);
+        }
         /*        $result = $GLOBALS["capsule"]::select("SELECT * from payrollemployees WHERE CompanyID='" . $company . "' AND EmployeeUserName='". $name ."' AND EmployeePassword='" . $password . "' AND DivisionID='" . $division . "' AND DepartmentID='" . $department . "'", array());
         if(!$result)
             return false;

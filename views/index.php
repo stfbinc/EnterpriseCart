@@ -58,10 +58,10 @@
 		  if(successAlert)
 		      alert(data);	  
 		  if(cb)
-		      cb(data);
+		      cb(data, undefined);
 	      })
 	      .error(function(xhr){
-		  alert(xhr.responseText);
+		  cb(undefined, xhr);
 	      });
 	 }
 	</script>

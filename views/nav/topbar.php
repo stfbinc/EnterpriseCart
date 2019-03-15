@@ -47,10 +47,10 @@
     <div class="container">
 	<div class="row">
             <div class="col-lg-6 col-md-6 col-sm-4">
-		<!-- 			<div class="welcome">
-                     <span class="phone">Phone: +12345 67890</span> <span class="hidden-sm">/</span>
-                     <span class="email hidden-sm">Email: yourname@domain.com</span>
-		     </div> -->
+		<div class="welcome">
+                    <!--  <span class="phone">Phone: +12345 67890</span> <span class="hidden-sm">/</span>
+			 <span class="email hidden-sm">Email: yourname@domain.com</span> -->
+		</div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-8">
 		<div class="top-menu">
@@ -75,7 +75,14 @@
 			</li>
                     </ul>
                     <ul>
-			<li><a href="javascript:;" onclick="$('#loginForm').modal('show');"><?php echo $translation->translateLabel("My Account"); ?></a></li>
+			<li><a href="javascript:;" onclick="$('#loginForm').modal('show');">
+			    <?php
+				if(key_exists("Customer", $user))
+				    echo $user["Customer"]->CustomerLogin;
+				else
+				    echo $translation->translateLabel("Login");
+			    ?>
+			    </a></li>
 			<li><a href="#"><?php echo $translation->translateLabel("Wishlist"); ?></a></li>
 			<li><a href="#"><?php echo $translation->translateLabel("Shopping cart"); ?></a></li>
 			<li><a href="#"><?php echo $translation->translateLabel("Checkout"); ?></a></li>
@@ -217,8 +224,11 @@
 
  $('#loginButton').click(function(){
      var loginform = $('#loginform');
-     serverProcedureAnyCall("users", "login", loginform.serialize(), function(data){
-	 console.log(data);
+     serverProcedureAnyCall("users", "login", loginform.serialize(), function(data, error){
+	 if(data)
+	     location.reload();
+	 else
+	     console.log("login failed");
      });
      
  });
