@@ -44,8 +44,10 @@ class controller{
     public $breadCrumbTitle = "Enterprise X Cart";
     
     public function process($app){
-        $user = Session::get("user");
-        if(!$user)
+        $user;
+        if(key_exists("user", $_SESSION))
+            $user = Session::get("user");
+        else
             $user = [
                 "language" => "English"
             ];

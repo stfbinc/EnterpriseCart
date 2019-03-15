@@ -44,6 +44,27 @@
 	     color : black !important;
 	 }
 	</style>
+	<script>
+	 //global object used for creatink links to any part of application
+	 var linksMaker = {
+	     makeProcedureLink : function (path, procedure){
+		 return "index.php?page=forms&action=" + path + "&procedure=" + procedure;
+	     }
+	 };
+	 
+	 function serverProcedureAnyCall(path, methodName, props, cb, jsonRequest, successAlert){
+	     $.post(linksMaker.makeProcedureLink(path, methodName), jsonRequest ? JSON.stringify(props) : props, 'text')
+	      .success(function(data) {
+		  if(successAlert)
+		      alert(data);	  
+		  if(cb)
+		      cb(data);
+	      })
+	      .error(function(xhr){
+		  alert(xhr.responseText);
+	      });
+	 }
+	</script>
     </head>
     <body onload="main();" class="home-1">
 	<!--[if lt IE 8]>

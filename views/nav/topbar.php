@@ -57,37 +57,7 @@
 		    </div>
 		    <div class="col-lg-6 col-md-5 col-sm-5 col-xs-6 hidden-xs">
 			<div class="header-search">
-			    <select>
-                    		<option value="0">All Categories</option>
-				<option value="1">Women's Clothing &amp; Accessories</option>
-				<option value="2">Men's Clothing &amp; Accessories</option>
-				<option value="0">Phones &amp; Telecommunications</option>
-				<option value="0">Computer &amp; Office</option>
-				<option value="0">Consumer Electronics</option>
-				<option value="0">Jewelry &amp; Accessories</option>
-				<option value="0">Home &amp; Garden</option>
-				<option value="0">Luggage &amp; Bags</option>
-				<option value="0">Shoes</option>
-				<option value="0">Mother &amp; Kids</option>
-				<option value="0">Sports &amp; Entertainment</option>
-				<option value="0">Health &amp; Beauty</option>
-				<option value="0">Watches</option>
-				<option value="0">Toys &amp; Hobbies</option>
-				<option value="0">Weddings &amp; Events</option>
-				<option value="0">Novelty &amp; Special Use</option>
-				<option value="0">Automobiles &amp; Motorcycles</option>
-				<option value="0">Lights &amp; Lighting</option>
-				<option value="0">Furniture</option>
-				<option value="0">Industry &amp; Business</option>
-				<option value="0">Electronic Components &amp; Supplies</option>
-				<option value="0">Office &amp; School Supplies</option>
-				<option value="0">Electrical Equipment &amp; Supplies</option>
-				<option value="0">Gifts &amp; Crafts</option>
-				<option value="0">Home Improvement</option>
-				<option value="0">Food</option>
-				<option value="0">Travel and Coupons</option>
-				<option value="0">Security &amp; Protection</option>
-				<option value="0">In All Categories</option>
+			    <select id="searchCategories">
                             </select>
                             <input type="text" placeholder="search product..." />
 			    <button><i class="fa fa-search"></i></button>
@@ -173,7 +143,7 @@
      if(lang != current)
 	 $.getJSON("index.php?page=language&setLanguage=" + lang)
 	  .success(function(data) {
-//	      console.log(data);
+	      //	      console.log(data);
 	      location.reload();
 	  })
 	  .error(function(err){
@@ -181,4 +151,11 @@
 	  });
  });
 
+ serverProcedureAnyCall("products", "getFamilies", [], function(data){
+     var _html = '', ind, families = JSON.parse(data);
+     for(ind in families)
+	 _html += "<option value=\"" + ind + "\">" + families[ind].FamilyName + "</option>\n";
+
+     $("#searchCategories").html(_html);
+ });
 </script>
