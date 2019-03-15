@@ -75,14 +75,28 @@
 			</li>
                     </ul>
                     <ul>
-			<li><a href="javascript:;" onclick="$('#loginForm').modal('show');">
-			    <?php
-				if(key_exists("Customer", $user))
-				    echo $user["Customer"]->CustomerLogin;
-				else
-				    echo $translation->translateLabel("Login");
-			    ?>
-			    </a></li>
+			<?php if(key_exists("Customer", $user)): ?>
+			    <span class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button" id="customerDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white; border:0px; background-color:inherit; margin-top:-2px">
+				    <?php echo $user["Customer"]->CustomerLogin; ?>
+				    <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu customer-popup dropdown-chooser" aria-labelledby="customerDropdown" aria-expanded="false">
+				    <li><a href="javascript:;" id="logoutButton" data-value="logout" class="lang-item"> <?php echo $translation->translateLabel("Log out"); ?></a>
+				    </li>
+				</ul>
+			    </span>
+			<?php else: ?>
+			    <li><a href="javascript:;" onclick="$('#loginForm').modal('show');">
+				<?php
+				    if(key_exists("Customer", $user))
+					echo $user["Customer"]->CustomerLogin;
+				    else
+					echo $translation->translateLabel("Login");
+				?>
+			    </a>
+			    </li>
+			<?php endif ?>
 			<li><a href="#"><?php echo $translation->translateLabel("Wishlist"); ?></a></li>
 			<li><a href="#"><?php echo $translation->translateLabel("Shopping cart"); ?></a></li>
 			<li><a href="#"><?php echo $translation->translateLabel("Checkout"); ?></a></li>
@@ -225,6 +239,16 @@
  $('#loginButton').click(function(){
      var loginform = $('#loginform');
      serverProcedureAnyCall("users", "login", loginform.serialize(), function(data, error){
+	 if(data)
+	     location.reload();
+	 else
+	     console.log("login failed");
+     });
+     
+ });
+
+ $('#logoutButton').click(function(){
+     serverProcedureAnyCall("users", "logout", undefined, function(data, error){
 	 if(data)
 	     location.reload();
 	 else
