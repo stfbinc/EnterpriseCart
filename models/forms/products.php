@@ -30,6 +30,17 @@
 */
 
 class products{
+    public function getCurrencies(){
+        $user = Session::get("user");
+        $res = [];
+        $result = DB::select("SELECT * from currencytypes WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array('DINOS', 'DEFAULT', 'DEFAULT'));
+
+        foreach($result as $record)
+            $res[$record->CurrencyID] = $record;
+
+        echo json_encode($res, JSON_PRETTY_PRINT);
+    }
+    
     public function getFamilies(){
         $user = Session::get("user");
         $res = [];

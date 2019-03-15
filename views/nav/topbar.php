@@ -25,10 +25,7 @@
 		    </span>
                     <ul id="currency">
 			<li><a href="#">USD <i class="fa fa-angle-down"></i></a>
-                            <ul>
-				<li><a href="#">EURO</a></li>
-				<li><a href="#">AUD</a></li>
-				<li><a href="#">Rs</a></li>
+                            <ul id="currencyChooser">
                             </ul>
 			</li>
                     </ul>
@@ -157,5 +154,13 @@
 	 _html += "<option value=\"" + ind + "\">" + families[ind].FamilyName + "</option>\n";
 
      $("#searchCategories").html(_html);
+ });
+
+ serverProcedureAnyCall("products", "getCurrencies", [], function(data){
+     var _html = '', ind, list = JSON.parse(data);
+     for(ind in list)
+	 _html += " <li><a href=\"#\">" + list[ind].CurrencyID + "</a></li>\n";
+
+     $("#currencyChooser").html(_html);
  });
 </script>
