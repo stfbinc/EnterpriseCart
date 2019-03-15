@@ -44,6 +44,11 @@ class controller{
     public $breadCrumbTitle = "Enterprise X Cart";
     
     public function process($app){
+        $user = Session::get("user");
+        if(!$user)
+            $user = [
+                "language" => "English"
+            ];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }else if($_SERVER['REQUEST_METHOD'] === 'GET') {
             /*$users = new users();
@@ -69,9 +74,12 @@ class controller{
                
             //$security = new Security($this->user["accesspermissions"], []);
             //$translation = new translation($this->user["language"]);
-            $translation = new translation("English");
+            $translation = new translation($user["language"]);
             $this->dashboardTitle = $translation->translateLabel($this->dashboardTitle);
             $this->breadCrumbTitle = $translation->translateLabel($this->breadCrumbTitle);
+            $scope = [
+                "user" => $user
+            ];
             //$scope = $this;
             //$ascope = json_decode(json_encode($scope), true);
             //$keyString = $this->user["CompanyID"] . "__" . $this->user["DivisionID"] . "__" . $this->user["DepartmentID"];

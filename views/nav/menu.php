@@ -7,15 +7,15 @@
                 <div class="main-menu">
                     <nav>
                         <ul>
-                            <li><a href="#/?page=index&action=store" about">Store</a></li>
+                            <li><a href="#/?page=index&action=store" about"><?php echo $translation->translateLabel("Store"); ?></a></li>
 			    
-                            <li><a href="#/?page=index&action=products">Products</a>
+                            <li><a href="#/?page=index&action=products"><?php echo $translation->translateLabel("Products"); ?></a>
                             </li>
-                            <li><a href="#/?page=index&action=search">Search</a>
+                            <li><a href="#/?page=index&action=search"><?php echo $translation->translateLabel("Search"); ?></a>
                             </li>
-                            <li><a href="##/?page=index&action=cart">My Cart</a>
+                            <li><a href="##/?page=index&action=cart"><?php echo $translation->translateLabel("My Cart"); ?></a>
                             </li>
-                            <li><a href="##/?page=index&action=support">Support</a>
+                            <li><a href="##/?page=index&action=support"><?php echo $translation->translateLabel("Support"); ?></a>
                             </li>
                         </ul>
                     </nav>
