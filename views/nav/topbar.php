@@ -154,6 +154,12 @@
 	 _html += "<option value=\"" + ind + "\">" + families[ind].FamilyName + "</option>\n";
 
      $("#searchCategories").html(_html);
+
+     _html = '';
+     for(ind in families)
+	 _html += "<li><a href=\"#\">" + families[ind].FamilyName + "</a></li>"
+     $("#productsFamilies").html(_html);
+     $("#mobileMenu").html($("#desktopMenu").html());
  });
 
  serverProcedureAnyCall("products", "getCurrencies", [], function(data){
