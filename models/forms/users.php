@@ -26,7 +26,8 @@
 
 class users{
     public function login(){
-        $result = DB::select("SELECT * from customerinformation WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerLogin=? AND CustomerPassword=?", array('DINOS', 'DEFAULT', 'DEFAULT', $_POST["username"], $_POST["password"]));
+        $defaultCompany = Session::get("defaultCompany");
+        $result = DB::select("SELECT * from customerinformation WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerLogin=? AND CustomerPassword=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $_POST["username"], $_POST["password"]));
         if(!count($result)){
             http_response_code(401);
             echo "login failed";
@@ -44,6 +45,7 @@ class users{
         Session::set("user", [
             "language" => Session::get("user") ? Session::get("user")["language"] : "English"
         ]);
+        Session::set("defaultCompany", null);
         echo json_encode([]);
     }
 }

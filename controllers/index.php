@@ -42,6 +42,8 @@ class controller{
     public $interfaceType = "ltr";
     public $dashboardTitle = "Enterprise X Cart";
     public $breadCrumbTitle = "Enterprise X Cart";
+    public $config;
+    public $defaultCompany;
     
     public function process($app){
         $user;
@@ -51,25 +53,25 @@ class controller{
             Session::set("user",$user = [
                 "language" => "English"
             ]);
+        $this->user = $user;
+        $this->config = config();
+        //        if(Session::get("defaultCompany");
+        if(key_exists("CompanyID", $_GET))
+            Session::set("defaultCompany", $this->defaultCompany = [
+                "CompanyID" => key_exists("CompanyID", $_GET) ? $_GET["CompanyID"] : $this->config["defaultCompanyID"],
+                "DivisionID" => key_exists("DivisionID", $_GET) ? $_GET["DivisionID"] : $this->config["defaultDivisionID"],
+                "DepartmentID" => key_exists("DepartmentID", $_GET) ? $_GET["DepartmentID"] : $this->config["defaultDepartmentID"],            
+            ]);
+        else if(!Session::get("defaultCompany"))
+            Session::set("defaultCompany", $this->defaultCompany = [
+                "CompanyID" => $this->config["defaultCompanyID"],
+                "DivisionID" => $this->config["defaultDivisionID"],
+                "DepartmentID" => $this->config["defaultDepartmentID"],            
+            ]);
+            
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }else if($_SERVER['REQUEST_METHOD'] === 'GET') {
-            /*$users = new users();
-            $users->checkLoginInUrl();
-                        if(key_exists("logout", $_GET) || !key_exists("user", $_SESSION) || !$_SESSION["user"] || !key_exists("EmployeeUserName", $_SESSION["user"])){ //Logout action or redirect to prevent access un logined users
-                $_SESSION["user"] = false;
-                header("Location: index.php?page=login");
-                exit;
-                }
-            
-            $this->interface = $_SESSION["user"]["interface"] = $interface = key_exists("interface", $_GET) ? $_GET["interface"] : (key_exists("interface", $_SESSION["user"]) ? $_SESSION["user"]["interface"] : "default");
-            if(!key_exists("interfaceName", $_SESSION["user"])){
-                if($interface == "default")
-                    $_SESSION["user"]["interfaceName"] = "Default";
-                else if($interface == "simple")
-                    $_SESSION["user"]["interfaceName"] = "Simple";
-                    }*/
-                
-            //            $this->interfaceType = $_SESSION["user"]["interfaceType"] = $interfaceType = key_exists("interfacetype", $_GET) ? $_GET["interfacetype"] : (key_exists("interfaceType", $_SESSION["user"]) ? $_SESSION["user"]["interfaceType"] : $this->interfaceType);
             //$drill = new drillDowner();
             //$linksMaker = new linksMaker();
             //$this->user = $user = $_SESSION["user"];
@@ -79,13 +81,8 @@ class controller{
             $translation = new translation($user["language"]);
             $this->dashboardTitle = $translation->translateLabel($this->dashboardTitle);
             $this->breadCrumbTitle = $translation->translateLabel($this->breadCrumbTitle);
-            $scope = [
-                "user" => $user
-            ];
-            //$scope = $this;
-            //$ascope = json_decode(json_encode($scope), true);
+            $scope = json_decode(json_encode($scope), true);
             //$keyString = $this->user["CompanyID"] . "__" . $this->user["DivisionID"] . "__" . $this->user["DepartmentID"];
-            //require 'models/menuCategoriesGenerated.php';
             if(key_exists("action", $_GET))
                 require "views/pages/{$_GET["action"]}.php";
             else

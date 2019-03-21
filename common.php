@@ -11,9 +11,14 @@ function config(){
         "db_base" => "myenterprise",
         "loginLogo" => "assets/images/stfb-logo.gif",
         "mediumLogo" => "assets/images/stfb-logo.gif",
-        "smallLogo" => "assets/images/stfblogosm.jpg"
+        "smallLogo" => "assets/images/stfblogosm.jpg",
+        "defaultCompanyID" => "DINOS",
+        "defaultDivisionID" => "DEFAULT",
+        "defaultDepartmentID" => "DEFAULT"
     );
 }
+
+
 
 function defaultUser(){
     return [

@@ -32,8 +32,10 @@
 class products{
     public function getCurrencies(){
         $user = Session::get("user");
+        $defaultCompany = Session::get("defaultCompany");
+        
         $res = [];
-        $result = DB::select("SELECT * from currencytypes WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array('DINOS', 'DEFAULT', 'DEFAULT'));
+        $result = DB::select("SELECT * from currencytypes WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"]));
 
         foreach($result as $record)
             $res[$record->CurrencyID] = $record;
@@ -43,8 +45,9 @@ class products{
     
     public function getFamilies(){
         $user = Session::get("user");
-        $res = [];
-        $result = DB::select("SELECT * from inventoryfamilies WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array('DINOS', 'DEFAULT', 'DEFAULT'));
+        $defaultCompany = Session::get("defaultCompany");
+         $res = [];
+        $result = DB::select("SELECT * from inventoryfamilies WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"]));
 
         foreach($result as $record)
             $res[$record->ItemFamilyID] = $record;
