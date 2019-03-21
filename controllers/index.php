@@ -81,7 +81,7 @@ class controller{
             $translation = new translation($user["language"]);
             $this->dashboardTitle = $translation->translateLabel($this->dashboardTitle);
             $this->breadCrumbTitle = $translation->translateLabel($this->breadCrumbTitle);
-            $scope = json_decode(json_encode($scope), true);
+            $scope = json_decode(json_encode($this), true);
             //$keyString = $this->user["CompanyID"] . "__" . $this->user["DivisionID"] . "__" . $this->user["DepartmentID"];
             if(key_exists("action", $_GET))
                 require "views/pages/{$_GET["action"]}.php";
