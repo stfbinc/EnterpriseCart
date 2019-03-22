@@ -245,7 +245,7 @@
      var element = $("#shoppingCartTopbarList"), _html = '', itemsCounter = 0, ind, subtotal = 0,
 	 items = shoppingCart.items;
      for(ind in items){
-	 _html += "<li><div class=\"cart-img\"><a href=\"#\"><img src=\"assets/img/cart/total-cart.jpg\" alt=\"\" /></a></div><div class=\"cart-info\"><h4><a href=\"#\">" + items[ind].ItemID + "</a></h4><span>" + items[ind].Price + " <span>x " + items[ind].counter + "</span></span></div><div onclick=\"shoppingCartRemoveItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-times-circle\"></i></div></li>";
+	 _html += "<li><div class=\"cart-img\"><a href=\"#\"><img src=\"" + linksMaker.makeItemImageLink(items[ind]) + "\" alt=\"\" /></a></div><div class=\"cart-info\"><h4><a href=\"#\">" + items[ind].ItemID + "</a></h4><span>" + items[ind].Price + " <span>x " + items[ind].counter + "</span></span></div><div onclick=\"shoppingCartRemoveItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-times-circle\"></i></div></li>";
 	 itemsCounter++;
 	 subtotal += items[ind].Price * items[ind].counter;
      }

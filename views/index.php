@@ -49,6 +49,9 @@
 	 var linksMaker = {
 	     makeProcedureLink : function (path, procedure){
 		 return "index.php?page=forms&action=" + path + "&procedure=" + procedure;
+	     },
+	     makeItemImageLink : function(item){
+		 return (item.PictureURL != null  && item.PictureURL.length ? "assets/img/" + item.PictureURL : "assets/img/product/s1.jpg");
 	     }
 	 };
 	 
