@@ -90,13 +90,13 @@
 			<!-- footer-widget start -->
 			<div class="col-lg-3 col-md-3 col-sm-4">
 			    <div class="footer-widget">
-				<div class="footer-logo"><a href="#"><span>e</span> Online Shop</a></div>								
-				<p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. .</p>
-				<address class="box-address">
-				    <span class="fa fa-home"></span>123 Pall Mall, London England<br>
-				    <span class="fa fa-phone"></span> <b class="color-dark">+12345 67890 </b><br>										
-				    <span class="fa fa-envelope"></span> <a class="color" href="mailto:admin@yourdomain.com">admin@yourdomain.com</a>
-				</address>                                
+				<div class="footer-logo"><a href="#"><span>e</span> EnterpriseX Cart</a></div>								
+				<!-- <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. .</p>
+				     <address class="box-address">
+				     <span class="fa fa-home"></span>123 Pall Mall, London England<br>
+				     <span class="fa fa-phone"></span> <b class="color-dark">+12345 67890 </b><br>										
+				     <span class="fa fa-envelope"></span> <a class="color" href="mailto:admin@yourdomain.com">admin@yourdomain.com</a>
+				     </address>                                 -->
 			    </div>
 			</div>
 			<!-- footer-widget end -->
@@ -299,7 +299,7 @@
              var spinnerTarget = document.getElementById('page-wrapper');
              var spinner;
 	     if(window.location.toString().search(/#/) == -1)
-		 window.location = "index.php#/?page=index&action=store";
+		 window.location = "index.php#/?page=forms&action=products";
 	     $(document).ajaxStart(function(){
 		     setTimeout(function(){
 			 spinner = new Spinner({

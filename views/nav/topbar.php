@@ -97,8 +97,8 @@
 			    </a>
 			    </li>
 			<?php endif ?>
-			<li><a href="#"><?php echo $translation->translateLabel("Wishlist"); ?></a></li>
-			<li><a href="#"><?php echo $translation->translateLabel("Shopping cart"); ?></a></li>
+			<!-- <li><a href="#"><?php echo $translation->translateLabel("Wishlist"); ?></a></li>
+			     <li><a href="#"><?php echo $translation->translateLabel("Shopping cart"); ?></a></li> -->
 			<li><a href="#"><?php echo $translation->translateLabel("Checkout"); ?></a></li>
                     </ul>
 		</div>
@@ -115,7 +115,7 @@
 		<div class="row">
 		    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 			<div class="logo">
-			    <a href="index.html"><span>e</span> Online Shop</a>
+			    <a href="index.php"><span>e</span> EnterpriseXCart</a>
 			</div>
 		    </div>
 		    <div class="col-lg-6 col-md-5 col-sm-5 col-xs-6 hidden-xs">
@@ -128,23 +128,23 @@
 		    </div>
 		    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 account-wrap">
 			<!-- Header shopping cart -->
-			<div class="my-account-holder">                
-                	    <div class="my-account-title">
-                    		<div class="user-icon float-left">
-	                            <i class="fa fa-exchange" aria-hidden="true"></i>
-    				</div>                                   
-				<div class="clearfix"></div>                     
-                            </div>
-			</div>
+			<!-- <div class="my-account-holder">                
+                	     <div class="my-account-title">
+                    	     <div class="user-icon float-left">
+	                     <i class="fa fa-exchange" aria-hidden="true"></i>
+    			     </div>                                   
+			     <div class="clearfix"></div>                     
+                             </div>
+			     </div> -->
 			<!-- Header shopping cart -->
-			<div class="my-account-holder">                
-                	    <div class="my-account-title">
-                    		<div class="user-icon float-left">
-	                            <i class="fa fa-heart" aria-hidden="true"></i>
-    				</div>                                   
-				<div class="clearfix"></div>                     
-                            </div>
-			</div>                             
+			<!-- <div class="my-account-holder">                
+                	     <div class="my-account-title">
+                    	     <div class="user-icon float-left">
+	                     <i class="fa fa-heart" aria-hidden="true"></i>
+    			     </div>                                   
+			     <div class="clearfix"></div>                     
+                             </div>
+			     </div> -->                             
 			<div class="my-account-holder">                
                             <div class="total-cart my-account-title" data-toggle="my-cart">
                     		<div class="user-icon float-left">
