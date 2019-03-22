@@ -29,5 +29,12 @@ class linksMaker{
     function makeFamilyLink($familyName){
         return "#/?page=forms&action=products&categories=true&family=$familyName";
     }
+    function makeCategoryImageLink($category){
+        return ($category->CategoryPictureURL != null  && count($category->CategoryPictureURL)? "assets/img/" . $category->CategoryPictureURL : "assets/img/product/s1.jpg");
+    }
+
+    function makeCategoryLink($category){
+        return "#/?page=forms&action=products&categories=true&family={$_GET["family"]}&items=true";
+    }
 }
 ?>

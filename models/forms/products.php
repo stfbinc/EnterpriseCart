@@ -57,6 +57,23 @@ class products{
         if($remoteCall)
             echo json_encode($res, JSON_PRETTY_PRINT);
         return $res;
-    }    
+    }
+    
+    public function getCategories($familyName = false, $remoteCall = false){
+        $user = Session::get("user");
+        $defaultCompany = Session::get("defaultCompany");
+        $res = [];
+        if($remoteCall)
+            $familyName = $_POST["familyname"];
+        
+        $result = DB::select("SELECT * from inventorycategories WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND ItemFamilyID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $familyName));
+
+        foreach($result as $record)
+            $res[$record->ItemCategoryID] = $record;
+
+        if($remoteCall)
+            echo json_encode($res, JSON_PRETTY_PRINT);
+        return $res;
+    }
 }
 ?>
