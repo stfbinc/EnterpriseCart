@@ -25,7 +25,7 @@
   models/formDataSource derivatives -- models who inherits from formDataSource
   app from index.php
 
-  Last Modified: 15.03.2019
+  Last Modified: 22.03.2019
   Last Modified by: Nikita Zaharov
 */
 
@@ -72,7 +72,7 @@ class controller{
                 echo "{ \"message\" : \"ok\"}";
             }else if(key_exists("procedure", $_GET)){
                 $name = $_GET["procedure"];
-                $data->$name();
+                $data->$name(true);
             }
         }else if($_SERVER['REQUEST_METHOD'] === 'GET') {            
             if(key_exists("getItem", $_GET)){
@@ -89,7 +89,7 @@ class controller{
                 $user = $this->user;
                 $ascope = json_decode(json_encode($scope), true);
 
-                require 'views/forms.php';
+                require "views/pages/{$_GET["action"]}.php";
             }
         }
     }

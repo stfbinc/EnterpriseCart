@@ -9,7 +9,7 @@
                         <ul id="desktopMenu">
                             <li><a href="#/?page=index&action=store" about"><?php echo $translation->translateLabel("Store"); ?></a></li>
 			    
-                            <li><a href="#/?page=index&action=products"><?php echo $translation->translateLabel("Products"); ?></a>
+                            <li><a href="#/?page=forms&action=products"><?php echo $translation->translateLabel("Products"); ?></a>
 				<ul id="productsFamilies">
 				</ul>
 			    </li>

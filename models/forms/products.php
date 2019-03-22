@@ -30,7 +30,7 @@
 */
 
 class products{
-    public function getCurrencies(){
+    public function getCurrencies($remoteCall = false){
         $user = Session::get("user");
         $defaultCompany = Session::get("defaultCompany");
         
@@ -40,10 +40,12 @@ class products{
         foreach($result as $record)
             $res[$record->CurrencyID] = $record;
 
-        echo json_encode($res, JSON_PRETTY_PRINT);
+        if($remoteCall)
+            echo json_encode($res, JSON_PRETTY_PRINT);
+        return $res;
     }
     
-    public function getFamilies(){
+    public function getFamilies($remoteCall = false){
         $user = Session::get("user");
         $defaultCompany = Session::get("defaultCompany");
          $res = [];
@@ -52,7 +54,9 @@ class products{
         foreach($result as $record)
             $res[$record->ItemFamilyID] = $record;
 
-        echo json_encode($res, JSON_PRETTY_PRINT);
+        if($remoteCall)
+            echo json_encode($res, JSON_PRETTY_PRINT);
+        return $res;
     }    
 }
 ?>

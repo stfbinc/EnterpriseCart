@@ -295,43 +295,43 @@
 	 function main(){
              var spinnerTarget = document.getElementById('page-wrapper');
              var spinner;
-	     console.log("dfdfd");
-	     window.location = "index.php#/?page=index&action=store";
+	     if(window.location.toString().search(/#/) == -1)
+		 window.location = "index.php#/?page=index&action=store";
 	     $(document).ajaxStart(function(){
-		 setTimeout(function(){
-		     spinner = new Spinner({
-			 lines: 13 // The number of lines to draw
-			 , length: 28 // The length of each line
-			 , width: 16 // The line thickness
-			 , radius: 37 // The radius of the inner circle
-			 , scale: 1 // Scales overall size of the spinner
-			 , corners: 1 // Corner roundness (0..1)
-			 , color: 'gray'//'#000' // #rgb or #rrggbb or array of colors
-			 , opacity: 0.25 // Opacity of the lines
-			 , rotate: 11 // The rotation offset
-			 , direction: 1 // 1: clockwise, -1: counterclockwise
-			 , speed: 1 // Rounds per second
-			 , trail: 60 // Afterglow percentage
-			 , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
-			 , zIndex: 2e9 // The z-index (defaults to 2000000000)
-			 , className: 'spinner' // The CSS class to assign to the spinner
-			 , top: '40%' // Top position relative to parent
-			 , left: '50%' // Left position relative to parent
-			 , shadow: false // Whether to render a shadow
-			 , hwaccel: false // Whether to use hardware acceleration
-			 , position: 'absolute' // Element positioning
-		     }).spin(spinnerTarget);
-		 },0);
-	     });
-	     $(document).ajaxStop(function(){
-		 console.log('end');
-		 if(spinner)
-		     spinner.stop();
-		 else
 		     setTimeout(function(){
+			 spinner = new Spinner({
+			     lines: 13 // The number of lines to draw
+			     , length: 28 // The length of each line
+			     , width: 16 // The line thickness
+			     , radius: 37 // The radius of the inner circle
+			     , scale: 1 // Scales overall size of the spinner
+			     , corners: 1 // Corner roundness (0..1)
+			     , color: 'gray'//'#000' // #rgb or #rrggbb or array of colors
+			     , opacity: 0.25 // Opacity of the lines
+			     , rotate: 11 // The rotation offset
+			     , direction: 1 // 1: clockwise, -1: counterclockwise
+			     , speed: 1 // Rounds per second
+			     , trail: 60 // Afterglow percentage
+			     , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+			     , zIndex: 2e9 // The z-index (defaults to 2000000000)
+			     , className: 'spinner' // The CSS class to assign to the spinner
+			     , top: '40%' // Top position relative to parent
+			     , left: '50%' // Left position relative to parent
+			     , shadow: false // Whether to render a shadow
+			     , hwaccel: false // Whether to use hardware acceleration
+			     , position: 'absolute' // Element positioning
+			 }).spin(spinnerTarget);
+		     },0);
+		 });
+		 $(document).ajaxStop(function(){
+		     console.log('end');
+		     if(spinner)
 			 spinner.stop();
-		     }, 0);
-	     });
+		     else
+			 setTimeout(function(){
+			     spinner.stop();
+			 }, 0);
+		 });
 	 }
 	</script>
     </body>
