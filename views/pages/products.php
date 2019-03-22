@@ -74,6 +74,8 @@
 					    <div class="product-desc">
 						<p>
 						    <?php echo $item->ItemDescription; ?></p>
+						<p>
+						    <?php echo $item->ItemLongDescription; ?></p>
 					    </div>
 					</div>
 				    </div>
