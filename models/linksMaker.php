@@ -43,7 +43,7 @@ class linksMaker{
     }
 
     function makeItemLink($item){
-        return "#/?page=forms&action=products&categories=true&family={$_GET["family"]}&items=true&item=$item";
+        return "#/?page=forms&action=products&categories=true&family={$_GET["family"]}&items=true&category={$_GET["category"]}&item=$item";
     }
 }
 ?>

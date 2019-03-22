@@ -151,41 +151,10 @@
 	                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
     				</div>
 				<div class="float-left cart-link">
-                        	    <a href="#">2 Item(s)</a>
+                        	    <a id="shoppingCartTopbarCounter" href="#"></a>
 				</div>
 				<div class="clearfix"></div>  
-				<ul>
-				    <li>
-					<div class="cart-img">
-					    <a href="#"><img src="assets/img/cart/total-cart.jpg" alt="" /></a>											    
-					</div>
-					<div class="cart-info">
-					    <h4><a href="#">Vestibulum suscipit</a></h4>
-					    <span>£165.00 <span>x 1</span></span>
-					</div>
-					<div class="del-icon">
-					    <i class="fa fa-times-circle"></i>
-					</div>
-				    </li>
-				    <li>
-					<div class="cart-img">
-					    <a href="#"><img src="assets/img/cart/total-cart.jpg" alt="" /></a>											    
-					</div>
-					<div class="cart-info">
-					    <h4><a href="#">Vestibulum suscipit</a></h4>
-					    <span>£165.00 <span>x 1</span></span>
-					</div>
-					<div class="del-icon">
-					    <i class="fa fa-times-circle"></i>
-					</div>
-				    </li>
-				    <li>
-					<div class="subtotal-text">Subtotal: </div>
-					<div class="subtotal-price">£300.00</div>
-				    </li>
-                                    <li>
-					<a href="#" class="button float-right">Checkout</a>										    
-				    </li>
+				<ul id="shoppingCartTopbarList">
 				</ul>                   
                             </div>
 			</div>
@@ -257,4 +226,63 @@
      
  });
 
+ var items = [
+     {
+	 ItemID : "Hoho",
+	 Price : 400.50,
+	 PictureURL : "assets/img/cart/total-cart.jpg",
+	 counter : 1
+     },
+     {
+	 ItemID : "Crown",
+	 Price : 40000,
+	 PictureURL : "assets/img/cart/total-cart.jpg",
+	 counter : 2
+     }
+ ];
+ 
+ function shoppingCartRender(shoppingCart){
+     var element = $("#shoppingCartTopbarList"), _html = '', itemsCounter = 0, ind, subtotal = 0,
+	 items = shoppingCart.items;
+     for(ind in items){
+	 _html += "<li><div class=\"cart-img\"><a href=\"#\"><img src=\"assets/img/cart/total-cart.jpg\" alt=\"\" /></a></div><div class=\"cart-info\"><h4><a href=\"#\">" + items[ind].ItemID + "</a></h4><span>" + items[ind].Price + " <span>x " + items[ind].counter + "</span></span></div><div onclick=\"shoppingCartRemoveItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-times-circle\"></i></div></li>";
+	 itemsCounter++;
+	 subtotal += items[ind].Price * items[ind].counter;
+     }
+     _html += "<li><div class=\"subtotal-text\">Subtotal: </div><div class=\"subtotal-price\">" + subtotal + "</div></li><li><a href=\"javascript:shoppingCartCheckout();\" class=\"button float-right\">Checkout</a></li>"
+     element.html(_html);
+
+     $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
+ }
+ 
+ serverProcedureAnyCall("products", "shoppingCartGetCart", undefined, function(data, error){
+     if(data)
+	 shoppingCartRender(JSON.parse(data));
+     else
+	 console.log("login failed");
+ });
+ 
+ function shoppingCartCheckout(){
+     console.log('checkout');
+ }
+
+ function shoppingCartAddItem(ItemID){
+     serverProcedureAnyCall("products", "shoppingCartAddItem", "ItemID=" + ItemID, function(data, error){
+	 if(data)
+	     shoppingCartRender(JSON.parse(data));
+	 //	     location.reload();
+	 else
+	     console.log("login failed");
+     });
+ }
+ 
+ function shoppingCartRemoveItem(ItemID){
+     serverProcedureAnyCall("products", "shoppingCartRemoveItem", "ItemID=" + ItemID, function(data, error){
+	 if(data)
+	     shoppingCartRender(JSON.parse(data));
+	 //	     location.reload();
+	 else
+	     console.log("login failed");
+     });
+ }
 </script>
