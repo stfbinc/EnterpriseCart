@@ -1,6 +1,6 @@
 <?php
 /*
-  Name of Page: Forms controllerd
+  Name of Page: Forms controller
 
   Method: controller for many forms pages, used for rendering page and interacting with it
 
@@ -30,6 +30,7 @@
 */
 
 require 'models/translation.php';
+require 'models/linksMaker.php';
 
 class controller{
     public $user = false;
@@ -87,6 +88,7 @@ class controller{
                 
                 $scope = $this;
                 $user = $this->user;
+                $linksMaker = new linksMaker();
                 $ascope = json_decode(json_encode($scope), true);
 
                 require "views/pages/{$_GET["action"]}.php";
