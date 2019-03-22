@@ -23,14 +23,16 @@
                 <ul class="breadcrumb">
                     <li><a href="index.php#/?page=index&action=store">Home</a></li>
                     <li><a href="index.php#/?page=forms&action=products">Products</a></li>
-		    <?php  /* 		    <li class="active"><a href="<?php echo $linksMaker->makeFamilyLink($_GET["family"]); ?>">Families</a></li>
-			      <?php if(key_exists("categories", $_GET)): ?>
-			      <li class="active"><a href="<?php echo $linksMaker->makeCategoryLink($_GET["category"]); ?>">Categories</a></li>
-			      <?php endif; ?>
-			      <?php if(key_exists("items", $_GET)): ?>
-			      <li class="active"><a href="<?php echo $linksMaker->makeItemLink($_GET["item"]); ?>">Items</a></li>
-			      <?php endif ?>
-			    */ ?>
+		    <?php if(key_exists("family", $_GET)): ?>
+			<li><a href="<?php echo $linksMaker->makeFamilyLink($_GET["family"]); ?>">Categories</a></li>
+		    <?php endif ?>
+		    <?php if(key_exists("category", $_GET)): ?>
+			<li class="active"><a href="<?php echo $linksMaker->makeCategoryLink($_GET["category"]); ?>">Items</a></li>
+		    <?php endif; ?>
+		    <?php if(key_exists("item", $_GET)): ?>
+			<li class="active"><a href="<?php echo $linksMaker->makeItemLink($_GET["item"]); ?>">Item</a></li>
+		    <?php endif ?>
+		    
                 </ul>
             </div>
         </div>
@@ -85,7 +87,7 @@
 		<?php
 		    $categories = $data->getCategories($_GET["family"]);
 		    $items = $data->getItems($_GET["category"]);
-		    //echo json_encode($categories);
+		    //		    echo json_encode($categories);
 		?>
 		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 		    <!-- widget-categories start -->
