@@ -29,12 +29,21 @@ class linksMaker{
     function makeFamilyLink($familyName){
         return "#/?page=forms&action=products&categories=true&family=$familyName";
     }
+    
     function makeCategoryImageLink($category){
         return ($category->CategoryPictureURL != null  && count($category->CategoryPictureURL)? "assets/img/" . $category->CategoryPictureURL : "assets/img/product/s1.jpg");
     }
 
     function makeCategoryLink($category){
-        return "#/?page=forms&action=products&categories=true&family={$_GET["family"]}&items=true";
+        return "#/?page=forms&action=products&categories=true&family={$_GET["family"]}&category=$category&items=true";
+    }
+
+    function makeItemImageLink($item){
+        return ($item->PictureURL != null  && count($item->PictureURL)? "assets/img/" . $item->PictureURL : "assets/img/product/s1.jpg");
+    }
+
+    function makeItemLink($item){
+        return "#/?page=forms&action=products&categories=true&family={$_GET["family"]}&items=true&item=$item";
     }
 }
 ?>

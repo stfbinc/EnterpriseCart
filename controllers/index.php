@@ -34,7 +34,7 @@
 require 'models/translation.php';
 //require 'models/security.php';
 //require 'models/drillDowner.php';
-//require 'models/linksMaker.php';
+require 'models/linksMaker.php';
 
 class controller{
     public $user = false;
@@ -73,7 +73,7 @@ class controller{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }else if($_SERVER['REQUEST_METHOD'] === 'GET') {
             //$drill = new drillDowner();
-            //$linksMaker = new linksMaker();
+            $linksMaker = new linksMaker();
             //$this->user = $user = $_SESSION["user"];
                
             //$security = new Security($this->user["accesspermissions"], []);
