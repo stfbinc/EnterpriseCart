@@ -15,7 +15,7 @@
 			    </li>
                             <li><a href="#/?page=index&action=search"><?php echo $translation->translateLabel("Search"); ?></a>
                             </li>
-                            <li><a href="##/?page=index&action=cart"><?php echo $translation->translateLabel("My Cart"); ?></a>
+                            <li><a href="#/?page=forms&action=shoppingcart"><?php echo $translation->translateLabel("My Cart"); ?></a>
                             </li>
                             <li><a href="##/?page=index&action=support"><?php echo $translation->translateLabel("Support"); ?></a>
                             </li>

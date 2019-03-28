@@ -1,16 +1,39 @@
-<div id="shoppingCartFormList" class="row">
-</div>                   
-
+<div style="padding:50px">
+    <table class="table table-responsible">
+	<thead>
+	    <th>Item</th>
+	    <th>Price</th>
+	    <th>Quantity</th>
+	</thead>
+	<tbody id="shoppingCartFormList" >
+	    <tr>
+		<td>
+		</td>
+		<td id="shoppingCartSubtotal">
+		</td>
+		<td>
+		</td>
+	    </tr>
+	</tbody>
+    </table>                   
+    <div class="row">
+	<button onclick="shoppingCartCheckout();" class="btn btn-success float-right"><?php echo $translation->translateLabel("Checkout"); ?></button>
+    </div>
+</div>
 <script>
  function shoppingCartFormRender(shoppingCart){
      var element = $("#shoppingCartFormList"), _html = '', itemsCounter = 0, ind, subtotal = 0,
 	 items = shoppingCart.items;
+     
      for(ind in items){
-	 _html += "<div class=\"col-md-4\"><div class=\"cart-img\"><a href=\"#\"><img src=\"" + linksMaker.makeItemImageLink(items[ind]) + "\" alt=\"\" /></a></div><div class=\"cart-info\"><h4><a href=\"#\">" + items[ind].ItemID + "</a></h4><span>" + items[ind].Price + " <span>x " + items[ind].counter + "</span></span></div><div onclick=\"shoppingCartRemoveItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-minus\"></i></div><div onclick=\"shoppingCartAddItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-plus\"></i></div></div>";
+	 _html += "<tr>";
+	 _html += "<td><a href=\"#\"><img style=\"width:100px; height:100px\" src=\"" + linksMaker.makeItemImageLink(items[ind]) + "\" alt=\"\" />" + items[ind].ItemID + "</a></td>";
+	 _html += "<td>" + items[ind].Price + "</td>";
+	 _html += "<td><span onclick=\"shoppingCartRemoveItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-minus\"></i></span><span style=\"font-size:14pt; color:black; padding: 5px\">" + items[ind].counter + "</span><span onclick=\"shoppingCartAddItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-plus\"></i></span></td></tr>";
 	 itemsCounter++;
 	 subtotal += items[ind].Price * items[ind].counter;
      }
-     _html += "<div class=\"subtotal-text\">Subtotal: </div><div class=\"subtotal-price\">" + subtotal + "</div><a href=\"javascript:shoppingCartCheckout();\" class=\"btn button float-right\">Checkout</a>"
+     _html += "<tr><td></td><td><div class=\"subtotal-text\">Subtotal: </div><div class=\"subtotal-price\">" + subtotal + "</div></td><td></td></tr>";
      element.html(_html);
 
      $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
