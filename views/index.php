@@ -162,7 +162,7 @@
 		    <div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6">
 			    <div class="copyright">
-				<p>Copyright © <a href="#" target="_blank">Enterprise X Cart</a>. All Rights Reserved</p>
+				<p>Copyright © <a href="#" target="_blank">EnterpriseXCart</a>. All Rights Reserved</p>
 			    </div>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6">

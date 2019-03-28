@@ -97,8 +97,8 @@
 			    </a>
 			    </li>
 			<?php endif ?>
-			<!-- <li><a href="#"><?php echo $translation->translateLabel("Wishlist"); ?></a></li>
-			     <li><a href="#"><?php echo $translation->translateLabel("Shopping cart"); ?></a></li> -->
+			<!-- <li><a href="#"><?php echo $translation->translateLabel("Wishlist"); ?></a></li> -->
+			<li><a href="#/?page=forms&action=shoppingcart"><?php echo $translation->translateLabel("Shopping cart"); ?></a></li>
 			<li><a href="#"><?php echo $translation->translateLabel("Checkout"); ?></a></li>
                     </ul>
 		</div>
@@ -255,7 +255,7 @@
      $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
  }
  
- serverProcedureAnyCall("products", "shoppingCartGetCart", undefined, function(data, error){
+ serverProcedureAnyCall("shoppingcart", "shoppingCartGetCart", undefined, function(data, error){
      if(data)
 	 shoppingCartRender(JSON.parse(data));
      else
@@ -267,22 +267,26 @@
  }
 
  function shoppingCartAddItem(ItemID){
-     serverProcedureAnyCall("products", "shoppingCartAddItem", "ItemID=" + ItemID, function(data, error){
-	 if(data)
+     serverProcedureAnyCall("shoppingcart", "shoppingCartAddItem", "ItemID=" + ItemID, function(data, error){
+	 if(data){
 	     shoppingCartRender(JSON.parse(data));
-	 //	     location.reload();
+	     if(shoppingCartFormRender)
+		 shoppingCartFormRender(JSON.parse(data));
+	 }
 	 else
 	     console.log("login failed");
      });
  }
  
  function shoppingCartRemoveItem(ItemID){
-     serverProcedureAnyCall("products", "shoppingCartRemoveItem", "ItemID=" + ItemID, function(data, error){
-	 if(data)
+     serverProcedureAnyCall("shoppingcart", "shoppingCartRemoveItem", "ItemID=" + ItemID, function(data, error){
+	 if(data){
 	     shoppingCartRender(JSON.parse(data));
-	 //	     location.reload();
-	 else
-	     console.log("login failed");
+	     if(shoppingCartFormRender)
+		 shoppingCartFormRender(JSON.parse(data));
+	     //	     location.reload();
+	 }else
+	 console.log("login failed");
      });
  }
 </script>
