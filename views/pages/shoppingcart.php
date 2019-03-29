@@ -1,9 +1,10 @@
 <div style="padding:50px">
     <table class="table table-responsible">
 	<thead>
-	    <th>Item</th>
-	    <th>Price</th>
-	    <th>Quantity</th>
+	    <th><?php echo $translation->translateLabel("Item");?></th>
+	    <th><?php echo $translation->translateLabel("Item ID");?></th>
+	    <th><?php echo $translation->translateLabel("Price");?></th>
+	    <th><?php echo $translation->translateLabel("Quantity");?></th>
 	</thead>
 	<tbody id="shoppingCartFormList" >
 	    <tr>
@@ -27,7 +28,8 @@
      
      for(ind in items){
 	 _html += "<tr>";
-	 _html += "<td><a href=\"#\"><img style=\"width:100px; height:100px\" src=\"" + linksMaker.makeItemImageLink(items[ind]) + "\" alt=\"\" />" + items[ind].ItemID + "</a></td>";
+	 _html += "<td><a href=\"#\"><img style=\"width:100px; height:100px\" src=\"" + linksMaker.makeItemImageLink(items[ind]) + "\" alt=\"\" /></a></td>";
+	 _html += "<td>" + items[ind].ItemID + "</td>";
 	 _html += "<td>" + items[ind].Price + "</td>";
 	 _html += "<td><span onclick=\"shoppingCartRemoveItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-minus\"></i></span><span style=\"font-size:14pt; color:black; padding: 5px\">" + items[ind].counter + "</span><span onclick=\"shoppingCartAddItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-plus\"></i></span></td></tr>";
 	 itemsCounter++;
