@@ -120,10 +120,12 @@
 		    </div>
 		    <div class="col-lg-6 col-md-5 col-sm-5 col-xs-6 hidden-xs">
 			<div class="header-search">
-			    <select id="searchCategories">
-                            </select>
-                            <input type="text" placeholder="search product..." />
-			    <button><i class="fa fa-search"></i></button>
+			    <form id="searchForm" onsubmit="return false">
+				<select name="family" id="searchFamilies">
+				</select>
+				<input type="text" placeholder="search product..." name="text" />
+				<button onclick="search();"><i class="fa fa-search"></i></button>
+			    </form>
 			</div>
 		    </div>
 		    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 account-wrap">
@@ -183,12 +185,24 @@
 	  });
  });
 
+ function search(){
+     var searchForm = $("#searchForm");
+
+     serverProcedureAnyCall("search", "searchproducts", searchForm.serialize(), function(data, error){
+	 if(data)
+	     window.location = "index.php#/?page=forms&action=search&" + searchForm.serialize();
+	 //location.reload();
+	 else
+	     console.log("login failed");
+     });
+ }
+
  serverProcedureAnyCall("products", "getFamilies", [], function(data){
      var _html = '', ind, families = JSON.parse(data);
      for(ind in families)
 	 _html += "<option value=\"" + ind + "\">" + families[ind].FamilyName + "</option>\n";
 
-     $("#searchCategories").html(_html);
+     $("#searchFamilies").html(_html);
 
      _html = '';
      for(ind in families)
@@ -222,8 +236,7 @@
 	     location.reload();
 	 else
 	     console.log("login failed");
-     });
-     
+     });     
  });
 
  var items = [

@@ -40,7 +40,7 @@
 <div class="checkout-area" style="margin-top:50px">
     <div class="container">
         <div class="row">
-            <form action="#" id="checkoutForm"  onsubmit="return false" >
+            <form action="#" id="checkoutForm"  onsubmit="return false">
                 <div class="col-lg-2 col-md-2">
                     <div class="checkbox-form">
                         <h3>
@@ -201,18 +201,18 @@
 	 subtotal += items[ind].Price * items[ind].counter;
      }
      //     _html += "<tr><td></td><td><div class=\"subtotal-text\">Subtotal: </div><div class=\"subtotal-price\">" + subtotal + "</div></td><td></td></tr>";
-		     element.html(_html);
-		     $("#subtotal").html('$' + subtotal);
-		     $("#taxtotal").html('$0');
-		     $("#grandtotal").html('$' + subtotal);
+     element.html(_html);
+     $("#subtotal").html('$' + subtotal);
+     $("#taxtotal").html('$0');
+     $("#grandtotal").html('$' + subtotal);
 
-		     $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
-	 }
+     $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
+ }
 
-		     serverProcedureAnyCall("shoppingcart", "shoppingCartGetCart", undefined, function(data, error){
-			 if(data)
-			     shoppingCartFormRender(JSON.parse(data));
-			 else
-			     console.log("login failed");
-		     });
+ serverProcedureAnyCall("shoppingcart", "shoppingCartGetCart", undefined, function(data, error){
+     if(data)
+	 shoppingCartFormRender(JSON.parse(data));
+     else
+	 console.log("login failed");
+ });
 </script>
