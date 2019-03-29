@@ -13,7 +13,20 @@
 	<?php foreach($items as $item): ?>
 	    <tr>
 		<td>
-		    <img style="width:100px; height:100px" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" />
+		    <div class="single-product">
+			<div class="product-img">
+			    <a href="javascript:shoppingCartAddItem('<?php echo $item->ItemID; ?>');">
+				<img class="primary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="add to cart" />
+				<img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="add to cart" />
+			    </a>
+			</div>
+			<!-- 			<img style="width:100px; height:100px" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" /> -->
+			<!-- <div class="product-action">
+			     <div class="pro-button-top" style="position:relative; left:0px;">
+			     <a href="javascript:shoppingCartAddItem('<?php echo $item->ItemID; ?>');">add to cart</a>
+			     </div>
+			     </div> -->
+		    </div>
 		</td>
 		<td>
 		    <?php echo $item->ItemID; ?>

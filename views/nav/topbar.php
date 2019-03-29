@@ -283,8 +283,8 @@
      serverProcedureAnyCall("shoppingcart", "shoppingCartAddItem", "ItemID=" + ItemID, function(data, error){
 	 if(data){
 	     shoppingCartRender(JSON.parse(data));
-	     if(shoppingCartFormRender)
-		 shoppingCartFormRender(JSON.parse(data));
+	     if(typeof shoppingCartFormRender == 'function')
+             shoppingCartFormRender(JSON.parse(data));
 	 }
 	 else
 	     console.log("login failed");
@@ -295,8 +295,8 @@
      serverProcedureAnyCall("shoppingcart", "shoppingCartRemoveItem", "ItemID=" + ItemID, function(data, error){
 	 if(data){
 	     shoppingCartRender(JSON.parse(data));
-	     if(shoppingCartFormRender)
-		 shoppingCartFormRender(JSON.parse(data));
+	     if(typeof shoppingCartFormRender == 'function')
+             shoppingCartFormRender(JSON.parse(data));
 	     //	     location.reload();
 	 }else
 	 console.log("login failed");
