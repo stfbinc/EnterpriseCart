@@ -1,8 +1,8 @@
 <?php
 /*
-  Name of Page: Order model
+  Name of Page: Search model
    
-  Method: Model for working with order data
+  Method: Model for working with search data
    
   Date created: 29/03/2019 Nikita Zaharov
    
@@ -35,10 +35,13 @@ class search{
         $defaultCompany = Session::get("defaultCompany");
         $res = [];
         $categoryName = '';
-        if($remoteCall)
+        if($remoteCall){
+            $text = $_POST["text"];
             $family = $_POST["family"];
-        else
+        }else{
+            $text = $_GET["text"];
             $family = $_GET["family"];
+        }
         
         $categories = DB::select("SELECT * from inventorycategories WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND ItemFamilyID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $family));
 
@@ -52,7 +55,7 @@ class search{
             $categoryCondition .= ")";
 
         if($categoryCondition){
-            $result = DB::select("SELECT * from inventoryitems WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? $categoryCondition", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"]));
+            $result = DB::select("SELECT * from inventoryitems WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? $categoryCondition AND (ItemID like '%" . $text ."%' or ItemName like '%".  $text  ."%' or ItemDescription like '%". $text ."%' or ItemLongDescription like '%". $text ."%')", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"]));
 
             foreach($result as $record)
                 $res[$record->ItemID] = $record;
