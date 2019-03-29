@@ -1,6 +1,6 @@
 <?php
 /*
-  Name of Page: Products model
+  Name of Page: Shopping cart model
    
   Method: Model for working with shopping cart data
    

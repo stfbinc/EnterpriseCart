@@ -99,7 +99,7 @@
 			<?php endif ?>
 			<!-- <li><a href="#"><?php echo $translation->translateLabel("Wishlist"); ?></a></li> -->
 			<li><a href="#/?page=forms&action=shoppingcart"><?php echo $translation->translateLabel("Shopping cart"); ?></a></li>
-			<li><a href="#"><?php echo $translation->translateLabel("Checkout"); ?></a></li>
+			<li><a href="#/?page=forms&action=checkout"><?php echo $translation->translateLabel("Checkout"); ?></a></li>
                     </ul>
 		</div>
             </div>
