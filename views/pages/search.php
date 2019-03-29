@@ -47,7 +47,7 @@
 	</table>                   
     </div>
 <?php else: ?>
-    <div style="font-size:20pt; color:red; text-align:center;padding:20px">
-	<?php echo $translation->translateLabel("Please start searching"); ?>    
+    <div style="font-size:20pt; color:green; text-align:center;padding:20px">
+	<?php echo $translation->translateLabel("Nothing found"); ?>    
     </div>
 <?php endif; ?>
