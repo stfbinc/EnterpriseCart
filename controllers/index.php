@@ -35,6 +35,7 @@ require 'models/translation.php';
 //require 'models/security.php';
 //require 'models/drillDowner.php';
 require 'models/linksMaker.php';
+require 'views/format.php';
 
 class controller{
     public $user = false;

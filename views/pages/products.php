@@ -1,14 +1,5 @@
 <?php
     $families = $data->getFamilies();
-    function numberToStr($strin){
-	return preg_replace('/\B(?=(\d{3})+(?!\d))/', ',', $strin);
-    }
-    function formatCurrency($value){
-        if(preg_match('/([-+\d]+)\.(\d+)/', $value, $numberParts))
-            return numberToStr($numberParts[1]) . '.' . substr($numberParts[2], 0, 2);
-	else
-	    return $value;
-    }
 ?>
 <style>
  .primary-img {

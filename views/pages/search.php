@@ -35,7 +35,7 @@
 		    <?php echo $item->ItemDescription; ?>
 		</td>
 		<td>
-		    <?php echo $item->Price; ?>
+		    <?php echo formatCurrency($item->Price); ?>
 		</td>
 	    </tr>
 	<?php endforeach; ?>

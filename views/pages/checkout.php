@@ -194,17 +194,17 @@
 	 _html += "<td>" + items[ind].ItemDescription + "</td>";
 	 _html += "<td>" + items[ind].ItemID + "</td>";
 	 _html += "<td>" + items[ind].counter + "</td>";
-	 _html += "<td>" + items[ind].Price + "</td>";
+	 _html += "<td>" + formatCurrency(items[ind].Price) + "</td>";
 	 _html += "<td>" + items[ind].ItemID + "</td>";
-	 _html += "<td>" + items[ind].Price * items[ind].counter + "</td></tr>";
+	 _html += "<td>" + formatCurrency(items[ind].Price * items[ind].counter) + "</td></tr>";
 	 itemsCounter++;
 	 subtotal += items[ind].Price * items[ind].counter;
      }
      //     _html += "<tr><td></td><td><div class=\"subtotal-text\">Subtotal: </div><div class=\"subtotal-price\">" + subtotal + "</div></td><td></td></tr>";
      element.html(_html);
-     $("#subtotal").html('$' + subtotal);
+     $("#subtotal").html('$' + formatCurrency(subtotal));
      $("#taxtotal").html('$0');
-     $("#grandtotal").html('$' + subtotal);
+     $("#grandtotal").html('$' + formatCurrency(subtotal));
 
      $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
  }
