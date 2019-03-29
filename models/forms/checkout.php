@@ -30,6 +30,34 @@
 */
 
 class checkout{
- 
+    //getting list of available payment methods
+    public function getPaymentMethods(){
+        $defaultCompany = Session::get("defaultCompany");
+        $res = [];
+        $result = DB::select("SELECT PaymentMethodID from paymentmethods WHERE CompanyID='" . $defaultCompany["CompanyID"] . "' AND DivisionID='". $defaultCompany["DivisionID"] ."' AND DepartmentID='" . $defaultCompany["DepartmentID"] . "'", array());
+
+        foreach($result as $key=>$value)
+            $res[$value->PaymentMethodID] = [
+                "title" => $value->PaymentMethodID,
+                "value" => $value->PaymentMethodID
+            ];
+        
+        return $res;
+    } 
+
+    //getting list of available shipment methods
+    public function getShipMethods(){
+        $defaultCompany = Session::get("defaultCompany");
+        $res = [];
+        $result = DB::select("SELECT ShipMethodID from shipmentmethods WHERE CompanyID='" . $defaultCompany["CompanyID"] . "' AND DivisionID='". $defaultCompany["DivisionID"] ."' AND DepartmentID='" . $defaultCompany["DepartmentID"] . "'", array());
+
+        foreach($result as $key=>$value)
+            $res[$value->ShipMethodID] = [
+                "title" => $value->ShipMethodID,
+                "value" => $value->ShipMethodID
+            ];
+        
+        return $res;
+    }
 }
 ?>

@@ -28,6 +28,9 @@
 	    "label" => "Zip"
 	]
     ];
+
+    $paymentMethods = $data->getPaymentMethods();
+    $shipMethods = $data->getShipMethods();
 ?>
 <?php if(!key_exists("Customer", $user)): ?>
     <div style="font-size:20pt; color:red; text-align:center;padding:20px">
@@ -37,7 +40,7 @@
 <div class="checkout-area" style="margin-top:50px">
     <div class="container">
         <div class="row">
-            <form action="#/?page=forms&action=paymentorder" id="shipbillForm">
+            <form action="#" id="checkoutForm"  onsubmit="return false" >
                 <div class="col-lg-2 col-md-2">
                     <div class="checkbox-form">
                         <h3>
@@ -73,7 +76,7 @@
 					<label>
                                             <?php echo $translation->translateLabel($def["label"]);  ?>
 					</label>
-					<input type="text" name="ship<?php echo $fieldName; ?>" placeholder="" />
+					<input type="text" name="ship<?php echo $fieldName; ?>" placeholder="" value="<?php echo (key_exists("Customer", $user) ? $user["Customer"]->$fieldName : ""); ?>" />
                                     </div>
 				</div>
 			    <?php endforeach; ?>
@@ -142,7 +145,9 @@
                                     <?php echo $translation->translateLabel("Payment Method"); ?> <!--  <span class="required">*</span></label> -->
 				</label>
                                 <select name="PaymentMethod">
-				    <option value="volvo">bangladesh</option>
+				    <?php foreach($paymentMethods as $paymentName=>$def): ?>
+					<option value="<?php echo $def["value"] ?>"><?php echo $def["title"] ?></option>
+				    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="country-select">
@@ -150,12 +155,14 @@
                                     <?php echo $translation->translateLabel("Payment Method"); ?>
 				</label>
                                 <select name="ShipVia">
-                                    <option value="volvo">bangladesh</option>
+				    <?php foreach($shipMethods as $shipName=>$def): ?>
+					<option value="<?php echo $def["value"] ?>"><?php echo $def["title"] ?></option>
+				    <?php endforeach; ?>
                                 </select>
                             </div>
 			    <?php if(key_exists("Customer", $user)): ?>
 				<div class="order-button-payment" style="margin-top:100px">
-                                    <input type="submit" value="<?php echo $translation->translateLabel("Process Order"); ?>" />
+                                    <input type="submit" id="processorder" value="<?php echo $translation->translateLabel("Process Order"); ?>" />
 				</div>
 			    <?php endif ?>
                         </div>
@@ -166,6 +173,16 @@
     </div>
 </div>
 <script>
+ $("#processorder").click(
+     function(){
+	 var form = $("#checkoutForm");
+	 serverProcedureAnyCall("order", "process", form.serialize(), function(data, error){
+	     if(data)
+		 location.hash = "#/?page=forms&action=order";
+	     else
+		 console.log("login failed");
+	 });
+     });
  function shoppingCartFormRender(shoppingCart){
      var element = $("#shoppingCartFormList"), _html = '', itemsCounter = 0, ind, subtotal = 0,
 	 items = shoppingCart.items;
@@ -184,18 +201,18 @@
 	 subtotal += items[ind].Price * items[ind].counter;
      }
      //     _html += "<tr><td></td><td><div class=\"subtotal-text\">Subtotal: </div><div class=\"subtotal-price\">" + subtotal + "</div></td><td></td></tr>";
-     element.html(_html);
-     $("#subtotal").html('$' + subtotal);
-     $("#taxtotal").html('$0');
-     $("#grandtotal").html('$' + subtotal);
+		     element.html(_html);
+		     $("#subtotal").html('$' + subtotal);
+		     $("#taxtotal").html('$0');
+		     $("#grandtotal").html('$' + subtotal);
 
-     $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
- }
+		     $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
+	 }
 
- serverProcedureAnyCall("shoppingcart", "shoppingCartGetCart", undefined, function(data, error){
-     if(data)
-	 shoppingCartFormRender(JSON.parse(data));
-     else
-	 console.log("login failed");
- });
+		     serverProcedureAnyCall("shoppingcart", "shoppingCartGetCart", undefined, function(data, error){
+			 if(data)
+			     shoppingCartFormRender(JSON.parse(data));
+			 else
+			     console.log("login failed");
+		     });
 </script>
