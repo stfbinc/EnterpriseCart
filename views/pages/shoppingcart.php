@@ -17,7 +17,7 @@
 	</tbody>
     </table>                   
     <div class="row">
-	<button onclick="shoppingCartCheckout();" class="btn btn-success float-right"><?php echo $translation->translateLabel("Checkout"); ?></button>
+	<a href="#/?page=forms&action=checkout" class="btn btn-success float-right"><?php echo $translation->translateLabel("Checkout"); ?></a>
     </div>
 </div>
 <script>

@@ -37,7 +37,7 @@
 <div class="checkout-area" style="margin-top:50px">
     <div class="container">
         <div class="row">
-            <form action="#" id="shipbillForm">
+            <form action="#/?page=forms&action=paymentorder" id="shipbillForm">
                 <div class="col-lg-2 col-md-2">
                     <div class="checkbox-form">
                         <h3>
@@ -46,7 +46,7 @@
                         <div class="row">
 			    <?php foreach($billToFields as $fieldName=>$def): ?>
 				<div class="col-md-12">
-                                    <div class="checkout-form-list">
+                                    <div class="checkout-form-list" style="margin-bottom:10px">
 					<label>
                                             <?php echo $translation->translateLabel($def["label"]);  ?>
 					</label>
@@ -69,7 +69,7 @@
                         <div class="row">
 			    <?php foreach($billToFields as $fieldName=>$def): ?>
 				<div class="col-md-12">
-                                    <div class="checkout-form-list">
+                                    <div class="checkout-form-list" style="margin-bottom:10px">
 					<label>
                                             <?php echo $translation->translateLabel($def["label"]);  ?>
 					</label>
@@ -153,19 +153,16 @@
                                     <option value="volvo">bangladesh</option>
                                 </select>
                             </div>
-                            <div class="order-button-payment">
-                                <input type="submit" value="<?php echo $translation->translateLabel("Process Order"); ?>" />
-                            </div>
+			    <?php if(key_exists("Customer", $user)): ?>
+				<div class="order-button-payment" style="margin-top:100px">
+                                    <input type="submit" value="<?php echo $translation->translateLabel("Process Order"); ?>" />
+				</div>
+			    <?php endif ?>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-    </div>
-</div>
-<div style="padding:50px">
-    <div class="row">
-	<button onclick="shoppingCartCheckout();" class="btn btn-success float-right"><?php echo $translation->translateLabel("Checkout"); ?></button>
     </div>
 </div>
 <script>

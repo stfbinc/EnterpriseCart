@@ -249,7 +249,7 @@
 	 itemsCounter++;
 	 subtotal += items[ind].Price * items[ind].counter;
      }
-     _html += "<li><div class=\"subtotal-text\">Subtotal: </div><div class=\"subtotal-price\">" + subtotal + "</div></li><li><a href=\"javascript:shoppingCartCheckout();\" class=\"button float-right\">Checkout</a></li>"
+     _html += "<li><div class=\"subtotal-text\">Subtotal: </div><div class=\"subtotal-price\">" + subtotal + "</div></li><li><a href=\"#/?page=forms&action=checkout\" class=\"button float-right\">Checkout</a></li>"
      element.html(_html);
 
      $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
