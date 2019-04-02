@@ -69,6 +69,8 @@ class controller{
                 "DivisionID" => $this->config["defaultDivisionID"],
                 "DepartmentID" => $this->config["defaultDepartmentID"],            
             ]);
+        else
+            $this->defaultCompany = Session::get("defaultCompany");
             
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

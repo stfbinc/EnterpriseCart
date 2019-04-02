@@ -58,6 +58,9 @@
 	 
 	 //global object used for creatink links to any part of application
 	 var linksMaker = {
+	     makeEnterpriseXProcedureLink : function(path, procedure){
+		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/index.php?page=grid&action=" + path + "&procedure=" + procedure + "&CompanyID=<?php echo $scope["defaultCompany"]["CompanyID"]; ?>&DivisionID=<?php echo $scope["defaultCompany"]["DivisionID"]; ?>&DepartmentID=<?php echo $scope["defaultCompany"]["DepartmentID"]; ?>&EmployeeID=<?php echo $scope["config"]["EnterpriseXEmployeeID"]; ?>&EmployeePassword=<?php echo $scope["config"]["EnterpriseXEmployeePassword"]; ?>";
+	     },
 	     makeProcedureLink : function (path, procedure){
 		 return "index.php?page=forms&action=" + path + "&procedure=" + procedure;
 	     },
@@ -68,6 +71,19 @@
 	 
 	 function serverProcedureAnyCall(path, methodName, props, cb, jsonRequest, successAlert){
 	     $.post(linksMaker.makeProcedureLink(path, methodName), jsonRequest ? JSON.stringify(props) : props, 'text')
+	      .success(function(data) {
+		  if(successAlert)
+		      alert(data);	  
+		  if(cb)
+		      cb(data, undefined);
+	      })
+	      .error(function(xhr){
+		  cb(undefined, xhr);
+	      });
+	 }
+	 
+	 function serverEnterpriseXProcedureAnyCall(path, methodName, props, cb, jsonRequest, successAlert){
+	     $.post(linksMaker.makeEnterpriseXProcedureLink(path, methodName), jsonRequest ? JSON.stringify(props) : props, 'text')
 	      .success(function(data) {
 		  if(successAlert)
 		      alert(data);	  

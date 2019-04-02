@@ -1,5 +1,5 @@
 <?php
-    if(key_exists("family", $_GET))
+if(key_exists("family", $_GET))
 	$items = $data->searchProducts();
     else
 	$items = [];

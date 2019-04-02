@@ -14,7 +14,10 @@ function config(){
         "smallLogo" => "assets/images/stfblogosm.jpg",
         "defaultCompanyID" => "DINOS",
         "defaultDivisionID" => "DEFAULT",
-        "defaultDepartmentID" => "DEFAULT"
+        "defaultDepartmentID" => "DEFAULT",
+        "EnterpriseXURL" => "/EnterpriseX",
+        "EnterpriseXEmployeeID" => "Demo",
+        "EnterpriseXEmployeePassword" => "Demo"
     );
 }
 

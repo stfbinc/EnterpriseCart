@@ -70,7 +70,7 @@
                         <h3>
                             <?php echo $translation->translateLabel("Ship To"); ?></h3>
                         <div class="row">
-			    <?php foreach($billToFields as $fieldName=>$def): ?>
+			    <?php foreach($shipToFields as $fieldName=>$def): ?>
 				<div class="col-md-12">
                                     <div class="checkout-form-list" style="margin-bottom:10px">
 					<label>
@@ -173,16 +173,40 @@
     </div>
 </div>
 <script>
+ var checkoutSubtotal = 0;
  $("#processorder").click(
      function(){
-	 var form = $("#checkoutForm");
-	 serverProcedureAnyCall("order", "process", form.serialize(), function(data, error){
-	     if(data)
-		 location.hash = "#/?page=forms&action=order";
-	     else
-		 console.log("login failed");
+	 //var form = $("#checkoutForm");
+	 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "getNewItemAllRemote", { id : '', type : "...fields"}, function(data, error){
+	     var values = JSON.parse(data);
+	     values.CustomerID = "<?php echo $user["Customer"]->CustomerID; ?>";
+	     values.ShippingName = $("input[name=shipCustomerName]").val();
+	     values.ShippingAddress1 = $("input[name=shipCustomerAddress1]").val();
+	     values.ShippingAddress2 = $("input[name=shipCustomerAddress2]").val();
+	     values.ShippingAddress3 = $("input[name=shipCustomerAddress3]").val();
+	     values.ShippingCounty = $("input[name=shipCustomerCountry]").val();
+	     values.ShippingState = $("input[name=shipCustomerState]").val();
+	     values.ShippingCity = $("input[name=shipCustomerCity]").val();
+	     values.ShippingZip = $("input[name=shipCustomerZip]").val();
+	     values.Subtotal = values.Total = values.BalanceDue = values.TaxableSubTotal = checkoutSubtotal;
+	     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "insertItemRemote", values, function(data, error){
+		 values = JSON.parse(data);
+		 //console.log(data, error);
+	     });
+	     	     console.log(JSON.stringify(values, null, 3));
+	     /*	     if(data)
+		    //		 location.hash = "#/?page=forms&action=order";
+		    else
+		    console.log("login failed");*/
+	     /*	 serverProcedureAnyCall("order", "process", form.serialize(), function(data, error){
+		if(data)
+		//		 location.hash = "#/?page=forms&action=order";
+		else
+		console.log("login failed");
+		});*/
 	 });
      });
+ 
  function shoppingCartFormRender(shoppingCart){
      var element = $("#shoppingCartFormList"), _html = '', itemsCounter = 0, ind, subtotal = 0,
 	 items = shoppingCart.items;
@@ -205,6 +229,7 @@
      $("#subtotal").html('$' + formatCurrency(subtotal));
      $("#taxtotal").html('$0');
      $("#grandtotal").html('$' + formatCurrency(subtotal));
+     checkoutSubtotal = subtotal;
 
      $("#shoppingCartTopbarCounter").html(itemsCounter + " Item(s)");
  }
