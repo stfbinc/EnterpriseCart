@@ -362,7 +362,7 @@
 
 	 //select sidebar item if application loaded in separated pages mode, like that: grid/GeneralLedger/ledgerAccountGroup/grid/main/all, without index#/
 	 function main(){
-             var spinnerTarget = document.getElementById('page-wrapper');
+             var spinnerTarget = document.getElementById('content');
              var spinner;
 	     if(window.location.toString().search(/#/) == -1)
 		 window.location = "index.php#/?page=forms&action=products";
@@ -393,7 +393,7 @@
 		 },0);
 	     });
 	     $(document).ajaxStop(function(){
-		 console.log('end');
+//		 console.log('end');
 		 if(spinner)
 		     spinner.stop();
 		 else
@@ -403,5 +403,6 @@
 	     });
 	 }
 	</script>
+	<script src="assets/js/spin.min.js"></script>
     </body>
 </html>
