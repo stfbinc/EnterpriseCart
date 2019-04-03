@@ -152,9 +152,9 @@
                             </div>
                             <div class="country-select">
                                 <label>
-                                    <?php echo $translation->translateLabel("Payment Method"); ?>
+                                    <?php echo $translation->translateLabel("Shipment Method"); ?>
 				</label>
-                                <select name="ShipVia">
+                                <select name="ShipMethod">
 				    <?php foreach($shipMethods as $shipName=>$def): ?>
 					<option value="<?php echo $def["value"] ?>"><?php echo $def["title"] ?></option>
 				    <?php endforeach; ?>
@@ -173,7 +173,8 @@
     </div>
 </div>
 <script>
- var checkoutSubtotal = 0;
+ var checkoutSubtotal = 0,
+     checkoutItems;
  $("#processorder").click(
      function(){
 	 //var form = $("#checkoutForm");
@@ -188,16 +189,37 @@
 	     values.ShippingState = $("input[name=shipCustomerState]").val();
 	     values.ShippingCity = $("input[name=shipCustomerCity]").val();
 	     values.ShippingZip = $("input[name=shipCustomerZip]").val();
+	     values.ShipMethodID = $("input[name=ShipMethod]").val();
+	     values.PaymentMethodID = $("input[name=PaymentMethod]").val();
 	     values.Subtotal = values.Total = values.BalanceDue = values.TaxableSubTotal = checkoutSubtotal;
 	     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "insertItemRemote", values, function(data, error){
-		 values = JSON.parse(data);
+		 var OrderHeader = JSON.parse(data);
+		 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "getNewItemAllRemote", { id : '', type : "...fields"}, function(data, error){
+		     var ind, values = JSON.parse(data), orderDetails = [], orderDetail, items = checkoutItems.items;
+		     for(ind in items){
+			 orderDetail = Object.assign({}, values);
+			 orderDetail.ItemID = items[ind].ItemID;
+			 //		     console.log(items[ind].ItemID);
+			 orderDetail.OrderNumber = OrderHeader.OrderNumber;
+			 orderDetail.OrderQty = items[ind].counter;
+			 orderDetail.Description = items[ind].ItemDescription;
+			 orderDetail.ItemCost = items[ind].Price;
+			 orderDetails.push(orderDetail);
+		     }
+	//	     console.log(JSON.stringify(orderDetails, null, 3));
+		     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "insertItemsRemote", orderDetails, function(data, error){
+			 //values = JSON.parse(data);
+			 console.log(data, error);
+		     }, true);
+		 });
+	//	 window.location = linksMaker.makeEnterpriseXDocreportsLink("order", values.OrderNumber);
 		 //console.log(data, error);
 	     });
-	     	     console.log(JSON.stringify(values, null, 3));
+	     //	     console.log(JSON.stringify(values, null, 3));
 	     /*	     if(data)
-		    //		 location.hash = "#/?page=forms&action=order";
-		    else
-		    console.log("login failed");*/
+		//		 location.hash = "#/?page=forms&action=order";
+		else
+		console.log("login failed");*/
 	     /*	 serverProcedureAnyCall("order", "process", form.serialize(), function(data, error){
 		if(data)
 		//		 location.hash = "#/?page=forms&action=order";
@@ -236,7 +258,7 @@
 
  serverProcedureAnyCall("shoppingcart", "shoppingCartGetCart", undefined, function(data, error){
      if(data)
-	 shoppingCartFormRender(JSON.parse(data));
+	 shoppingCartFormRender(checkoutItems = JSON.parse(data));
      else
 	 console.log("login failed");
  });

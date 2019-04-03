@@ -58,6 +58,9 @@
 	 
 	 //global object used for creatink links to any part of application
 	 var linksMaker = {
+	     makeEnterpriseXDocreportsLink : function(type, id){
+		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/index.php?page=docreports&type=" + type + "&id=" + id;
+	     },
 	     makeEnterpriseXProcedureLink : function(path, procedure){
 		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/index.php?page=grid&action=" + path + "&procedure=" + procedure + "&CompanyID=<?php echo $scope["defaultCompany"]["CompanyID"]; ?>&DivisionID=<?php echo $scope["defaultCompany"]["DivisionID"]; ?>&DepartmentID=<?php echo $scope["defaultCompany"]["DepartmentID"]; ?>&EmployeeID=<?php echo $scope["config"]["EnterpriseXEmployeeID"]; ?>&EmployeePassword=<?php echo $scope["config"]["EnterpriseXEmployeePassword"]; ?>";
 	     },
