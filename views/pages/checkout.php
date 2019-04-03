@@ -206,26 +206,19 @@
 			 orderDetail.ItemCost = items[ind].Price;
 			 orderDetails.push(orderDetail);
 		     }
-	//	     console.log(JSON.stringify(orderDetails, null, 3));
+		     //	     console.log(JSON.stringify(orderDetails, null, 3));
 		     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "insertItemsRemote", orderDetails, function(data, error){
 			 //values = JSON.parse(data);
-			 console.log(data, error);
+			 $("#processorder").val("<?php echo $translation->translateLabel("Print"); ?>");
+			 $("#processorder").off("click");
+			 $("#processorder").click(function(){
+			     Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
+			 });
+			 Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
+			 //console.log(data, error);
 		     }, true);
 		 });
-	//	 window.location = linksMaker.makeEnterpriseXDocreportsLink("order", values.OrderNumber);
-		 //console.log(data, error);
 	     });
-	     //	     console.log(JSON.stringify(values, null, 3));
-	     /*	     if(data)
-		//		 location.hash = "#/?page=forms&action=order";
-		else
-		console.log("login failed");*/
-	     /*	 serverProcedureAnyCall("order", "process", form.serialize(), function(data, error){
-		if(data)
-		//		 location.hash = "#/?page=forms&action=order";
-		else
-		console.log("login failed");
-		});*/
 	 });
      });
  
