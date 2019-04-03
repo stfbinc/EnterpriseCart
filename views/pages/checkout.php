@@ -192,8 +192,10 @@
 	     values.ShipMethodID = $("input[name=ShipMethod]").val();
 	     values.PaymentMethodID = $("input[name=PaymentMethod]").val();
 	     values.Subtotal = values.Total = values.BalanceDue = values.TaxableSubTotal = checkoutSubtotal;
+	     //creating order header
 	     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "insertItemRemote", values, function(data, error){
 		 var OrderHeader = JSON.parse(data);
+		 //getting template data for order detail
 		 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "getNewItemAllRemote", { id : '', type : "...fields"}, function(data, error){
 		     var ind, values = JSON.parse(data), orderDetails = [], orderDetail, items = checkoutItems.items;
 		     for(ind in items){
@@ -207,8 +209,10 @@
 			 orderDetails.push(orderDetail);
 		     }
 		     //	     console.log(JSON.stringify(orderDetails, null, 3));
+		     //creating order detail records
 		     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "insertItemsRemote", orderDetails, function(data, error){
 			 //values = JSON.parse(data);
+			 //recalculation order header
 			 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "Recalc", { OrderNumber : OrderHeader.OrderNumber }, function(data, error){
 			     $("#processorder").val("<?php echo $translation->translateLabel("Print"); ?>");
 			     $("#processorder").off("click");

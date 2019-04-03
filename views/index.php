@@ -1,3 +1,7 @@
+<?php
+    $cartSettings = $data->getCartSettings();
+?>
+
 <!DOCTYPE html>  
 <html class="no-js">
     <head>
@@ -172,12 +176,24 @@
                                     </form>
                                 </div>						
                                 <div class="widget-icon">
-				    <a href="#"><i class="fa fa-facebook"></i></a>
-				    <a href="#"><i class="fa fa-twitter"></i></a>
-				    <a href="#"><i class="fa fa-linkedin"></i></a>
-				    <a href="#"><i class="fa fa-google-plus"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-square"></i></a>
+				    <?php if($cartSettings->Facebook): ?>
+					<a href="<?php echo $cartSettings->FacebookUrl; ?>"><i class="fa fa-facebook"></i></a>
+				    <?php endif; ?>
+				    <?php if($cartSettings->Twitter): ?>
+					<a href="<?php echo $cartSettings->TwitterUrl; ?>"><i class="fa fa-twitter"></i></a>
+				    <?php endif; ?>
+				    <?php if($cartSettings->LinkedIn): ?>
+					<a href="<?php echo $cartSettings->LinkedInUrl; ?>"><i class="fa fa-linkedin"></i></a>
+				    <?php endif; ?>
+				    <?php if($cartSettings->GooglePlus): ?>
+					<a href="<?php echo $cartSettings->GooglePlusUrl; ?>"><i class="fa fa-google-plus"></i></a>
+				    <?php endif; ?>
+				    <?php if($cartSettings->Instagram): ?>
+					<a href="<?php echo $cartSettings->IntargamUrl; ?>"><i class="fa fa-instagram"></i></a>
+				    <?php endif; ?>
+				    <?php if($cartSettings->YouTube): ?>
+					<a href="<?php echo $cartSettings->YouTubeUrl; ?>"><i class="fa fa-youtube-square"></i></a>
+				    <?php endif; ?>
 				</div>
 			    </div>
 			</div>

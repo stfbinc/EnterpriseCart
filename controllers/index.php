@@ -26,7 +26,7 @@
   models/translation.php
   app from index.php
 
-  Last Modified: 13.04.2019
+  Last Modified: 03.04.2019
   Last Modified by: Nikita Zaharov
 */
 
@@ -36,6 +36,7 @@ require 'models/translation.php';
 //require 'models/drillDowner.php';
 require 'models/linksMaker.php';
 require 'views/format.php';
+require 'models/forms/index.php';
 
 class controller{
     public $user = false;
@@ -82,6 +83,7 @@ class controller{
             //$security = new Security($this->user["accesspermissions"], []);
             //$translation = new translation($this->user["language"]);
             $translation = new translation($user["language"]);
+            $data = new index();
             $this->dashboardTitle = $translation->translateLabel($this->dashboardTitle);
             $this->breadCrumbTitle = $translation->translateLabel($this->breadCrumbTitle);
             $scope = json_decode(json_encode($this), true);
