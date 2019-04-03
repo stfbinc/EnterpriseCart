@@ -175,6 +175,7 @@
 <script>
  var checkoutSubtotal = 0,
      checkoutItems;
+ <?php if(key_exists("Customer", $user)): ?>
  $("#processorder").click(
      function(){
 	 //var form = $("#checkoutForm");
@@ -227,7 +228,7 @@
 	     });
 	 });
      });
- 
+ <?php endif; ?> 
  function shoppingCartFormRender(shoppingCart){
      var element = $("#shoppingCartFormList"), _html = '', itemsCounter = 0, ind, subtotal = 0,
 	 items = shoppingCart.items;

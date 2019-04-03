@@ -242,7 +242,7 @@
 	    <!-- footer-bottom-area end -->
 	</footer>
 	<!-- footer end -->
-	<!-- Color Variations -->
+	<!-- Color Variations 
 	<div class="color-scheme-select trans-05">
             <div class="color-scheme-title text-colored mgt-25 mgb-15">
 		<h5>
@@ -292,6 +292,7 @@
 		<span class="fa fa-cogs"></span>
             </div>
 	</div>
+	-->
 	<!-- all js here -->
 	<!-- jquery latest version -->
 	<script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
