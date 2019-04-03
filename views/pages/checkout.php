@@ -203,19 +203,21 @@
 			 orderDetail.OrderNumber = OrderHeader.OrderNumber;
 			 orderDetail.OrderQty = items[ind].counter;
 			 orderDetail.Description = items[ind].ItemDescription;
-			 orderDetail.ItemCost = items[ind].Price;
+			 orderDetail.ItemCost = orderDetail.ItemUnitPrice = items[ind].Price;
 			 orderDetails.push(orderDetail);
 		     }
 		     //	     console.log(JSON.stringify(orderDetails, null, 3));
 		     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "insertItemsRemote", orderDetails, function(data, error){
 			 //values = JSON.parse(data);
-			 $("#processorder").val("<?php echo $translation->translateLabel("Print"); ?>");
-			 $("#processorder").off("click");
-			 $("#processorder").click(function(){
+			 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "Recalc", { OrderNumber : OrderHeader.OrderNumber }, function(data, error){
+			     $("#processorder").val("<?php echo $translation->translateLabel("Print"); ?>");
+			     $("#processorder").off("click");
+			     $("#processorder").click(function(){
+				 Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
+			     });
 			     Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
+			     //console.log(data, error);
 			 });
-			 Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
-			 //console.log(data, error);
 		     }, true);
 		 });
 	     });
