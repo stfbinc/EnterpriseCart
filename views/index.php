@@ -209,7 +209,7 @@
 					<a href="<?php echo $cartSettings->GooglePlusUrl; ?>"><i class="fa fa-google-plus"></i></a>
 				    <?php endif; ?>
 				    <?php if($cartSettings->Instagram): ?>
-					<a href="<?php echo $cartSettings->IntargamUrl; ?>"><i class="fa fa-instagram"></i></a>
+					<a href="<?php echo $cartSettings->InstagramUrl; ?>"><i class="fa fa-instagram"></i></a>
 				    <?php endif; ?>
 				    <?php if($cartSettings->YouTube): ?>
 					<a href="<?php echo $cartSettings->YouTubeUrl; ?>"><i class="fa fa-youtube-square"></i></a>
