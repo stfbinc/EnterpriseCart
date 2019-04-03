@@ -139,11 +139,21 @@
 			    <div class="footer-widget">
 				<h3>Information</h3>
 				<ul class="footer-menu">
-				    <li><a href="#">About Us</a></li>
-				    <li><a href="#">Customer Service</a></li>
-				    <li><a href="#">Privacy Policy</a></li>
-				    <li><a href="#">Site Map</a></li>
-				    <li><a href="#">Contact</a></li>
+				    <?php if($cartSettings->AboutUsPage): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=AboutUsPage">About Us</a></li>
+				    <?php endif; ?>
+				    <?php if($cartSettings->CustomerService): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=CustomerService">Customer Service</a></li>
+				    <?php endif; ?>
+				    <?php if($cartSettings->PrivacyPolicy): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=PrivacyPolicy">Privacy Policy</a></li>
+				    <?php endif; ?>
+				    <?php if($cartSettings->SiteMap): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=SiteMap">Site Map</a></li>
+				    <?php endif; ?>
+				    <?php if($cartSettings->Contact): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=Contact">Contact</a></li>
+				    <?php endif; ?>
 				</ul>
 			    </div>
 			</div>
@@ -153,11 +163,21 @@
 			    <div class="footer-widget">
 				<h3>Our services</h3>
 				<ul class="footer-menu">
-				    <li><a href="#">Shipping & Returns</a></li>
-				    <li><a href="#">Secure Shopping</a></li>
-				    <li><a href="#">International Shipping</a></li>
-				    <li><a href="#">Affiliates</a></li>
-				    <li><a href="#">Help</a></li>
+				    <?php if($cartSettings->ShippingReturns): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=ShippingReturns">Shipping & Returns</a></li>
+				    <?php endif; ?>
+				    <?php if($cartSettings->SecureShopping): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=SecureShopping">Secure Shopping</a></li>
+				    <?php endif; ?>
+				    <?php if($cartSettings->InternationalShipping): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=InternationalShipping">International Shipping</a></li>
+				    <?php endif; ?>
+				    <?php if($cartSettings->Affiliates): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=Affiliates">Affiliates</a></li>
+				    <?php endif; ?>
+				    <?php if($cartSettings->Help): ?>
+					<li><a href="#/?page=forms&action=loadcontent&content=Help">Help</a></li>
+				    <?php endif; ?>
 				</ul>
 			    </div>
 			</div>

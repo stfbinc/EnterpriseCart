@@ -17,8 +17,10 @@
                             </li>
                             <li><a href="#/?page=forms&action=shoppingcart"><?php echo $translation->translateLabel("My Cart"); ?></a>
                             </li>
-                            <li><a href="##/?page=index&action=support"><?php echo $translation->translateLabel("Support"); ?></a>
-                            </li>
+			    <?php if($cartSettings->Support): ?>
+				<li><a href="#/?page=forms&action=loadcontent&content=Support"><?php echo $translation->translateLabel("Support"); ?></a>
+				</li>
+			    <?php endif; ?>
                         </ul>
                     </nav>
                 </div>

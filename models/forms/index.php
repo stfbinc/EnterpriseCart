@@ -2,7 +2,7 @@
 /*
   Name of Page: Index model
    
-  Method: Model for working with products data
+  Method: Model for working with loadcontent data
    
   Date created: 03/04/2019 Nikita Zaharov
    
