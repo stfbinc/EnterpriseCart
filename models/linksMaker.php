@@ -22,6 +22,10 @@
 */
 
 class linksMaker{
+    function makeEnterpriseXImageLink($scope, $item, $field){
+		 return "{$scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}";
+    }
+    
     function makeFamilyImageLink($family){
         return ($family->FamilyPictureURL != null  && count($family->FamilyPictureURL)? "assets/img/" . $family->FamilyPictureURL : "assets/img/product/s1.jpg");
     }

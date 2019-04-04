@@ -98,7 +98,7 @@
 			    </li>
 			<?php endif ?>
 			<!-- <li><a href="#"><?php echo $translation->translateLabel("Wishlist"); ?></a></li> -->
-			<li><a href="#/?page=forms&action=shoppingcart"><?php echo $translation->translateLabel("Shopping cart"); ?></a></li>
+			<li><a href="#/?page=forms&action=shoppingcart"><?php echo $translation->translateLabel("Cart"); ?></a></li>
 			<li><a href="#/?page=forms&action=checkout"><?php echo $translation->translateLabel("Checkout"); ?></a></li>
                     </ul>
 		</div>
@@ -115,7 +115,7 @@
 		<div class="row">
 		    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 			<div class="logo">
-			    <a href="index.php"><span>e</span> EnterpriseXCart</a>
+			    <a href="index.php"><img style="width:40px; height:40px; margin-bottom:10px" src="<?php echo $linksMaker->makeEnterpriseXImageLink($scope, $company, "SmallLogo"); ?>" /> <?php echo $company->CompanyName; ?></a>
 			</div>
 		    </div>
 		    <div class="col-lg-6 col-md-5 col-sm-5 col-xs-6 hidden-xs">

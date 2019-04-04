@@ -1,5 +1,6 @@
 <?php
     $cartSettings = $data->getCartSettings();
+    $company = $data->getCompany();
 ?>
 
 <!DOCTYPE html>  
@@ -7,7 +8,7 @@
     <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Enterprise X Cart</title>
+	<title><?php echo $company->CompanyName; ?></title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Place favicon.ico in the root directory -->
@@ -59,11 +60,18 @@
 
 	     return value;
 	 }
+
+	 var context = {
+	     company : <?php echo json_encode($company, JSON_PRETTY_PRINT); ?>
+	 };
 	 
 	 //global object used for creatink links to any part of application
 	 var linksMaker = {
 	     makeEnterpriseXDocreportsLink : function(type, id){
 		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/index.php?page=docreports&type=" + type + "&id=" + id;
+	     },
+	     makeEnterpriseXImageLink : function(item, field){
+		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/uploads/" + item + "/" + field;
 	     },
 	     makeEnterpriseXProcedureLink : function(path, procedure){
 		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/index.php?page=grid&action=" + path + "&procedure=" + procedure + "&CompanyID=<?php echo $scope["defaultCompany"]["CompanyID"]; ?>&DivisionID=<?php echo $scope["defaultCompany"]["DivisionID"]; ?>&DepartmentID=<?php echo $scope["defaultCompany"]["DepartmentID"]; ?>&EmployeeID=<?php echo $scope["config"]["EnterpriseXEmployeeID"]; ?>&EmployeePassword=<?php echo $scope["config"]["EnterpriseXEmployeePassword"]; ?>";
@@ -124,7 +132,7 @@
 			<!-- footer-widget start -->
 			<div class="col-lg-3 col-md-3 col-sm-4">
 			    <div class="footer-widget">
-				<div class="footer-logo"><a href="#"><span>e</span> EnterpriseX Cart</a></div>								
+				<div class="footer-logo"><a href="#"><img style="width:40px; height:40px; margin-bottom:10px" src="<?php echo $linksMaker->makeEnterpriseXImageLink($scope, $company, "SmallLogo"); ?>" /> <?php echo $company->CompanyName; ?></a></div>								
 				<!-- <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. .</p>
 				     <address class="box-address">
 				     <span class="fa fa-home"></span>123 Pall Mall, London England<br>
@@ -228,7 +236,7 @@
 		    <div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6">
 			    <div class="copyright">
-				<p>Copyright © <a href="#" target="_blank">EnterpriseXCart</a>. All Rights Reserved</p>
+				<p>Copyright © <a href="#" target="_blank"><?php echo $company->CompanyName; ?></a> All Rights Reserved</p>
 			    </div>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6">

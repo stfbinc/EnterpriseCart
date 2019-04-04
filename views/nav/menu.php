@@ -13,8 +13,8 @@
 				<ul id="productsFamilies">
 				</ul>
 			    </li>
-                            <li><a href="#/?page=forms&action=search"><?php echo $translation->translateLabel("Search"); ?></a>
-                            </li>
+                            <!-- <li><a href="#/?page=forms&action=search"><?php echo $translation->translateLabel("Search"); ?></a>
+				 </li> -->
                             <li><a href="#/?page=forms&action=shoppingcart"><?php echo $translation->translateLabel("My Cart"); ?></a>
                             </li>
 			    <?php if($cartSettings->Support): ?>

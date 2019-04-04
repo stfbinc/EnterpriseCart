@@ -40,6 +40,17 @@ class index{
             echo json_encode($result[0], JSON_PRETTY_PRINT);
         return $result[0];
     }
+
+    public function getCompany($remoteCall = false){
+        $user = Session::get("user");
+        $defaultCompany = Session::get("defaultCompany");
+        
+        $result = DB::select("SELECT * from companies WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"]));
+
+        if($remoteCall)
+            echo json_encode($result[0], JSON_PRETTY_PRINT);
+        return $result[0];
+    }
         
     public function getCurrencies($remoteCall = false){
         $user = Session::get("user");
