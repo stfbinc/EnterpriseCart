@@ -86,6 +86,12 @@
 				    </li>
 				</ul>
 			    </span>
+			    <li><a href="#/?page=forms&action=account">
+				<?php
+				    echo $translation->translateLabel("Account");
+				?>
+			    </a>
+			    </li>
 			<?php else: ?>
 			    <li><a href="javascript:;" onclick="$('#loginForm').modal('show');">
 				<?php
@@ -284,7 +290,7 @@
 	 if(data){
 	     shoppingCartRender(JSON.parse(data));
 	     if(typeof shoppingCartFormRender == 'function')
-             shoppingCartFormRender(JSON.parse(data));
+		 shoppingCartFormRender(JSON.parse(data));
 	 }
 	 else
 	     console.log("login failed");
@@ -296,7 +302,7 @@
 	 if(data){
 	     shoppingCartRender(JSON.parse(data));
 	     if(typeof shoppingCartFormRender == 'function')
-             shoppingCartFormRender(JSON.parse(data));
+		 shoppingCartFormRender(JSON.parse(data));
 	     //	     location.reload();
 	 }else
 	 console.log("login failed");

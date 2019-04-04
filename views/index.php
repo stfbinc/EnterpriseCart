@@ -48,6 +48,13 @@
 	 .dropdown-chooser > li > a {
 	     color : black !important;
 	 }
+	 .product-img a img {
+	     margin : 0px 0 !important;
+	 }
+	 .secondary-img {
+	     width : 200px;
+	     height : 200px;
+	 }
 	</style>
 	<script>
 	 function formatCurrency(value, precision){

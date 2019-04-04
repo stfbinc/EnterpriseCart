@@ -12,7 +12,6 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul class="breadcrumb">
-                    <li><a href="index.php#/?page=index&action=store">Home</a></li>
                     <li><a href="index.php#/?page=forms&action=products">Products</a></li>
 		    <?php if(key_exists("family", $_GET)): ?>
 			<li><a href="<?php echo $linksMaker->makeFamilyLink($_GET["family"]); ?>">Categories</a></li>
