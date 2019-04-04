@@ -31,6 +31,7 @@
 
     $paymentMethods = $data->getPaymentMethods();
     $shipMethods = $data->getShipMethods();
+    $cartSettings = $data->getCartSettings();
 ?>
 <?php if(!key_exists("Customer", $user)): ?>
     <div style="font-size:20pt; color:red; text-align:center;padding:20px">
@@ -41,7 +42,7 @@
     <div class="container">
         <div class="row">
             <form action="#" id="checkoutForm"  onsubmit="return false">
-                <div class="col-lg-2 col-md-2">
+                <div class="col-lg-6 col-md-6">
                     <div class="checkbox-form">
                         <h3>
                             <?php echo $translation->translateLabel("Bill To"); ?>
@@ -65,7 +66,7 @@
                             <?php echo $translation->translateLabel("Use As 'Ship To'"); ?></label>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-2">
+                <div class="col-lg-6 col-md-6">
                     <div class="checkbox-form">
                         <h3>
                             <?php echo $translation->translateLabel("Ship To"); ?></h3>
@@ -83,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-8">
+                <div class="col-lg-12 col-md-12">
                     <div class="your-order">
                         <h3>
                             <?php echo $translation->translateLabel("Your Order"); ?></h3>
@@ -146,7 +147,9 @@
 				</label>
                                 <select name="PaymentMethod">
 				    <?php foreach($paymentMethods as $paymentName=>$def): ?>
-					<option value="<?php echo $def["value"] ?>"><?php echo $def["title"] ?></option>
+					<?php if(property_exists($cartSettings, $paymentName) && $cartSettings->$paymentName): ?>
+					    <option value="<?php echo $def["value"] ?>"><?php echo $def["title"] ?></option>
+					<?php endif;  ?>
 				    <?php endforeach; ?>
                                 </select>
                             </div>

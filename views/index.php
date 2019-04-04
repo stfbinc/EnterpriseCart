@@ -41,6 +41,14 @@
 	<!-- modernizr css -->
 	<script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 	<style>
+	 .modal.in .modal-dialog 
+	 {
+	     -webkit-transform: translate(0, calc(50vh - 50%));
+	     -ms-transform: translate(0, 50vh) translate(0, -50%);
+	     -o-transform: translate(0, calc(50vh - 50%));
+	     transform: translate(0, 50vh) translate(0, -50%);
+	 }
+	 
 	 .dropdown-chooser {
 	     width : 150px;
 	 }

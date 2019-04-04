@@ -29,7 +29,9 @@
   Last Modified by: Nikita Zaharov
 */
 
-class checkout{
+require 'baseform.php';
+
+class checkout extends baseForm{ 
     //getting list of available payment methods
     public function getPaymentMethods(){
         $defaultCompany = Session::get("defaultCompany");

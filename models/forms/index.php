@@ -2,7 +2,7 @@
 /*
   Name of Page: Index model
    
-  Method: Model for working with loadcontent data
+  Method: Model for working with index data
    
   Date created: 03/04/2019 Nikita Zaharov
    
@@ -25,22 +25,13 @@
   Calls:
   MySql Database
    
-  Last Modified: 03/04/2019
+  Last Modified: 04/04/2019
   Last Modified by: Nikita Zaharov
 */
 
-class index{
-    public function getCartSettings($remoteCall = false){
-        $user = Session::get("user");
-        $defaultCompany = Session::get("defaultCompany");
-        
-        $result = DB::select("SELECT * from inventorycart WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"]));
+require 'baseform.php';
 
-        if($remoteCall)
-            echo json_encode($result[0], JSON_PRETTY_PRINT);
-        return $result[0];
-    }
-
+class index extends baseForm{
     public function getCompany($remoteCall = false){
         $user = Session::get("user");
         $defaultCompany = Session::get("defaultCompany");
