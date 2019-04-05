@@ -77,7 +77,6 @@ class controller{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }else if($_SERVER['REQUEST_METHOD'] === 'GET') {
             //$drill = new drillDowner();
-            $linksMaker = new linksMaker();
             //$this->user = $user = $_SESSION["user"];
                
             //$security = new Security($this->user["accesspermissions"], []);
@@ -87,6 +86,7 @@ class controller{
             $this->dashboardTitle = $translation->translateLabel($this->dashboardTitle);
             $this->breadCrumbTitle = $translation->translateLabel($this->breadCrumbTitle);
             $scope = json_decode(json_encode($this), true);
+            $linksMaker = new linksMaker($scope);
             //$keyString = $this->user["CompanyID"] . "__" . $this->user["DivisionID"] . "__" . $this->user["DepartmentID"];
             if(key_exists("action", $_GET))
                 require "views/pages/{$_GET["action"]}.php";

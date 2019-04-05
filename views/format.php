@@ -8,4 +8,8 @@ function formatCurrency($value, $afterdot = 2){
     }
         return $value;
 }
+
+function formatDate($value){
+    return date("m/d/y", strtotime($value));
+}
 ?>

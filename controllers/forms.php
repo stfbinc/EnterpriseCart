@@ -41,8 +41,8 @@ class controller{
     public $mode = "grid";
     public $category = "Main";
     public $item = "0";
+    public $config;
     public $path;
-    public $pathPage;
     
     public function process($app){
         $user;
@@ -62,6 +62,7 @@ class controller{
         $data = new $action;
             
         $this->user = $user;   
+        $this->config = config();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if(key_exists("update", $_GET)){
@@ -87,10 +88,9 @@ class controller{
                 $translation = new translation($this->user["language"]);
             
                 
-                $scope = $this;
                 $user = $this->user;
-                $linksMaker = new linksMaker();
-                $ascope = json_decode(json_encode($scope), true);
+                $scope = json_decode(json_encode($this), true);
+                $linksMaker = new linksMaker($scope);
 
                 require "views/pages/{$_GET["action"]}.php";
             }

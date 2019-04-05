@@ -22,8 +22,22 @@
 */
 
 class linksMaker{
+    public $scope;
+    function linksMaker($scope){
+        $this->scope = $scope;
+    }
+
+    function makeEnterpriseXAuthParams(){
+        $defaultCompany = Session::get("defaultCompany");
+        return "CompanyID={$defaultCompany["CompanyID"]}&DivisionID={$defaultCompany["DivisionID"]}&DepartmentID={$defaultCompany["DepartmentID"]}&EmployeeID={$this->scope["config"]["EnterpriseXEmployeeID"]}&EmployeePassword={$this->scope["config"]["EnterpriseXEmployeePassword"]}";
+    }
+    
+    function makeEnterpriseXDocreportsLink($type, $id){
+        return "{$this->scope["config"]["EnterpriseXURL"]}/index.php?page=docreports&type=$type&id=$id&" . $this->makeEnterpriseXAuthParams();
+    }
+    
     function makeEnterpriseXImageLink($scope, $item, $field){
-		 return "{$scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}";
+		 return "{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}";
     }
     
     function makeFamilyImageLink($family){

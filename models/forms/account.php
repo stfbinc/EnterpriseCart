@@ -30,15 +30,14 @@
 */
 
 class account{
-    public function getTransactions($fieldName, $remoteCall = false){
+    public function getTransactions($remoteCall = false){
         $user = Session::get("user");
         $defaultCompany = Session::get("defaultCompany");
-        $fieldName .= "Content";
-        $result = DB::select("SELECT $fieldName from inventorycart WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"]));
+        $result = DB::select("SELECT * from orderheader WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerID=? AND OrderDate > '2019-04-00 00:00:00' order by OrderDate desc", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $user["Customer"]->CustomerID));
 
         if($remoteCall)
-            echo json_encode($result[0], JSON_PRETTY_PRINT);
-        return $result[0]->$fieldName;
+            echo json_encode($result, JSON_PRETTY_PRINT);
+        return $result;
     }        
 }
 ?>
