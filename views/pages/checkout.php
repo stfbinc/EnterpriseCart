@@ -33,6 +33,31 @@
     $shipMethods = $data->getShipMethods();
     $cartSettings = $data->getCartSettings();
 ?>
+<div id="confirmDialog" class="modal fade  bs-example-modal-lg" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm modal-dialog-center" style="width:400px;" role="document">
+	<div class="modal-content">
+	    <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">
+		    <?php echo $translation->translateLabel("Please confirm your action"); ?>
+		</h4>
+	    </div>
+	    <div class="modal-body">
+		<h3 style="text-align:center" id="confirmFormText">
+		    <?php echo $translation->translateLabel("Are you sure you want to process order?"); ?>
+		</h3>
+	    </div>
+	    <div class="modal-footer">
+		<button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmButton">
+		    <?php echo $translation->translateLabel("Process"); ?>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+		    <?php echo $translation->translateLabel("Cancel"); ?>
+		</button>
+	    </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <?php if(!key_exists("Customer", $user)): ?>
     <div style="font-size:20pt; color:red; text-align:center;padding:20px">
 	<?php echo $translation->translateLabel("You should login to check out the cart"); ?>    
@@ -179,58 +204,61 @@
  var checkoutSubtotal = 0,
      checkoutItems;
  <?php if(key_exists("Customer", $user)): ?>
- $("#processorder").click(
-     function(){
-	 //var form = $("#checkoutForm");
-	 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "getNewItemAllRemote", { id : '', type : "...fields"}, function(data, error){
-	     var values = JSON.parse(data);
-	     values.CustomerID = "<?php echo $user["Customer"]->CustomerID; ?>";
-	     values.ShippingName = $("input[name=shipCustomerName]").val();
-	     values.ShippingAddress1 = $("input[name=shipCustomerAddress1]").val();
-	     values.ShippingAddress2 = $("input[name=shipCustomerAddress2]").val();
-	     values.ShippingAddress3 = $("input[name=shipCustomerAddress3]").val();
-	     values.ShippingCounty = $("input[name=shipCustomerCountry]").val();
-	     values.ShippingState = $("input[name=shipCustomerState]").val();
-	     values.ShippingCity = $("input[name=shipCustomerCity]").val();
-	     values.ShippingZip = $("input[name=shipCustomerZip]").val();
-	     values.ShipMethodID = $("input[name=ShipMethod]").val();
-	     values.PaymentMethodID = $("input[name=PaymentMethod]").val();
-	     values.Subtotal = values.Total = values.BalanceDue = values.TaxableSubTotal = checkoutSubtotal;
-	     //creating order header
-	     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "insertItemRemote", values, function(data, error){
-		 var OrderHeader = JSON.parse(data);
-		 //getting template data for order detail
-		 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "getNewItemAllRemote", { id : '', type : "...fields"}, function(data, error){
-		     var ind, values = JSON.parse(data), orderDetails = [], orderDetail, items = checkoutItems.items;
-		     for(ind in items){
-			 orderDetail = Object.assign({}, values);
-			 orderDetail.ItemID = items[ind].ItemID;
-			 //		     console.log(items[ind].ItemID);
-			 orderDetail.OrderNumber = OrderHeader.OrderNumber;
-			 orderDetail.OrderQty = items[ind].counter;
-			 orderDetail.Description = items[ind].ItemDescription;
-			 orderDetail.ItemCost = orderDetail.ItemUnitPrice = items[ind].Price;
-			 orderDetails.push(orderDetail);
-		     }
-		     //	     console.log(JSON.stringify(orderDetails, null, 3));
-		     //creating order detail records
-		     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "insertItemsRemote", orderDetails, function(data, error){
-			 //values = JSON.parse(data);
-			 //recalculation order header
-			 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "Recalc", { OrderNumber : OrderHeader.OrderNumber }, function(data, error){
-			     $("#processorder").val("<?php echo $translation->translateLabel("Print"); ?>");
-			     $("#processorder").off("click");
-			     $("#processorder").click(function(){
-				 Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
-			     });
+ $("#confirmButton").click(     function(){
+     //var form = $("#checkoutForm");
+     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "getNewItemAllRemote", { id : '', type : "...fields"}, function(data, error){
+	 var values = JSON.parse(data);
+	 values.CustomerID = "<?php echo $user["Customer"]->CustomerID; ?>";
+	 values.ShippingName = $("input[name=shipCustomerName]").val();
+	 values.ShippingAddress1 = $("input[name=shipCustomerAddress1]").val();
+	 values.ShippingAddress2 = $("input[name=shipCustomerAddress2]").val();
+	 values.ShippingAddress3 = $("input[name=shipCustomerAddress3]").val();
+	 values.ShippingCounty = $("input[name=shipCustomerCountry]").val();
+	 values.ShippingState = $("input[name=shipCustomerState]").val();
+	 values.ShippingCity = $("input[name=shipCustomerCity]").val();
+	 values.ShippingZip = $("input[name=shipCustomerZip]").val();
+	 values.ShipMethodID = $("input[name=ShipMethod]").val();
+	 values.PaymentMethodID = $("input[name=PaymentMethod]").val();
+	 values.Subtotal = values.Total = values.BalanceDue = values.TaxableSubTotal = checkoutSubtotal;
+	 //creating order header
+	 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "insertItemRemote", values, function(data, error){
+	     var OrderHeader = JSON.parse(data);
+	     //getting template data for order detail
+	     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "getNewItemAllRemote", { id : '', type : "...fields"}, function(data, error){
+		 var ind, values = JSON.parse(data), orderDetails = [], orderDetail, items = checkoutItems.items;
+		 for(ind in items){
+		     orderDetail = Object.assign({}, values);
+		     orderDetail.ItemID = items[ind].ItemID;
+		     //		     console.log(items[ind].ItemID);
+		     orderDetail.OrderNumber = OrderHeader.OrderNumber;
+		     orderDetail.OrderQty = items[ind].counter;
+		     orderDetail.Description = items[ind].ItemDescription;
+		     orderDetail.ItemCost = orderDetail.ItemUnitPrice = items[ind].Price;
+		     orderDetails.push(orderDetail);
+		 }
+		 //	     console.log(JSON.stringify(orderDetails, null, 3));
+		 //creating order detail records
+		 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "insertItemsRemote", orderDetails, function(data, error){
+		     //values = JSON.parse(data);
+		     //recalculation order header
+		     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "Recalc", { OrderNumber : OrderHeader.OrderNumber }, function(data, error){
+			 $("#processorder").val("<?php echo $translation->translateLabel("Print"); ?>");
+			 $("#processorder").off("click");
+			 $("#processorder").click(function(){
 			     Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
-			     //console.log(data, error);
 			 });
-		     }, true);
-		 });
+			 Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
+			 window.location = "index.php#/?page=forms&action=account";
+			 //console.log(data, error);
+		     });
+		 }, true);
 	     });
 	 });
      });
+ });
+ $("#processorder").click(function(){
+     $('#confirmDialog').modal('show');
+ });
  <?php endif; ?> 
  function shoppingCartFormRender(shoppingCart){
      var element = $("#shoppingCartFormList"), _html = '', itemsCounter = 0, ind, subtotal = 0,
