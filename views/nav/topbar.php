@@ -1,3 +1,8 @@
+<style>
+ .has-error {
+     border: 1px solid red;
+ }
+</style>
 <div id="loginForm" class="modal fade  bs-example-modal-lg" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm modal-dialog-center" style="width:400px;" role="document">
 	<div class="modal-content">
@@ -19,6 +24,9 @@
 			    </div>
 			</div>
 		    </div>
+		    <div  id="user_wrong_message" style="color:red; padding-bottom:20px; display:none">
+			<strong>These credentials do not match our records.</strong>
+		    </div>
 		    <div class="form-group">
 			<div class="row">
  			    <div class="col-xs-6">
@@ -29,10 +37,23 @@
 			    </div>
 			</div>
 		    </div>
+		    <div class="form-group">
+			<div class="row">
+ 			    <div class="col-xs-6">
+				<label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Captcha"); ?>:</label>
+			    </div>
+			    <div class="col-xs-6">
+				<input name="captcha" id="captcha" class="form-control" type="text" required placeholder="<?php echo $translation->translateLabel("Enter captcha"); ?>">
+			    </div>
+			    <div class="col-xs-6">
+				<img id="imgcaptcha" src="<?php echo $oscope->captchaBuilder->inline(); ?>" />
+			    </div>
+			</div>
+		    </div>
 		</form>
 	    </div>
 	    <div class="modal-footer">
-		<button type="button" class="btn btn-primary" data-dismiss="modal" id="loginButton">
+		<button type="button" class="btn btn-primary" id="loginButton">
 		    <?php echo $translation->translateLabel("Login"); ?>
 		</button>
 		<button type="button" class="btn btn-default" data-dismiss="modal">
@@ -200,7 +221,7 @@
 	     window.location = "index.php#/?page=forms&action=search&" + searchForm.serialize();
 	 //location.reload();
 	 else
-	     console.log("login failed");
+	     console.log("search failed");
      });
  }
 
@@ -231,8 +252,23 @@
      serverProcedureAnyCall("users", "login", loginform.serialize(), function(data, error){
 	 if(data)
 	     location.reload();
-	 else
-	     console.log("login failed");
+	 else {
+	     console.log(data, error);
+	     var res = error.responseJSON;
+
+	     if(res.wrong_user){
+		 $("#captcha").addClass("has-error");
+		 $("#username").addClass("has-error");
+		 $("#password").addClass("has-error");
+		 $("#user_wrong_message").css("display", "block");
+	     }else{
+		 $("#username").removeClass("has-error");
+		 $("#password").removeClass("has-error");
+		 $("#user_wrong_message").css("display", "none");
+		 $("#captcha").removeClass("has-error");
+	     }
+	     document.getElementById('imgcaptcha').src = res.captcha; 
+	 }
      });
      
  });

@@ -24,13 +24,27 @@
   Last Modified by: Nikita Zaharov
 */
 
+use Gregwar\Captcha\CaptchaBuilder;
+
 class users{
+    public $captchaBuilder = false;
+
+    public function __construct(){
+        $this->captchaBuilder = new CaptchaBuilder;
+    }
+
     public function login(){
         $defaultCompany = Session::get("defaultCompany");
         $result = DB::select("SELECT * from customerinformation WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerLogin=? AND CustomerPassword=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $_POST["username"], $_POST["password"]));
-        if(!count($result)){
+        if(!count($result) || $_POST["captcha"] != $_SESSION["captcha"]){
             http_response_code(401);
-            echo "login failed";
+            $this->captchaBuilder->build();
+            $_SESSION['captcha'] = $this->captchaBuilder->getPhrase();
+            header('Content-Type: application/json');
+            echo json_encode([
+                "captcha" =>  $this->captchaBuilder->inline(),
+                "wrong_user" => true
+            ], JSON_PRETTY_PRINT);
         }else{
             $user = [
                 "Customer" => $result[0],

@@ -31,6 +31,7 @@
 */
 
 //require 'models/users.php';
+use Gregwar\Captcha\CaptchaBuilder;
 require 'models/translation.php';
 //require 'models/security.php';
 //require 'models/drillDowner.php';
@@ -46,6 +47,11 @@ class controller{
     public $breadCrumbTitle = "Enterprise X Cart";
     public $config;
     public $defaultCompany;
+    public $captchaBuilder = false;
+    
+    public function __construct(){
+        $this->captchaBuilder = new CaptchaBuilder;
+    }
     
     public function process($app){
         $user;
@@ -85,6 +91,10 @@ class controller{
             $data = new index();
             $this->dashboardTitle = $translation->translateLabel($this->dashboardTitle);
             $this->breadCrumbTitle = $translation->translateLabel($this->breadCrumbTitle);
+            $oscope = $this;
+            $this->captchaBuilder->build();
+            $_SESSION['captcha'] = $this->captchaBuilder->getPhrase();
+
             $scope = json_decode(json_encode($this), true);
             $linksMaker = new linksMaker($scope);
             //$keyString = $this->user["CompanyID"] . "__" . $this->user["DivisionID"] . "__" . $this->user["DepartmentID"];
