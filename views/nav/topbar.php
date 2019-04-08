@@ -3,6 +3,68 @@
      border: 1px solid red;
  }
 </style>
+
+<div id="registerForm" class="modal fade  bs-example-modal-lg" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm modal-dialog-center" style="width:400px;" role="document">
+	<div class="modal-content">
+	    <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">
+		    <?php echo $translation->translateLabel("Register Form"); ?>
+		</h4>
+	    </div>
+	    <div class="modal-body">
+		<form id="loginform">
+		    <div class="form-group">
+			<div class="row">
+ 			    <div class="col-xs-6">
+				<label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Username"); ?>:</label>
+			    </div>
+			    <div class="col-xs-6">
+				<input name="username" class="form-control pull-right b-none"/>
+			    </div>
+			</div>
+		    </div>
+		    <div  id="user_wrong_message" style="color:red; padding-bottom:20px; display:none">
+			<strong>These credentials do not match our records.</strong>
+		    </div>
+		    <div class="form-group">
+			<div class="row">
+ 			    <div class="col-xs-6">
+				<label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Password"); ?>:</label>
+			    </div>
+			    <div class="col-xs-6">
+				<input name="password" class="form-control pull-right b-none"/>
+			    </div>
+			</div>
+		    </div>
+		    <div class="form-group">
+			<div class="row">
+ 			    <div class="col-xs-6">
+				<label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Captcha"); ?>:</label>
+			    </div>
+			    <div class="col-xs-6">
+				<input name="captcha" id="captcha" class="form-control" type="text" required placeholder="<?php echo $translation->translateLabel("Enter captcha"); ?>">
+			    </div>
+			    <div class="col-xs-6">
+				<img id="imgcaptcha" src="<?php echo $oscope->captchaBuilder->inline(); ?>" />
+			    </div>
+			</div>
+		    </div>
+		</form>
+	    </div>
+	    <div class="modal-footer">
+		<button type="button" class="btn btn-primary" id="registerButton">
+		    <?php echo $translation->translateLabel("Register"); ?>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+		    <?php echo $translation->translateLabel("Cancel"); ?>
+		</button>
+	    </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div id="loginForm" class="modal fade  bs-example-modal-lg" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm modal-dialog-center" style="width:400px;" role="document">
 	<div class="modal-content">
@@ -53,6 +115,18 @@
 		</form>
 	    </div>
 	    <div class="modal-footer">
+		<div class="row">
+		    <div class="col-md-1 col-lg-1">
+		    </div>
+		    <div class="col-md-8 col-lg-8" style="padding-bottom:20px">
+			<a href="#" style="color:blue">
+			    <?php echo $translation->translateLabel("Forgot Username / Password"); ?>
+			</a>
+		    </div>
+		</div>
+		<button type="button" class="btn btn-default pull-left" data-dismiss="modal" onclick="$('#registerForm').modal('show');">
+		    <?php echo $translation->translateLabel("Register"); ?>
+		</button>
 		<button type="button" class="btn btn-primary" id="loginButton">
 		    <?php echo $translation->translateLabel("Login"); ?>
 		</button>
