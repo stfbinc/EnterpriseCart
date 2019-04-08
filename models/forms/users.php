@@ -48,5 +48,22 @@ class users{
         Session::set("defaultCompany", null);
         echo json_encode([]);
     }
+
+    public function sessionUpdate(){
+        $user = Session::get("user");
+        $defaultCompany = Session::get("defaultCompany");
+        $result = DB::select("SELECT * from customerinformation WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerLogin=? AND CustomerPassword=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $user["Customer"]->CustomerLogin, $user["Customer"]->CustomerPassword));
+        if(!count($result)){
+            http_response_code(401);
+            echo "session updating failed";
+        }else{
+            $user = [
+                "Customer" => $result[0],
+                "language" => Session::get("user") ? Session::get("user")["language"] : "English"
+            ];
+            Session::set("user", $user);
+            echo json_encode($user, JSON_PRETTY_PRINT);
+        }
+    }
 }
 ?>

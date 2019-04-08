@@ -179,7 +179,9 @@
 	 values.id = "<?php echo $linksMaker->makeEnterpriseXKeyString() . '__' . $user["Customer"]->CustomerID; ?>";
 	 values.type = "Main";
 	 serverEnterpriseXProcedureAnyCall("AccountsReceivable/Customers/ViewCustomers", "updateItemRemote", values, function(data, error){
-	     onlocation(window.location);
+	     serverProcedureAnyCall("users", "sessionUpdate", {}, function(data, error){
+		 onlocation(window.location);
+	     });
 	     //	     window.location = "index.php#/?page=forms&action=account";
 	     //console.log(data, error);
 	 });
