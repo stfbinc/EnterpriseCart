@@ -86,11 +86,12 @@
 				    </li>
 				</ul>
 			    </span>
-			    <li><a href="#/?page=forms&action=account">
-				<?php
-				    echo $translation->translateLabel("Account");
-				?>
-			    </a>
+			    <li>
+				<a href="#/?page=forms&action=account">
+				    <?php
+					echo $translation->translateLabel("Account");
+				    ?>
+				</a>
 			    </li>
 			<?php else: ?>
 			    <li><a href="javascript:;" onclick="$('#loginForm').modal('show');">

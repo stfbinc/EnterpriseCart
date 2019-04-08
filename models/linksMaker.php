@@ -27,6 +27,11 @@ class linksMaker{
         $this->scope = $scope;
     }
 
+    function makeEnterpriseXKeyString(){
+        $defaultCompany = Session::get("defaultCompany");
+        return "{$defaultCompany["CompanyID"]}__{$defaultCompany["DivisionID"]}__{$defaultCompany["DepartmentID"]}";
+    }
+    
     function makeEnterpriseXAuthParams(){
         $defaultCompany = Session::get("defaultCompany");
         return "CompanyID={$defaultCompany["CompanyID"]}&DivisionID={$defaultCompany["DivisionID"]}&DepartmentID={$defaultCompany["DepartmentID"]}&EmployeeID={$this->scope["config"]["EnterpriseXEmployeeID"]}&EmployeePassword={$this->scope["config"]["EnterpriseXEmployeePassword"]}";
