@@ -48,7 +48,7 @@
     ];
 
     //    $cartSettings = $data->getCartSettings();
-    $transactions = $data->getTransactions()
+    $transactions = $data->getTransactions();
 ?>
 <div class="checkout-area" style="margin-top:50px">
     <div class="container">

@@ -1,3 +1,53 @@
+<?php
+    $customerFieldsRight = [
+	"CustomerAddress1" => [
+	    "label" => "Address 1"
+	],
+	"CustomerAddress2" => [
+	    "label" => "Address 2"
+	],
+	"CustomerAddress3" => [
+	    "label" => "Address 3"
+	],
+	"CustomerCountry" => [
+	    "label" => "Country"
+	],
+	"CustomerState" => [
+	    "label" => "State"
+	],
+	"CustomerCity" => [
+	    "label" => "City"
+	],
+	"CustomerZip" => [
+	    "label" => "Zip"
+	]
+    ];
+
+    $customerFieldsLeft = [
+	"CustomerPhone" => [
+	    "label" => "Phone"
+	],
+	/*	"login" => [
+	   "label" => "login"
+	   ],*/
+	"CustomerFirstName" => [
+	    "label" => "First Name"
+	],
+	"CustomerLastName" => [
+	    "label" => "Last Name"
+	],
+	"CustomerName" => [
+	    "label" => "Company Name"
+	],
+	"CustomerEmail" => [
+	    "label" => "Email"
+	],
+	"CustomerWebPage" => [
+	    "label" => "Web page"
+	]
+    ];
+?>
+
 <style>
  .has-error {
      border: 1px solid red;
@@ -5,7 +55,7 @@
 </style>
 
 <div id="registerForm" class="modal fade  bs-example-modal-lg" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm modal-dialog-center" style="width:400px;" role="document">
+    <div class="modal-dialog modal-sm modal-dialog-center" style="width:800px;" role="document">
 	<div class="modal-content">
 	    <div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -14,40 +64,51 @@
 		</h4>
 	    </div>
 	    <div class="modal-body">
+		<form action="#" id="registerForm"  onsubmit="return false"> 
+		    <div class="col-lg-6 col-md-6">
+			<div class="checkbox-form">
+			    <div class="row">
+				<?php foreach($customerFieldsLeft as $fieldName=>$def): ?>
+				    <div class="col-md-12">
+					<div class="checkout-form-list" style="margin-bottom:5px">
+					    <label>
+						<?php echo $translation->translateLabel($def["label"]);  ?>
+					    </label>
+					    <input type="text" name="<?php echo $fieldName; ?>" placeholder="" value="<?php echo (key_exists("Customer", $user) ? $user["Customer"]->$fieldName : ""); ?>" />
+					</div>
+				    </div>
+				<?php endforeach; ?>
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-lg-6 col-md-6">
+			<div class="checkbox-form">
+			    <div class="row">
+				<?php foreach($customerFieldsRight as $fieldName=>$def): ?>
+				    <div class="col-md-12">
+					<div class="checkout-form-list" style="margin-bottom:5px">
+					    <label>
+						<?php echo $translation->translateLabel($def["label"]);  ?>
+					    </label>
+					    <input type="text" name="<?php echo $fieldName; ?>" placeholder="" value="<?php echo (key_exists("Customer", $user) ? $user["Customer"]->$fieldName : ""); ?>" />
+					</div>
+				    </div>
+				<?php endforeach; ?>
+			    </div>
+			</div>
+		    </div>
+		</form>
 		<form id="loginform">
-		    <div class="form-group">
+		    <div class="checkbox-form">
 			<div class="row">
- 			    <div class="col-xs-6">
-				<label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Username"); ?>:</label>
+			    <div class="col-md-6 col-lg-6">
+				<img id="imgcaptcha" style="padding:15px;" src="<?php echo $oscope->captchaBuilder->inline(); ?>" />
 			    </div>
-			    <div class="col-xs-6">
-				<input name="username" class="form-control pull-right b-none"/>
-			    </div>
-			</div>
-		    </div>
-		    <div  id="user_wrong_message" style="color:red; padding-bottom:20px; display:none">
-			<strong>These credentials do not match our records.</strong>
-		    </div>
-		    <div class="form-group">
-			<div class="row">
- 			    <div class="col-xs-6">
-				<label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Password"); ?>:</label>
-			    </div>
-			    <div class="col-xs-6">
-				<input name="password" class="form-control pull-right b-none"/>
-			    </div>
-			</div>
-		    </div>
-		    <div class="form-group">
-			<div class="row">
- 			    <div class="col-xs-6">
-				<label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Captcha"); ?>:</label>
-			    </div>
-			    <div class="col-xs-6">
-				<input name="captcha" id="captcha" class="form-control" type="text" required placeholder="<?php echo $translation->translateLabel("Enter captcha"); ?>">
-			    </div>
-			    <div class="col-xs-6">
-				<img id="imgcaptcha" src="<?php echo $oscope->captchaBuilder->inline(); ?>" />
+			    <div class="col-md-6 col-lg-6">
+ 				<div class="checkout-form-list" style="margin-bottom:5px">
+				    <label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Captcha"); ?>:</label>
+				    <input name="captcha" id="captcha" type="text" required placeholder="<?php echo $translation->translateLabel("Enter captcha"); ?>">
+				</div>
 			    </div>
 			</div>
 		    </div>
