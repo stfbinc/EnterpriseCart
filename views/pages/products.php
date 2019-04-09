@@ -123,32 +123,34 @@
 				<div class="row">
 				    <!-- single-product start -->
 				    <?php foreach($items as $itemName=>$item): ?>
-					<div class="col-lg-4 col-md-4 col-sm-4">
-					    <div class="single-product">
-						<div class="product-img">
-						    <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>">
-							<img class="primary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
-							<img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
-						    </a>
-						</div>
-						<div class="product-action">
-						    <div class="pro-button-top">
-							<a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>');">add to cart</a>
+					<?php if($item->CartItem): ?>
+					    <div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="single-product">
+						    <div class="product-img">
+							<a href="<?php echo $linksMaker->makeItemLink($itemName); ?>">
+							    <img class="primary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
+							    <img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
+							</a>
 						    </div>
-						</div>
-						<div class="product-info">
-						    <h3>
-							<a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
-						    <div class="pro-price">
-							<span class="normal"><?php echo formatCurrency($item->Price); ?></span>
+						    <div class="product-action">
+							<div class="pro-button-top">
+							    <a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>');">add to cart</a>
+							</div>
 						    </div>
-						    <div class="product-desc">
-							<p>
-							    <?php echo $item->ItemDescription; ?></p>
+						    <div class="product-info">
+							<h3>
+							    <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
+							<div class="pro-price">
+							    <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
+							</div>
+							<div class="product-desc">
+							    <p>
+								<?php echo $item->ItemDescription; ?></p>
+							</div>
 						    </div>
 						</div>
 					    </div>
-					</div>
+					<?php endif; ?>
 				    <?php endforeach; ?>
 				</div>
 			    </div>
@@ -157,33 +159,35 @@
 				    <!-- single-product start -->
 				    <!-- single-product start -->
 				    <?php foreach($items as $itemName=>$item): ?>
-					<div class="col-md-12">
-					    <div class="single-product">
-						<div class="product-img">
-						    <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>">
-							<img class="primary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
-							<img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
-						    </a>
-						</div>
-						<div class="product-action">
-						    <div class="pro-button-top">
-							<a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>');">add to cart</a>
+					<?php if($item->CartItem): ?>
+					    <div class="col-md-12">
+						<div class="single-product">
+						    <div class="product-img">
+							<a href="<?php echo $linksMaker->makeItemLink($itemName); ?>">
+							    <img class="primary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
+							    <img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
+							</a>
 						    </div>
-						</div>
-						<div class="product-info">
-						    <h3>
-							<a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
-						    <div class="pro-price">
-							<span class="normal"><?php echo formatCurrency($item->Price); ?></span>
-							<div class="product-desc">
-							    <p>
-								<?php echo $item->ItemDescription; ?></p>
+						    <div class="product-action">
+							<div class="pro-button-top">
+							    <a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>');">add to cart</a>
+							</div>
+						    </div>
+						    <div class="product-info">
+							<h3>
+							    <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
+							<div class="pro-price">
+							    <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
+							    <div class="product-desc">
+								<p>
+								    <?php echo $item->ItemDescription; ?></p>
+							    </div>
 							</div>
 						    </div>
 						</div>
 					    </div>
+					<?php endif; ?>
 				    <?php endforeach; ?>
-					</div>
 				</div>
 			    </div>
 			</div>
