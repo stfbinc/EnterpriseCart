@@ -175,7 +175,7 @@
 	 values.CustomerZip = $("input[name=CustomerZip]").val();
 	 console.log(values);
 	 
-	 //creating order header
+	 //updating customer information
 	 values.id = "<?php echo $linksMaker->makeEnterpriseXKeyString() . '__' . $user["Customer"]->CustomerID; ?>";
 	 values.type = "Main";
 	 serverEnterpriseXProcedureAnyCall("AccountsReceivable/Customers/ViewCustomers", "updateItemRemote", values, function(data, error){

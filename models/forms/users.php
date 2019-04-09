@@ -79,5 +79,30 @@ class users{
             echo json_encode($user, JSON_PRETTY_PRINT);
         }
     }
+
+    public function getCaptcha(){
+        $this->captchaBuilder->build();
+        $_SESSION['captcha'] = $this->captchaBuilder->getPhrase();
+        header('Content-Type: application/json');
+        echo json_encode([
+            "captcha" =>  $this->captchaBuilder->inline(),
+            "captchaPhrase" => $_SESSION['captcha']
+        ], JSON_PRETTY_PRINT);
+    }
+
+    public function loginWithoutCaptcha(){
+        $defaultCompany = Session::get("defaultCompany");
+        $result = DB::select("SELECT * from customerinformation WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerLogin=? AND CustomerPassword=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $_POST["username"], $_POST["password"]));
+        if(!count($result)){
+            http_response_code(401);
+        }else{
+            $user = [
+                "Customer" => $result[0],
+                "language" => Session::get("user") ? Session::get("user")["language"] : "English"
+            ];
+            Session::set("user", $user);
+            echo json_encode($user, JSON_PRETTY_PRINT);
+        }
+    }
 }
 ?>

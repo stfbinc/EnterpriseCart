@@ -27,6 +27,10 @@
 	"CustomerPhone" => [
 	    "label" => "Phone"
 	],
+	"CustomerPassword" => [
+	    "label" => "Password"
+	],
+
 	/*	"login" => [
 	   "label" => "login"
 	   ],*/
@@ -50,11 +54,11 @@
 
 <style>
  .has-error {
-     border: 1px solid red;
+     border: 1px solid red !important;
  }
 </style>
 
-<div id="registerForm" class="modal fade  bs-example-modal-lg" tabindex="-1" role="dialog">
+<div id="registerDialog" class="modal fade  bs-example-modal-lg" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm modal-dialog-center" style="width:800px;" role="document">
 	<div class="modal-content">
 	    <div class="modal-header">
@@ -97,17 +101,15 @@
 			    </div>
 			</div>
 		    </div>
-		</form>
-		<form id="loginform">
 		    <div class="checkbox-form">
 			<div class="row">
 			    <div class="col-md-6 col-lg-6">
-				<img id="imgcaptcha" style="padding:15px;" src="<?php echo $oscope->captchaBuilder->inline(); ?>" />
+				<img id="imgRegisterCaptcha" style="padding:15px;" src="<?php echo $oscope->captchaBuilder->inline(); ?>" />
 			    </div>
 			    <div class="col-md-6 col-lg-6">
  				<div class="checkout-form-list" style="margin-bottom:5px">
 				    <label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Captcha"); ?>:</label>
-				    <input name="captcha" id="captcha" type="text" required placeholder="<?php echo $translation->translateLabel("Enter captcha"); ?>">
+				    <input name="captcha" id="registerCaptcha" type="text" required placeholder="<?php echo $translation->translateLabel("Enter captcha"); ?>">
 				</div>
 			    </div>
 			</div>
@@ -126,7 +128,7 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div id="loginForm" class="modal fade  bs-example-modal-lg" tabindex="-1" role="dialog">
+<div id="loginDialog" class="modal fade  bs-example-modal-lg" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm modal-dialog-center" style="width:400px;" role="document">
 	<div class="modal-content">
 	    <div class="modal-header">
@@ -156,7 +158,7 @@
 				<label class="dropdown-label pull-left"><?php echo $translation->translateLabel("Password"); ?>:</label>
 			    </div>
 			    <div class="col-xs-6">
-				<input name="password" class="form-control pull-right b-none"/>
+				<input name="password" type="password" class="form-control pull-right b-none"/>
 			    </div>
 			</div>
 		    </div>
@@ -185,7 +187,7 @@
 			</a>
 		    </div>
 		</div>
-		<button type="button" class="btn btn-default pull-left" data-dismiss="modal" onclick="$('#registerForm').modal('show');">
+		<button type="button" class="btn btn-default pull-left" data-dismiss="modal" onclick="$('#registerDialog').modal('show');">
 		    <?php echo $translation->translateLabel("Register"); ?>
 		</button>
 		<button type="button" class="btn btn-primary" id="loginButton">
@@ -250,7 +252,7 @@
 				</a>
 			    </li>
 			<?php else: ?>
-			    <li><a href="javascript:;" onclick="$('#loginForm').modal('show');">
+			    <li><a href="javascript:;" onclick="$('#loginDialog').modal('show');">
 				<?php
 				    if(key_exists("Customer", $user))
 					echo $user["Customer"]->CustomerLogin;
@@ -382,6 +384,70 @@
      $("#currencyChooser").html(_html);
  });
 
+ var registerCaptcha = "<?php echo $oscope->captchaBuilder->getPhrase(); ?>";
+ $('#registerButton').click(function(){
+     var registerform = $('#registerForm');
+     var requiredFields = [
+	 "CustomerPhone", 
+	 "CustomerPassword", 
+	 "CustomerFirstName",
+	 "CustomerLastName",
+	 "CustomerName",
+	 "CustomerEmail"
+     ], ind, success = true;
+     
+     for(ind in requiredFields){
+	 $("input[name=" + requiredFields[ind] + "]").removeClass("has-error");
+	 if($("input[name=" + requiredFields[ind] + "]").val() == ""){
+	     $("input[name=" + requiredFields[ind] + "]").addClass("has-error");
+	     success = false;
+	 }
+     }
+     if($("#registerCaptcha").val() != registerCaptcha){
+	 $("#registerCaptcha").addClass("has-error");
+	 success = false;
+     }else
+     $("#registerCaptcha").removeClass("has-error");
+     
+     if(success){
+	 serverEnterpriseXProcedureAnyCall("AccountsReceivable/Customers/ViewCustomers", "getNewItemAllRemote", { id : "<?php echo $linksMaker->makeEnterpriseXKeyString(); ?>"}, function(data, error){
+	     var values = JSON.parse(data);
+	     values.CustomerID = values.CustomerFirstName = $("input[name=CustomerFirstName]").val();
+	     values.CustomerLastName = $("input[name=CustomerLastName]").val();
+	     values.CustomerName = $("input[name=CustomerName]").val();
+	     values.CustomerEmail = $("input[name=CustomerEmail]").val();
+	     values.CustomerLogin = values.CustomerPhone = $("input[name=CustomerPhone]").val();
+	     values.CustomerPassword = $("input[name=CustomerPassword]").val();
+	     values.CustomerWebPage = $("input[name=CustomerWebPage]").val();
+	     values.CustomerAddress1 = $("input[name=CustomerAddress1]").val();
+	     values.CustomerAddress2 = $("input[name=CustomerAddress2]").val();
+	     values.CustomerAddress3 = $("input[name=CustomerAddress3]").val();
+	     values.CustomerCounty = $("input[name=CustomerCountry]").val();
+	     values.CustomerState = $("input[name=CustomerState]").val();
+	     values.CustomerCity = $("input[name=CustomerCity]").val();
+	     values.CustomerZip = $("input[name=CustomerZip]").val();
+	     console.log(values);
+	     
+	     serverEnterpriseXProcedureAnyCall("AccountsReceivable/Customers/ViewCustomers", "insertItemRemote", values, function(data, error){
+		 serverProcedureAnyCall("users", "loginWithoutCaptcha", {
+		     username : values.CustomerLogin,
+		     password : values.CustomerPassword
+		 }, function(data, error){
+		     if(data)
+			 location.reload();
+
+		 });
+	     });
+	 });
+     }else{
+	 serverProcedureAnyCall("users", "getCaptcha", {}, function(data, error){
+	     document.getElementById('imgRegisterCaptcha').src = data.captcha;
+	     registerCaptcha = data.captchaPhrase;
+	 });     
+     }
+     return;
+ });
+ 
  $('#loginButton').click(function(){
      var loginform = $('#loginform');
      serverProcedureAnyCall("users", "login", loginform.serialize(), function(data, error){
