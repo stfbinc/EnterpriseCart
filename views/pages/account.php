@@ -107,7 +107,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="checkbox-form">
 			<h3>
-			    <?php echo $translation->translateLabel("Your Orderds"); ?>
+			    <?php echo $translation->translateLabel("Your Orders"); ?>
 			</h3>
 		    </div>
 		</div>
@@ -117,6 +117,7 @@
 			    <table class="table table-responsible">
 				<thead>
 				    <th><?php echo $translation->translateLabel("Tracking #"); ?></th>
+				    <th><?php echo $translation->translateLabel("Order Number"); ?></th>
 				    <th><?php echo $translation->translateLabel("Order Date"); ?></th>
 				    <th><?php echo $translation->translateLabel("Ship Date"); ?></th>
 				    <th><?php echo $translation->translateLabel("Status"); ?></th>
@@ -126,7 +127,10 @@
 				    <?php foreach($transactions as $transaction): ?>
 					<tr>
 					    <td>
-						<a href="<?php echo $linksMaker->makeEnterpriseXDocreportsLink("order", $transaction->OrderNumber) ?>" style="color:blue;" target="_blank"><?php echo $transaction->OrderNumber; ?></a>
+						<a href="<?php echo $linksMaker->makeEnterpriseXDocreportsLink("order", $transaction->OrderNumber) ?>" style="color:blue;" target="_blank"><?php echo $transaction->TrackingNumber; ?></a>
+					    </td>
+					    <td>
+						<?php echo $transaction->OrderNumber; ?>
 					    </td>
 					    <td>
 						<?php echo formatDate($transaction->OrderDate); ?>

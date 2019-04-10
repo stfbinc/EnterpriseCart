@@ -483,26 +483,11 @@
      });     
  });
 
- var items = [
-     {
-	 ItemID : "Hoho",
-	 Price : 400.50,
-	 PictureURL : "assets/img/cart/total-cart.jpg",
-	 counter : 1
-     },
-     {
-	 ItemID : "Crown",
-	 Price : 40000,
-	 PictureURL : "assets/img/cart/total-cart.jpg",
-	 counter : 2
-     }
- ];
- 
  function shoppingCartRender(shoppingCart){
      var element = $("#shoppingCartTopbarList"), _html = '', itemsCounter = 0, ind, subtotal = 0,
 	 items = shoppingCart.items;
      for(ind in items){
-	 _html += "<li><div class=\"cart-img\"><a href=\"#\"><img src=\"" + linksMaker.makeItemImageLink(items[ind]) + "\" alt=\"\" /></a></div><div class=\"cart-info\"><h4><a href=\"#\">" + items[ind].ItemID + "</a></h4><span>" + items[ind].Price + " <span>x " + items[ind].counter + "</span></span></div><div onclick=\"shoppingCartRemoveItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-minus\"></i></div><div onclick=\"shoppingCartAddItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-plus\"></i></div></li>";
+	 _html += "<li><div class=\"cart-img\"><a href=\"#\"><img src=\"" + linksMaker.makeItemImageLink(items[ind]) + "\" alt=\"\" /></a></div><div class=\"cart-info\"><h4><a href=\"#\">" + items[ind].ItemID + "</a></h4><span>" + formatCurrency(items[ind].Price) + " <span>x " + items[ind].counter + "</span></span></div><div onclick=\"shoppingCartRemoveItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-minus\"></i></div><div onclick=\"shoppingCartAddItem('" + items[ind].ItemID + "');\" class=\"del-icon\"><i class=\"fa fa-plus\"></i></div></li>";
 	 itemsCounter++;
 	 subtotal += items[ind].Price * items[ind].counter;
      }

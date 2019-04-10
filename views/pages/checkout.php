@@ -269,10 +269,8 @@
 	 _html += "<td>" + items[ind].ItemID + "</td>";
 	 _html += "<td>" + items[ind].ItemName + "</td>";
 	 _html += "<td>" + items[ind].ItemDescription + "</td>";
-	 _html += "<td>" + items[ind].ItemID + "</td>";
 	 _html += "<td>" + items[ind].counter + "</td>";
 	 _html += "<td>" + formatCurrency(items[ind].Price) + "</td>";
-	 _html += "<td>" + items[ind].ItemID + "</td>";
 	 _html += "<td>" + formatCurrency(items[ind].Price * items[ind].counter) + "</td></tr>";
 	 itemsCounter++;
 	 subtotal += items[ind].Price * items[ind].counter;
