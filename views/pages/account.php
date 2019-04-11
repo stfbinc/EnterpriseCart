@@ -24,6 +24,9 @@
     ];
 
     $customerFieldsLeft = [
+	"CustomerID" => [
+	    "label" => "User ID"
+	],
 	"CustomerPhone" => [
 	    "label" => "Phone"
 	],
@@ -127,7 +130,7 @@
 				    <?php foreach($transactions as $transaction): ?>
 					<tr>
 					    <td>
-						<a href="<?php echo $linksMaker->makeEnterpriseXDocreportsLink("order", $transaction->OrderNumber) ?>" style="color:blue;" target="_blank"><?php echo $transaction->TrackingNumber; ?></a>
+						<a href="<?php echo $linksMaker->makeEnterpriseXDocreportsLink("order", $transaction->OrderNumber) ?>" style="color:blue;" target="_blank"><?php echo $transaction->TrackingNumber ? $transaction->TrackingNumber : $transaction->OrderNumber; ?></a>
 					    </td>
 					    <td>
 						<?php echo $transaction->OrderNumber; ?>

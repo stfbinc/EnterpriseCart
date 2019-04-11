@@ -52,7 +52,8 @@ class products{
         $result = DB::select("SELECT * from inventoryfamilies WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"]));
 
         foreach($result as $record)
-            $res[$record->ItemFamilyID] = $record;
+            if($record->ItemFamilyID != "DEFAULT" && $record->FamilyName != "DEFAULT")
+                $res[$record->ItemFamilyID] = $record;
 
         if($remoteCall)
             echo json_encode($res, JSON_PRETTY_PRINT);

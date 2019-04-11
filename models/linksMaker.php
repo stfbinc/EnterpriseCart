@@ -42,7 +42,10 @@ class linksMaker{
     }
     
     function makeEnterpriseXImageLink($scope, $item, $field){
-		 return "{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}";
+        if(file_exists(__DIR__ . "/../../{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}"))
+            return "{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}";
+        else
+            return "assets/img/stfblogosm.jpg";
     }
     
     function makeFamilyImageLink($family){
