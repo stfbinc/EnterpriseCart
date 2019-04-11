@@ -508,8 +508,8 @@
      console.log('checkout');
  }
 
- function shoppingCartAddItem(ItemID){
-     serverProcedureAnyCall("shoppingcart", "shoppingCartAddItem", "ItemID=" + ItemID, function(data, error){
+ function shoppingCartAddItem(ItemID, qty){
+     serverProcedureAnyCall("shoppingcart", "shoppingCartAddItem", "ItemID=" + ItemID + (typeof(qty) != 'undefined' ? "&qty=" + qty : ""), function(data, error){
 	 if(data){
 	     shoppingCartRender(JSON.parse(data));
 	     if(typeof shoppingCartFormRender == 'function')

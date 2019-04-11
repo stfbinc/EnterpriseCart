@@ -51,24 +51,26 @@
 					    <img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
 					</a>
 				    </div>
-                                    <div class="product-action">
-					<div class="pro-button-top">
-                                            <a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>');">add to cart</a>
-					</div>
-                                    </div>
 				    <div class="product-info">
 					<h3>
 					    <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
 					<div class="pro-price">
-					    <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
+					    Price: <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
+					    <br style="margin-bottom:20px" />
+					    Qty: <input id="itemSingleQty" type="number" style="width:60px" value=0 />
 					    <div class="product-desc">
-						<p>
-						    <?php echo $item->ItemDescription; ?></p>
+						<!-- <p>
+						     <?php echo $item->ItemDescription; ?></p> -->
 						<p>
 						    <?php echo $item->ItemLongDescription; ?></p>
 					    </div>
 					</div>
 				    </div>
+                                    <div class="product-action">
+					<div class="pro-button-top">
+                                            <a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>', $('#itemSingleQty').val());">add to cart</a>
+					</div>
+                                    </div>
 				</div>
 			    </div>
 			<?php endif; ?>

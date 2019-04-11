@@ -25,7 +25,7 @@
   Calls:
   MySql Database
    
-  Last Modified: 28/03/2019
+  Last Modified: 11/04/2019
   Last Modified by: Nikita Zaharov
 */
 
@@ -51,6 +51,7 @@ class shoppingcart{
         $defaultCompany = Session::get("defaultCompany");
         $res = [];
         $id = $_POST["ItemID"];
+        $qty = key_exists("qty", $_POST) ? $_POST["qty"] : 1;
         
         $result = DB::select("SELECT * from inventoryitems WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND ItemID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $id));
 
@@ -64,10 +65,10 @@ class shoppingcart{
 
         if(!key_exists($item->ItemID, $shoppingCart["items"])){
             $shoppingCart["items"][$item->ItemID] = json_decode(json_encode($item), true);
-            $shoppingCart["items"][$item->ItemID]["counter"] = 1;
+            $shoppingCart["items"][$item->ItemID]["counter"] = $qty;
         }
-        else
-            $shoppingCart["items"][$item->ItemID]["counter"]++;
+        else 
+            $shoppingCart["items"][$item->ItemID]["counter"] += $qty;
         
         Session::set("shoppingCart", $shoppingCart);
         
