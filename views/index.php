@@ -124,6 +124,52 @@
 		  cb(undefined, xhr);
 	      });
 	 }
+
+	 var onlocationSkipUrls = {};
+	 function onlocation(location){
+	     var path = location.toString();
+	     if(onlocationSkipUrls.hasOwnProperty(path)){
+		 delete onlocationSkipUrls[path];
+		 return;
+	     }
+	     var match;
+	     if(path.search(/index\.php.*\#\//) != -1){
+		 path = path.replace(/index\.php.*\#\//, "index\.php");
+		 match = path.match(/grid\/(\w+)\/\w+\/(\w+)\//);
+		 //		 if(match)
+		 //		     sideBarSelectItem(findMenuItem(path));//match[1], match[2]);
+		 //		 else{
+		 //		     sideBarCloseAll();
+		 //		     sideBarDeselectAll();
+		 //		 }
+		 //console.log(path);
+		 $.get(path)
+		  .done(function(data){
+		      setTimeout(function(){
+			  $("#content").html(data);
+			  window.scrollTo(0,0);
+		      },0);
+		  })
+		  .error(function(xhr){
+		      if(xhr.status == 401)
+			  console.log(xhr.responseText);
+		      //	      window.location = "index.php?page=login";
+		      else{
+			  $("#content").html(xhr.responseText);
+			  window.scrollTo(0,0);
+			  //			  alert("Unable to load page");
+		      }
+		  });
+	     }
+	 }
+	 onlocation(window.location);
+	 $(window).on('hashchange', function() {
+	     onlocation(window.location);
+	 });
+
+	 //select sidebar item if application loaded in separated pages mode, like that: grid/GeneralLedger/ledgerAccountGroup/grid/main/all, without index#/
+	 if(window.location.toString().search(/#/) == -1)
+	     window.location = "index.php#/?page=forms&action=products";
 	</script>
     </head>
     <body onload="main();" class="home-1">
@@ -340,56 +386,10 @@
 	<!-- Cookie js -->
 	<script src="assets/js/jquery.cookie.js"></script>
 
-	<script>
-	 
-	 var onlocationSkipUrls = {};
-	 function onlocation(location){
-	     var path = location.toString();
-	     if(onlocationSkipUrls.hasOwnProperty(path)){
-		 delete onlocationSkipUrls[path];
-		 return;
-	     }
-	     var match;
-	     if(path.search(/index\.php.*\#\//) != -1){
-		 path = path.replace(/index\.php.*\#\//, "index\.php");
-		 match = path.match(/grid\/(\w+)\/\w+\/(\w+)\//);
-		 //		 if(match)
-		 //		     sideBarSelectItem(findMenuItem(path));//match[1], match[2]);
-		 //		 else{
-		 //		     sideBarCloseAll();
-		 //		     sideBarDeselectAll();
-		 //		 }
-		 //console.log(path);
-		 $.get(path)
-		  .done(function(data){
-		      setTimeout(function(){
-			  $("#content").html(data);
-			  window.scrollTo(0,0);
-		      },0);
-		  })
-		  .error(function(xhr){
-		      if(xhr.status == 401)
-			  console.log(xhr.responseText);
-		      //	      window.location = "index.php?page=login";
-		      else{
-			  $("#content").html(xhr.responseText);
-			  window.scrollTo(0,0);
-			  //			  alert("Unable to load page");
-		      }
-		  });
-	     }
-	 }
-	 onlocation(window.location);
-	 $(window).on('hashchange', function() {
-	     onlocation(window.location);
-	 });
-
-	 //select sidebar item if application loaded in separated pages mode, like that: grid/GeneralLedger/ledgerAccountGroup/grid/main/all, without index#/
+	<script>	 
 	 function main(){
              var spinnerTarget = document.getElementById('content');
              var spinner;
-	     if(window.location.toString().search(/#/) == -1)
-		 window.location = "index.php#/?page=forms&action=products";
 	     $(document).ajaxStart(function(){
 		 setTimeout(function(){
 		     spinner = new Spinner({
@@ -417,7 +417,7 @@
 		 },0);
 	     });
 	     $(document).ajaxStop(function(){
-//		 console.log('end');
+		 //		 console.log('end');
 		 if(spinner)
 		     spinner.stop();
 		 else
