@@ -29,19 +29,19 @@
   models/companies.php
   app from index.php
 
-  Last Modified: 14.03.2019
+  Last Modified: 07.05.2019
   Last Modified by: Nikita Zaharov
 */
 
 use Gregwar\Captcha\CaptchaBuilder;
 
-require 'models/translation.php';
-require 'models/companies.php';
-require 'models/users.php';
+require_once 'models/translation.php';
+require_once 'models/companies.php';
+require_once 'models/users.php';
 
 $GLOBALS["capsule"]->setAsGlobal();
 
-class controller{
+class loginController{
     public $styles = [
         "blue",
         "gray"

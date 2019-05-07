@@ -25,15 +25,15 @@
   models/formDataSource derivatives -- models who inherits from formDataSource
   app from index.php
 
-  Last Modified: 22.03.2019
+  Last Modified: 07.05.2019
   Last Modified by: Nikita Zaharov
 */
 
-require 'models/translation.php';
-require 'models/linksMaker.php';
-require 'views/format.php';
+require_once 'models/translation.php';
+require_once 'models/linksMaker.php';
+require_once 'views/format.php';
 
-class controller{
+class formsController{
     public $user = false;
     public $interface = "default";
     public $interfaceType = "ltr";

@@ -170,8 +170,8 @@
 	 });
 
 	 //select sidebar item if application loaded in separated pages mode, like that: grid/GeneralLedger/ledgerAccountGroup/grid/main/all, without index#/
-	 if(window.location.toString().search(/#/) == -1)
-	     window.location = "index.php#/?page=forms&action=products";
+//	 if(window.location.toString().search(/#/) == -1)
+//	     window.location = "index.php#/?page=forms&action=products";
 	</script>
     </head>
     <body onload="main();" class="home-1">
@@ -183,7 +183,7 @@
 	<?php require "nav/topbar.php"; ?>
 
 	<div id="content">
-	    
+	    <?php $api->get("forms", "products"); ?>
 	</div>
 	
 	<!-- footer start -->

@@ -26,20 +26,21 @@
   models/translation.php
   app from index.php
 
-  Last Modified: 03.04.2019
+  Last Modified: 07.05.2019
   Last Modified by: Nikita Zaharov
 */
 
 //require 'models/users.php';
 use Gregwar\Captcha\CaptchaBuilder;
-require 'models/translation.php';
+require_once 'models/translation.php';
 //require 'models/security.php';
 //require 'models/drillDowner.php';
-require 'models/linksMaker.php';
-require 'views/format.php';
-require 'models/forms/index.php';
+require_once 'models/linksMaker.php';
+require_once 'views/format.php';
+require_once 'models/forms/index.php';
+require_once 'api.php';
 
-class controller{
+class indexController{
     public $user = false;
     public $interface = "default";
     public $interfaceType = "ltr";
@@ -92,6 +93,7 @@ class controller{
             $this->dashboardTitle = $translation->translateLabel($this->dashboardTitle);
             $this->breadCrumbTitle = $translation->translateLabel($this->breadCrumbTitle);
             $oscope = $this;
+            $api = new api($app);
             $this->captchaBuilder->build();
             $_SESSION['captcha'] = $this->captchaBuilder->getPhrase();
 

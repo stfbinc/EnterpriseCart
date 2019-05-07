@@ -22,7 +22,7 @@
    + /controllers/*
 
 
-   Last Modified: 14.03.2019
+   Last Modified: 07.05.2019
    Last Modified by: Nikita Zaharov
  */
 //require 'vendor/autoload.php';
@@ -71,16 +71,17 @@ class app{
         if(!file_exists('controllers/' . $this->page . '.php'))
             throw new Exception("controller ". 'controllers/' . $this->page . '.php' . "is not found");
         require 'controllers/' . $this->page . '.php';
-        $this->controller = new controller();
+        $controllerName = $this->page. 'Controller';
+        $this->controller = new $controllerName();
     }
 }
 
 function fatal_handler() {
     $error = error_get_last();
     if( $error !== NULL && $error["type"] <= 16){
-	http_response_code(500);
-	$message = "{$error["message"]} in {$error["file"]} on line {$error["line"]}";
-	errorHandler($message, $error);
+        http_response_code(500);
+        $message = "{$error["message"]} in {$error["file"]} on line {$error["line"]}";
+        errorHandler($message, $error);
     }
 }
 
