@@ -23,6 +23,7 @@
 
 class linksMaker{
     public $scope;
+    public $fileNotFoundPath = "assets/img/notfound.png";
     function linksMaker($scope){
         $this->scope = $scope;
     }
@@ -42,14 +43,17 @@ class linksMaker{
     }
     
     function makeEnterpriseXImageLink($scope, $item, $field){
-        if(file_exists(__DIR__ . "/../../{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}"))
+        if($item->$field != null && strlen($item->$field) && file_exists(__DIR__ . "/../../{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}"))
             return "{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}";
         else
-            return "assets/img/stfblogosm.jpg";
+            return $this->fileNotFoundPath;
     }
     
     function makeFamilyImageLink($family){
-        return ($family->FamilyPictureURL != null  && count($family->FamilyPictureURL)? "assets/img/" . $family->FamilyPictureURL : "assets/img/product/s1.jpg");
+        if($this->makeEnterpriseXImageLink("", $family, "FamilyPicture") != $this->fileNotFoundPath)
+            return $this->makeEnterpriseXImageLink("", $family, "FamilyPicture");
+        else
+            return ($family->FamilyPictureURL != null  && strlen($family->FamilyPictureURL)? "assets/img/" . $family->FamilyPictureURL : $this->fileNotFoundPath);
     }
 
     function makeFamilyLink($familyName){
@@ -57,7 +61,10 @@ class linksMaker{
     }
     
     function makeCategoryImageLink($category){
-        return ($category->CategoryPictureURL != null  && count($category->CategoryPictureURL)? "assets/img/" . $category->CategoryPictureURL : "assets/img/product/s1.jpg");
+        if($this->makeEnterpriseXImageLink("", $category, "CategoryPicture") != $this->fileNotFoundPath)
+            return $this->makeEnterpriseXImageLink("", $category, "CategoryPicture");
+        else
+            return ($category->CategoryPictureURL != null  && strlen($category->CategoryPictureURL)? "assets/img/" . $category->CategoryPictureURL : $this->fileNotFoundPath);
     }
 
     function makeCategoryLink($category){
@@ -65,7 +72,10 @@ class linksMaker{
     }
 
     function makeItemImageLink($item){
-        return ($item->PictureURL != null  && count($item->PictureURL)? "assets/img/" . $item->PictureURL : "assets/img/product/s1.jpg");
+        if($this->makeEnterpriseXImageLink("", $item, "Picture") != $this->fileNotFoundPath)
+            return $this->makeEnterpriseXImageLink("", $item, "Picture");
+        else
+            return ($item->PictureURL != null  && strlen($item->PictureURL)? "assets/img/" . $item->PictureURL : $this->fileNotFoundPath);
     }
 
     function makeItemLink($item){
