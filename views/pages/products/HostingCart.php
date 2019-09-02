@@ -20,7 +20,7 @@
                         </div>
                         <div class="product-info">
                             <h3>
-                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
+                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $item->ItemName; ?></a></h3>
                             <div class="pro-price">
                                 Price: <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
                                 <br style="margin-bottom:20px" />
@@ -98,7 +98,7 @@
                                         </div>
                                         <div class="product-info">
                                             <h3>
-                                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
+                                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $item->ItemName; ?></a></h3>
                                             <div class="pro-price">
                                                 <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
                                             </div>
@@ -134,7 +134,7 @@
                                         </div>
                                         <div class="product-info">
                                             <h3>
-                                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
+                                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $item->ItemName; ?></a></h3>
                                             <div class="pro-price">
                                                 <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
                                                 <div class="product-desc">
