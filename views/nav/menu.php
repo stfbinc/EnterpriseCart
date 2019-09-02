@@ -7,20 +7,22 @@
                 <div class="main-menu">
                     <nav>
                         <ul id="desktopMenu">
-			    <!--                             <li><a href="#/?page=index&action=store" about"><?php echo $translation->translateLabel("Store"); ?></a></li> -->
-			    
+                            <!--                             <li><a href="#/?page=index&action=store" about"><?php echo $translation->translateLabel("Store"); ?></a></li> -->
+                            
                             <li><a href="#/?page=forms&action=products"><?php echo $translation->translateLabel("Products"); ?></a>
-				<ul id="productsFamilies">
-				</ul>
-			    </li>
+                                <?php if($scope["config"]["software"] == "Cart"): ?>
+                                    <ul id="productsFamilies">
+                                    </ul>
+                                <?php endif; ?>
+                            </li>
                             <!-- <li><a href="#/?page=forms&action=search"><?php echo $translation->translateLabel("Search"); ?></a>
-				 </li> -->
+                                 </li> -->
                             <li><a href="#/?page=forms&action=shoppingcart"><?php echo $translation->translateLabel("My Cart"); ?></a>
                             </li>
-			    <?php if($cartSettings->Support): ?>
-				<li><a href="#/?page=forms&action=loadcontent&content=Support"><?php echo $translation->translateLabel("Support"); ?></a>
-				</li>
-			    <?php endif; ?>
+                            <?php if($cartSettings->Support): ?>
+                                <li><a href="#/?page=forms&action=loadcontent&content=Support"><?php echo $translation->translateLabel("Support"); ?></a>
+                                </li>
+                            <?php endif; ?>
                         </ul>
                     </nav>
                 </div>
@@ -39,9 +41,9 @@
                         <ul id="mobileMenu">
                         </ul>
                     </nav>
-                </div>					
+                </div>     
             </div>
         </div>
     </div>
 </div>
-<!-- mobile-menu-area end -->			
+<!-- mobile-menu-area end -->   

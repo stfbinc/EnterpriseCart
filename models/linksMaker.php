@@ -17,7 +17,7 @@
 
   Calls:
 
-  Last Modified: 22.03.2019
+  Last Modified: 02.09.2019
   Last Modified by: Nikita Zaharov
 */
 
@@ -43,6 +43,8 @@ class linksMaker{
     }
     
     function makeEnterpriseXImageLink($scope, $item, $field){
+        //echo json_encode($item);
+        //$field = strtolower($field);
         if($item->$field != null && strlen($item->$field) && file_exists(__DIR__ . "/../../{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}"))
             return "{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}";
         else
