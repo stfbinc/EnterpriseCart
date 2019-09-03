@@ -154,48 +154,48 @@
          values.ShipMethodID = $("input[name=ShipMethod]").val();
          values.PaymentMethodID = $("input[name=PaymentMethod]").val();
          values.Subtotal = values.Total = values.BalanceDue = values.TaxableSubTotal = checkoutSubtotal;
-
-         serverEnterpriseXProcedureAnyCall("SystemSetup/Admin/AppInstallations", "CreateInstallation", {
-             customer : values,
-             items : checkoutItems.items
-         }, function(data, error){
-             console.log(data)
+         var customer = values;
+         //creating order header
+         serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "insertItemRemote", values, function(data, error){
+             var OrderHeader = JSON.parse(data);
+             //getting template data for order detail
+             serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "getNewItemAllRemote", { id : '', type : "...fields"}, function(data, error){
+                 var ind, values = JSON.parse(data), orderDetails = [], orderDetail, items = checkoutItems.items;
+                 for(ind in items){
+                     orderDetail = Object.assign({}, values);
+                     orderDetail.ItemID = items[ind].ItemID;
+                     //       console.log(items[ind].ItemID);
+                     orderDetail.OrderNumber = OrderHeader.OrderNumber;
+                     orderDetail.OrderQty = items[ind].counter;
+                     orderDetail.Description = items[ind].ItemDescription;
+                     orderDetail.ItemCost = orderDetail.ItemUnitPrice = items[ind].Price;
+                     orderDetails.push(orderDetail);
+                 }
+                 //      console.log(JSON.stringify(orderDetails, null, 3));
+                 //creating order detail records
+                 serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "insertItemsRemote", orderDetails, function(data, error){
+                     //values = JSON.parse(data);
+                     //recalculation order header
+                     serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "Recalc", { OrderNumber : OrderHeader.OrderNumber }, function(data, error){
+                         $("#processorder").val("<?php echo $translation->translateLabel("Print"); ?>");
+                         $("#processorder").off("click");
+                         $("#processorder").click(function(){
+                             Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
+                         });
+                         Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
+                         serverEnterpriseXProcedureAnyCall("SystemSetup/Admin/AppInstallations", "CreateInstallation", {
+                             customer : customer,
+                             items : checkoutItems.items
+                         }, function(data, error){
+                             window.location = "index.php#/?page=forms&action=account";
+                             console.log(data)
+                         }, true);
+                         //console.log(data, error);
+                     });
+                     //createinstallation
+                 }, true);
+             });
          });
-         /*         //creating order header
-            serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "insertItemRemote", values, function(data, error){
-            var OrderHeader = JSON.parse(data);
-            //getting template data for order detail
-            serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "getNewItemAllRemote", { id : '', type : "...fields"}, function(data, error){
-            var ind, values = JSON.parse(data), orderDetails = [], orderDetail, items = checkoutItems.items;
-            for(ind in items){
-            orderDetail = Object.assign({}, values);
-            orderDetail.ItemID = items[ind].ItemID;
-            //       console.log(items[ind].ItemID);
-            orderDetail.OrderNumber = OrderHeader.OrderNumber;
-            orderDetail.OrderQty = items[ind].counter;
-            orderDetail.Description = items[ind].ItemDescription;
-            orderDetail.ItemCost = orderDetail.ItemUnitPrice = items[ind].Price;
-            orderDetails.push(orderDetail);
-            }
-            //      console.log(JSON.stringify(orderDetails, null, 3));
-            //creating order detail records
-            serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderProcessing/ViewOrdersDetail", "insertItemsRemote", orderDetails, function(data, error){
-            //values = JSON.parse(data);
-            //recalculation order header
-            serverEnterpriseXProcedureAnyCall("AccountsReceivable/OrderScreens/ViewOrders", "Recalc", { OrderNumber : OrderHeader.OrderNumber }, function(data, error){
-            $("#processorder").val("<?php echo $translation->translateLabel("Print"); ?>");
-            $("#processorder").off("click");
-            $("#processorder").click(function(){
-            Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
-            });
-            Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
-            window.location = "index.php#/?page=forms&action=account";
-            //console.log(data, error);
-            });
-            //createinstallation
-            }, true);
-            });
-            });*/
      });
  });
  $("#processorder").click(function(){

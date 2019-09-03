@@ -120,8 +120,7 @@
                         <div class="your-order-table table-responsive">
                             <table class="table table-responsible">
                                 <thead>
-                                    <th><?php echo $translation->translateLabel("Installation Name"); ?></th>
-                                    <th><?php echo $translation->translateLabel("Version"); ?></th>
+                                    <th><?php echo $translation->translateLabel("Software"); ?></th>
                                     <th><?php echo $translation->translateLabel("Installation Date"); ?></th>
                                     <th><?php echo $translation->translateLabel("Expiration Date"); ?></th>
                                     <th><?php echo $translation->translateLabel("Active"); ?></th>
@@ -130,10 +129,7 @@
                                     <?php foreach($installations as $installation): ?>
                                         <tr>
                                             <td>
-                                                <a href="<?php echo $linksMaker->makeAppLink($installation["ConfigName"]) ?>" style="color:blue;" target="_blank"><?php echo $installation["InstallationName"]; ?></a>
-                                            </td>
-                                            <td>
-                                                <?php echo $installation["SoftwareID"]; ?>
+                                                <a href="<?php echo $linksMaker->makeAppLink($installation["ConfigName"]) ?>" style="color:blue;" target="_blank"><?php echo $installation["SoftwareID"]; ?></a>
                                             </td>
                                             <td>
                                                 <?php echo formatDate($installation["InstallationDate"]); ?>
@@ -226,7 +222,7 @@
          console.log(values);
          
          //updating customer information
-         values.id = "<?php echo $linksMaker->makeHelpKeyString() . '__' . $user["Customer"]->CustomerID; ?>";
+         values.id = "<?php echo $linksMaker->makeEnterpriseXKeyString() . '__' . $user["Customer"]->CustomerID; ?>";
          values.type = "Main";
          serverEnterpriseXProcedureAnyCall("AccountsReceivable/Customers/ViewCustomers", "updateItemRemote", values, function(data, error){
              serverProcedureAnyCall("users", "sessionUpdate", {}, function(data, error){

@@ -91,7 +91,8 @@
 		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/uploads/" + item + "/" + field;
 	     },
 	     makeEnterpriseXProcedureLink : function(path, procedure){
-		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/index.php?page=grid&action=" + path + "&procedure=" + procedure + "&CompanyID=<?php echo $scope["defaultCompany"]["CompanyID"]; ?>&DivisionID=<?php echo $scope["defaultCompany"]["DivisionID"]; ?>&DepartmentID=<?php echo $scope["defaultCompany"]["DepartmentID"]; ?>&EmployeeID=<?php echo $scope["config"]["EnterpriseXEmployeeID"]; ?>&EmployeePassword=<?php echo $scope["config"]["EnterpriseXEmployeePassword"]; ?>";
+                 var configName = "<?php echo ($scope["config"]["software"] == "Cart" ? "common" : "Admin");  ?>"
+		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/index.php?config=" + configName + "&page=grid&action=" + path + "&procedure=" + procedure + "&CompanyID=<?php echo $scope["defaultCompany"]["CompanyID"]; ?>&DivisionID=<?php echo $scope["defaultCompany"]["DivisionID"]; ?>&DepartmentID=<?php echo $scope["defaultCompany"]["DepartmentID"]; ?>&EmployeeID=<?php echo $scope["config"]["EnterpriseXEmployeeID"]; ?>&EmployeePassword=<?php echo $scope["config"]["EnterpriseXEmployeePassword"]; ?>";
 	     },
 	     makeProcedureLink : function (path, procedure){
 		 return "index.php?page=forms&action=" + path + "&procedure=" + procedure;
@@ -170,8 +171,8 @@
 	 });
 
 	 //select sidebar item if application loaded in separated pages mode, like that: grid/GeneralLedger/ledgerAccountGroup/grid/main/all, without index#/
-//	 if(window.location.toString().search(/#/) == -1)
-//	     window.location = "index.php#/?page=forms&action=products";
+         //	 if(window.location.toString().search(/#/) == -1)
+         //	     window.location = "index.php#/?page=forms&action=products";
 	</script>
     </head>
     <body onload="main();" class="home-1">
