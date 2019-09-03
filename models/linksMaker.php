@@ -17,7 +17,7 @@
 
   Calls:
 
-  Last Modified: 02.09.2019
+  Last Modified: 03.09.2019
   Last Modified by: Nikita Zaharov
 */
 
@@ -82,6 +82,10 @@ class linksMaker{
 
     function makeItemLink($item){
         return "#/?page=forms&action=products&categories=true&family={$_GET["family"]}&items=true&category={$_GET["category"]}&item=$item";
+    }
+
+    function makeAppLink($configName){
+        echo "{$this->scope["config"]["EnterpriseXURL"]}/index.php?page=login&config=$configName";
     }
 }
 ?>

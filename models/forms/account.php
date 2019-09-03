@@ -25,11 +25,12 @@
   Calls:
   MySql Database
    
-  Last Modified: 04/04/2019
+  Last Modified: 03/09/2019
   Last Modified by: Nikita Zaharov
 */
 
 class account{
+    //for Cart
     public function getTransactions($remoteCall = false){
         $user = Session::get("user");
         $defaultCompany = Session::get("defaultCompany");
@@ -37,6 +38,19 @@ class account{
 
         if($remoteCall)
             echo json_encode($result, JSON_PRETTY_PRINT);
+        return $result;
+    }        
+
+    //for Hosting Cart
+    public function getInstallations($remoteCall = false){
+        $user = Session::get("user");
+        $defaultCompany = Session::get("defaultCompany");
+        $result = DB::select("SELECT * from appinstallations WHERE CustomerID=? order by InstallationDate desc", array($user["Customer"]->CustomerID));
+        $result = json_decode(json_encode($result), true);
+
+        if($remoteCall)
+            echo json_encode($result, JSON_PRETTY_PRINT);
+        
         return $result;
     }        
 }
