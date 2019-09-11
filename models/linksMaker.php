@@ -45,7 +45,8 @@ class linksMaker{
     function makeEnterpriseXImageLink($scope, $item, $field){
         //echo json_encode($item);
         //$field = strtolower($field);
-        if($item->$field != null && strlen($item->$field) && file_exists(__DIR__ . "/../../{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}"))
+        //        echo __DIR__ . "/../../{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}";
+        if($item->$field != null && strlen($item->$field) && file_exists(__DIR__ . "/../../uploads/{$item->$field}"))
             return "{$this->scope["config"]["EnterpriseXURL"]}/uploads/{$item->$field}";
         else
             return $this->fileNotFoundPath;
