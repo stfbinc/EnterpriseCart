@@ -88,5 +88,9 @@ class linksMaker{
     function makeAppLink($configName){
         echo "{$this->scope["config"]["EnterpriseXURL"]}/index.php?page=login&config=$configName";
     }
+
+    function makeProductsLink(){
+        return "index.php#/?page=forms&action=products";
+    }
 }
 ?>

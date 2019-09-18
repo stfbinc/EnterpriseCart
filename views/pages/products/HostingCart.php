@@ -49,7 +49,29 @@
         $_GET["family"] = "Cloud";
         $_GET["category"] = "Software";
         $categories = $data->getCategories($_GET["family"]);
+        $priceSort = key_exists("pricesort", $_GET) ? $_GET["pricesort"] : "fromlow";
         $items = $data->getItems("Software");
+        //        $sortedItems = [];
+        function itemSortLow($a, $b){
+            if($a->Price == $b->Price)
+                return 0;
+            else
+                return ($a->Price < $b->Price) ? -1 : 1;
+        }
+
+        function itemSortHigh($a, $b){
+            if($a->Price == $b->Price)
+                return 0;
+            else
+                return ($a->Price > $b->Price) ? -1 : 1;
+
+        }
+
+        if($priceSort == "fromlow")
+            usort($items, "itemSortLow");
+        else
+            usort($items, "itemSortHigh");
+
         //      echo json_encode($categories);
     ?>
     <!-- shop-content start -->
@@ -69,9 +91,14 @@
             <div class="toolbar-form">
                 <form action="#">
                     <div class="tolbar-select">
-                        <select>
-                            <option value="audi">Sort by Price: low to high</option>
-                            <option value="audi">Sort by Price: high to low</option>
+                        <select id="pricesortSelector">
+                            <?php if($priceSort == "fromlow"): ?>
+                                <option value="fromlow">Sort by Price: low to high</option>
+                                <option value="fromhigh">Sort by Price: high to low</option>
+                            <?php else: ?>
+                                <option value="fromhigh">Sort by Price: high to low</option>
+                                <option value="fromlow">Sort by Price: low to high</option>
+                            <?php endif; ?>
                         </select>
                     </div>
                 </form>
@@ -161,4 +188,13 @@
                  </div>
                  </div> -->
         </div>
+        <script>
+         var pricesortSelector = $("#pricesortSelector");
+         pricesortSelector.change(function(){
+             window.location = "<?php echo $linksMaker->makeProductsLink(); ?>&pricesort=" + pricesortSelector.val();
+             //             onlocation(window.location + "&pricesort=" + pricesortSelector.val());
+             //           console.log(pricesortSelector.val());
+         });
+        </script>
+    </div>
 <?php endif; ?>
