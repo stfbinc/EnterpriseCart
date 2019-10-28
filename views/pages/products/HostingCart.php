@@ -9,18 +9,18 @@
         <!-- single-product start -->
         <!-- single-product start -->
         <?php foreach($items as $itemName=>$item): ?>
-            <?php if($itemName == $_GET["item"]): ?>
+            <?php if($item->ItemID == $_GET["item"]): ?>
                 <div class="col-md-12">
                     <div class="single-product">
                         <div class="product-img">
-                            <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>">
+                            <a href="<?php echo $linksMaker->makeItemLink($item->ItemID); ?>">
                                 <img class="primary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
                                 <img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
                             </a>
                         </div>
                         <div class="product-info">
                             <h3>
-                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $item->ItemName; ?></a></h3>
+                                <a href="<?php echo $linksMaker->makeItemLink($item->ItemID); ?>"><?php echo $item->ItemName; ?></a></h3>
                             <div class="pro-price">
                                 Price: <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
                                 <br style="margin-bottom:20px" />
@@ -35,7 +35,7 @@
                         </div>
                         <div class="product-action">
                             <div class="pro-button-top">
-                                <a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>', $('#itemSingleQty').val());">add to cart</a>
+                                <a href="javascript:shoppingCartAddItem('<?php echo $item->ItemID; ?>', $('#itemSingleQty').val());">add to cart</a>
                             </div>
                         </div>
                     </div>
@@ -113,19 +113,19 @@
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="single-product">
                                         <div class="product-img">
-                                            <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>">
+                                            <a href="<?php echo $linksMaker->makeItemLink($item->ItemID); ?>">
                                                 <img class="primary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
                                                 <img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
                                             </a>
                                         </div>
                                         <div class="product-action">
                                             <div class="pro-button-top">
-                                                <a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>');">add to cart</a>
+                                                <a href="javascript:shoppingCartAddItem('<?php echo $item->ItemID; ?>');">add to cart</a>
                                             </div>
                                         </div>
                                         <div class="product-info">
                                             <h3>
-                                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $item->ItemName; ?></a></h3>
+                                                <a href="<?php echo $linksMaker->makeItemLink($item->ItemID); ?>"><?php echo $item->ItemName; ?></a></h3>
                                             <div class="pro-price">
                                                 <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
                                             </div>
@@ -149,19 +149,19 @@
                                 <div class="col-md-12">
                                     <div class="single-product">
                                         <div class="product-img">
-                                            <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>">
+                                            <a href="<?php echo $linksMaker->makeItemLink($item->ItemID); ?>">
                                                 <img class="primary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
                                                 <img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
                                             </a>
                                         </div>
                                         <div class="product-action">
                                             <div class="pro-button-top">
-                                                <a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>');">add to cart</a>
+                                                <a href="javascript:shoppingCartAddItem('<?php echo $item->ItemID; ?>');">add to cart</a>
                                             </div>
                                         </div>
                                         <div class="product-info">
                                             <h3>
-                                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $item->ItemName; ?></a></h3>
+                                                <a href="<?php echo $linksMaker->makeItemLink($item->ItemID); ?>"><?php echo $item->ItemName; ?></a></h3>
                                             <div class="pro-price">
                                                 <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
                                                 <div class="product-desc">

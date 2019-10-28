@@ -69,12 +69,13 @@
 	<script>
 	 function formatCurrency(value, precision){
 	     var parts;
-	     value = value.toString();
-	     if(!precision)
-		 precision = 2;
-	     if((parts = value.match(/([-+\d]+)\.(\d+)/)) != null)
-		 value = parts[1].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + parts[2].substring(0, precision);
-
+             if(value != undefined){
+                 value = value.toString();
+                 if(!precision)
+		     precision = 2;
+                 if((parts = value.match(/([-+\d]+)\.(\d+)/)) != null)
+		     value = parts[1].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + parts[2].substring(0, precision);
+             }
 	     return value;
 	 }
 
