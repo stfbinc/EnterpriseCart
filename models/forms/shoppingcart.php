@@ -100,6 +100,10 @@ class shoppingcart{
         echo json_encode($shoppingCart, JSON_PRETTY_PRINT);
     }
 
+    public function shoppingCartClean(){
+        Session::set("shoppingCart", [ "items" => []]);
+    }
+    
     public function shoppingCartGetCart(){
         $shoppingCart = Session::get("shoppingCart");
         if($shoppingCart == null)

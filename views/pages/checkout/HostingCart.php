@@ -187,8 +187,10 @@
                              customer : customer,
                              items : checkoutItems.items
                          }, function(data, error){
-                             window.location = "index.php#/?page=forms&action=account";
-                             console.log(data)
+                             serverProcedureAnyCall("shoppingcart", "shoppingCartClean", undefined, function(cdata, error){
+                                 window.location = "index.php#/?page=forms&action=account";
+                                 console.log(data)
+                             });
                          }, true);
                          //console.log(data, error);
                      });
