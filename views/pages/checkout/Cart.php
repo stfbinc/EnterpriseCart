@@ -122,14 +122,16 @@
                         <h3>
                             <?php echo $translation->translateLabel("Your Order"); ?></h3>
                         <div class="your-order-table table-responsive">
-                            <table class="table table-responsible">
+                            <table class="table table-responsible checkout-items-table">
                                 <thead>
-                                    <th><?php echo $translation->translateLabel("Item ID"); ?></th>
-                                    <th><?php echo $translation->translateLabel("Item Name"); ?></th>
-                                    <th><?php echo $translation->translateLabel("Description"); ?></th>
-                                    <th><?php echo $translation->translateLabel("Quantity"); ?></th>
-                                    <th><?php echo $translation->translateLabel("Price"); ?></th>
-                                    <th><?php echo $translation->translateLabel("Amount"); ?></th>
+                                    <!-- <th style="text-align:left"><?php echo $translation->translateLabel("Item ID"); ?></th> -->
+                                    <th style="text-align:left"><?php echo $translation->translateLabel("Item Name"); ?></th>
+                                    <th style="text-align:left"><?php echo $translation->translateLabel("Description"); ?></th>
+                                    <th style="text-align:left"><?php echo $translation->translateLabel("Long Description"); ?></th>
+
+                                    <th style="text-align:left; width:5%"><?php echo $translation->translateLabel("Quantity"); ?></th>
+                                    <th style="text-align:left; width:5%"><?php echo $translation->translateLabel("Price"); ?></th>
+                                    <th style="text-align:left; width:5%"><?php echo $translation->translateLabel("Amount"); ?></th>
                                 </thead>
                                 <tbody id="shoppingCartFormList" >
                                     <tr>
@@ -198,7 +200,7 @@
                             </div>
                             <?php if(key_exists("Customer", $user)): ?>
                                 <div class="order-button-payment" style="margin-top:100px">
-                                    <input type="submit" id="processorder" value="<?php echo $translation->translateLabel("Process Order"); ?>" />
+                                    <input type="submit" id="processorder" value="<?php echo $translation->translateLabel("Process Order"); ?>" style="font-size:18pt" />
                                 </div>
                             <?php endif ?>
                         </div>
@@ -274,12 +276,13 @@
      
      for(ind in items){
          _html += "<tr>";
-         _html += "<td>" + items[ind].ItemID + "</td>";
-         _html += "<td>" + items[ind].ItemName + "</td>";
-         _html += "<td>" + items[ind].ItemDescription + "</td>";
-         _html += "<td>" + items[ind].counter + "</td>";
-         _html += "<td>" + formatCurrency(items[ind].Price) + "</td>";
-         _html += "<td>" + formatCurrency(items[ind].Price * items[ind].counter) + "</td></tr>";
+         //         _html += "<td style=\"text-align:left;\">" + items[ind].ItemID + "</td>";
+         _html += "<td style=\"text-align:left;\">" + items[ind].ItemName + "</td>";
+         _html += "<td style=\"text-align:left;\">" + items[ind].ItemDescription + "</td>";
+         _html += "<td style=\"text-align:left;\">" + items[ind].ItemLongDescription + "</td>";
+         _html += "<td style=\"text-align:right;\">" + items[ind].counter + "</td>";
+         _html += "<td style=\"text-align:right;\">" + formatCurrency(items[ind].Price) + "</td>";
+         _html += "<td style=\"text-align:right;\">" + formatCurrency(items[ind].Price * items[ind].counter) + "</td></tr>";
          itemsCounter++;
          subtotal += items[ind].Price * items[ind].counter;
      }
