@@ -69,11 +69,15 @@
                         <div class="row">
                             <?php foreach($customerFieldsLeft as $fieldName=>$def): ?>
                                 <div class="col-md-12">
-                                    <div class="checkout-form-list" style="margin-bottom:10px">
-                                        <label>
-                                            <?php echo $translation->translateLabel($def["label"]);  ?>
-                                        </label>
-                                        <input type="text" name="<?php echo $fieldName; ?>" placeholder="" value="<?php echo (key_exists("Customer", $user) ? $user["Customer"]->$fieldName : ""); ?>" />
+                                    <div class="checkout-form-list"  style="padding-bottom:5px">
+                                        <div  class="col-md-4">
+                                            <label>
+                                                <?php echo $translation->translateLabel($def["label"]);  ?>
+                                            </label>
+                                        </div>
+                                        <div  class="col-md-8">
+                                            <input type="text" style="height:30px" name="<?php echo $fieldName; ?>" placeholder="" value="<?php echo (key_exists("Customer", $user) ? $user["Customer"]->$fieldName : ""); ?>" />
+                                        </div>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -85,11 +89,15 @@
                         <div class="row">
                             <?php foreach($customerFieldsRight as $fieldName=>$def): ?>
                                 <div class="col-md-12">
-                                    <div class="checkout-form-list" style="margin-bottom:10px">
-                                        <label>
-                                            <?php echo $translation->translateLabel($def["label"]);  ?>
-                                        </label>
-                                        <input type="text" name="<?php echo $fieldName; ?>" placeholder="" value="<?php echo (key_exists("Customer", $user) ? $user["Customer"]->$fieldName : ""); ?>" />
+                                    <div class="checkout-form-list" style="padding-bottom:5px">
+                                        <div  class="col-md-4">
+                                            <label>
+                                                <?php echo $translation->translateLabel($def["label"]);  ?>
+                                            </label>
+                                        </div>
+                                        <div  class="col-md-8">
+                                            <input type="text" style="height:30px" name="<?php echo $fieldName; ?>" placeholder="" value="<?php echo (key_exists("Customer", $user) ? $user["Customer"]->$fieldName : ""); ?>" />
+                                        </div>
                                     </div>
                                 </div>
                             <?php endforeach; ?>

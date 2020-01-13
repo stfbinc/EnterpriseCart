@@ -1,24 +1,34 @@
-<div style="padding:50px">
-    <table class="table table-responsible">
-	<thead>
-	    <th><?php echo $translation->translateLabel("Item");?></th>
-	    <th><?php echo $translation->translateLabel("Item ID");?></th>
-	    <th><?php echo $translation->translateLabel("Price");?></th>
-	    <th><?php echo $translation->translateLabel("Quantity");?></th>
-	</thead>
-	<tbody id="shoppingCartFormList" >
-	    <tr>
-		<td>
-		</td>
-		<td id="shoppingCartSubtotal">
-		</td>
-		<td>
-		</td>
-	    </tr>
-	</tbody>
-    </table>                   
-    <div class="row">
-	<a href="#/?page=forms&action=checkout" class="btn btn-success float-right"><?php echo $translation->translateLabel("Checkout"); ?></a>
+<div class="container" style="padding:50px">
+    <div class="col-lg-12 col-md-12">
+        <div class="your-order">
+            <h3>
+                <?php echo $translation->translateLabel("Shopping Cart"); ?></h3>
+            <div style="padding:50px">
+                <table class="table table-responsible">
+	            <thead>
+	                <th><?php echo $translation->translateLabel("Item");?></th>
+	                <th><?php echo $translation->translateLabel("Item ID");?></th>
+	                <th><?php echo $translation->translateLabel("Price");?></th>
+	                <th><?php echo $translation->translateLabel("Quantity");?></th>
+	            </thead>
+	            <tbody id="shoppingCartFormList" >
+	                <tr>
+		            <td>
+		            </td>
+		            <td id="shoppingCartSubtotal">
+		            </td>
+		            <td>
+		            </td>
+	                </tr>
+	            </tbody>
+                </table>                   
+                <div class="row">
+                    <div class="order-button-payment" style="margin-top:50px">
+                        <input type="submit" id="processorder" value="<?php echo $translation->translateLabel("Checkout"); ?>" style="font-size:18pt" onclick="window.location = '#/?page=forms&action=checkout'" />
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
