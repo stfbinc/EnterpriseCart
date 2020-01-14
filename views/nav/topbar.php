@@ -287,10 +287,10 @@
                         <div class="header-search">
                             <form id="searchForm" onsubmit="return false">
                                 <?php if($scope["config"]["software"] == "Cart"): ?>
-                                    <select name="family" id="searchFamilies">
+                                    <select name="family" id="searchFamilies" style="width:auto; position: static;">
                                     </select>
                                 <?php endif; ?>
-                                <input type="text" placeholder="search product..." name="text" />
+                                <input type="text" placeholder="search product..." name="text" style="width:auto; margin-left: -5px;" />
                                 <button onclick="search();"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
