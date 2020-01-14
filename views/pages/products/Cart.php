@@ -10,20 +10,35 @@
             <?php if($itemName == $_GET["item"]): ?>
                 <div class="col-md-12">
                     <div class="single-product">
-                        <div class="product-img">
+                        <div class="product-img col-md-3">
                             <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>">
                                 <img class="primary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
                                 <img class="secondary-img" src="<?php echo $linksMaker->makeItemImageLink($item); ?>" alt="" />
                             </a>
                         </div>
-                        <div class="product-info">
-                            <h3>
-                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
+                        <div class="product-info col-md-9">
+                            <h3 class="col-md-1">
+                                Item:
+                            </h3>
+                            <h3 class="col-md-11">
+                                <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a>
+                            </h3>
                             <div class="pro-price">
-                                Price: <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
-                                <br style="margin-bottom:20px" />
-                                Qty: <input id="itemSingleQty" type="number" style="width:60px" value=0 />
-                                <div class="product-desc">
+                                <div style="margin-top:10px;">
+                                    <div class="col-md-1">
+                                        Price:
+                                    </div>
+                                    <span class="normal col-md-11"><?php echo formatCurrency($item->Price); ?></span>
+                                </div>
+                                <div>
+                                    <div class="col-md-1" style="margin-top:10px">
+                                        Qty:
+                                    </div>
+                                    <div class="col-md-11" style="margin-top:10px">
+                                        <input id="itemSingleQty" type="number" style="width:60px" value=1 />
+                                    </div>
+                                </div>
+                                <div class="product-desc col-md-12" style="margin-top:10px">
                                     <!-- <p>
                                          <?php echo $item->ItemDescription; ?></p> -->
                                     <p>
@@ -31,9 +46,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product-action">
-                            <div class="pro-button-top">
-                                <a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>', $('#itemSingleQty').val());">add to cart</a>
+                        <div class="product-action col-md-2">
+                            <div class="pro-button-top col-md-12">
+                                <a href="javascript:shoppingCartAddItem('<?php echo $itemName; ?>', $('#itemSingleQty').val());" onclick=" window.location = '#/?page=forms&action=shoppingcart';">add to cart</a>
                             </div>
                         </div>
                     </div>
