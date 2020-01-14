@@ -260,9 +260,9 @@
 			    <div class="footer-widget">		
                                 <h3>NEWSLETTER SIGNUP</h3>
                                 <div class="subscribe-title">                               
-                                    <form action="#">
+                                    <form action="https://stfb.net/EnterpriseX/index.php?config=STFBEnterprise&page=help&method=newsletterSubscribe" method="post"">
 					<div class="subscribe-form">
-					    <input type="text" placeholder="Your Email.........">
+					    <input type="email" name="EMAIL" placeholder="Your Email.........">
 					    <button>
 						subscribe</button>
 					</div>

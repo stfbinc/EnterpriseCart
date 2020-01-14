@@ -38,7 +38,7 @@
                                         <input id="itemSingleQty" type="number" style="width:60px" value=1 />
                                     </div>
                                 </div>
-                                <div class="product-desc col-md-12" style="margin-top:10px">
+                                <div class="product-desc col-md-12" style="margin-top:10px;">
                                     <!-- <p>
                                          <?php echo $item->ItemDescription; ?></p> -->
                                     <p>
@@ -120,12 +120,12 @@
                                             </div>
                                         </div>
                                         <div class="product-info">
-                                            <h3>
+                                            <h3 style=" font-size:14pt; font-weight:600">
                                                 <a href="<?php echo $linksMaker->makeItemLink($itemName); ?>"><?php echo $itemName; ?></a></h3>
                                             <div class="pro-price">
                                                 <span class="normal"><?php echo formatCurrency($item->Price); ?></span>
                                             </div>
-                                            <div class="product-desc">
+                                            <div class="product-desc" style=" font-size:12pt; font-weight:600">
                                                 <p>
                                                     <?php echo $item->ItemDescription; ?></p>
                                             </div>
@@ -226,10 +226,10 @@
                                             </a>
                                         </div>
                                         <div class="product-info">
-                                            <h3>
+                                            <h3 style=" font-size:14pt; font-weight:600">
                                                 <a href="<?php echo $linksMaker->makeCategoryLink($categoryName); ?>"><?php echo $categoryName; ?></a></h3>
                                             <div class="product-desc">
-                                                <p>
+                                                <p style=" font-size:12pt; font-weight:600">
                                                     <?php echo $category->CategoryDescription; ?></p>
                                             </div>
                                         </div>
@@ -303,9 +303,9 @@
                                         </div>
                                         <div class="product-info">
                                             <h3>
-                                                <a href="<?php echo $linksMaker->makeFamilyLink($familyName); ?>"><?php echo $family->FamilyName; ?></a></h3>
+                                                <a href="<?php echo $linksMaker->makeFamilyLink($familyName); ?>" style=" font-size:14pt; font-weight:600"><?php echo $family->FamilyName; ?></a></h3>
                                             <div class="product-desc">
-                                                <p>
+                                                <p style=" font-size:12pt; font-weight:600">
                                                     <?php echo $family->FamilyDescription; ?></p>
                                             </div>
                                         </div>

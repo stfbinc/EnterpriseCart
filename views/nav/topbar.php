@@ -320,7 +320,7 @@
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </div>
                                 <div class="float-left cart-link">
-                                    <a id="shoppingCartTopbarCounter" href="#"></a>
+                                    <a id="shoppingCartTopbarCounter" href="#" style="font-size:12pt; font-weight:600"></a>
                                 </div>
                                 <div class="clearfix"></div>  
                                 <ul id="shoppingCartTopbarList">
