@@ -16,6 +16,14 @@ function config(){
         "defaultCompanyID" => "DINOS",
         "defaultDivisionID" => "DEFAULT",
         "defaultDepartmentID" => "DEFAULT",
+        "EnterpriseUniversalAPI" => [
+            "address" => "http://localhost/EnterpriseUniversalAPI",
+            "CompanyID" => "Dinos",
+            "DivisionID" => "DEFAULT",
+            "DepartmentID" => "DEFAULT",
+            "EmployeeID" => "Demo",
+            "EmployeePassword" => "Demo"
+        ],
         "EnterpriseXURL" => "/EnterpriseX",
         "EnterpriseXEmployeeID" => "Demo",
         "EnterpriseXEmployeePassword" => "Demo"
