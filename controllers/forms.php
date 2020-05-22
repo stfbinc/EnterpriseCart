@@ -33,6 +33,36 @@ require_once 'models/translation.php';
 require_once 'models/linksMaker.php';
 require_once 'views/format.php';
 
+class APIProxy {
+    public function proxyMethod($procedure, $remoteCall){
+        $session_id = Session::get("session_id");
+        $result = API_request("page=api&module=forms&path=API/Ecommerce/Ecommerce&action=procedure&procedure=$procedure&session_id=$session_id", "GET", null);
+        //        echo "page=api&module=forms&path=API/Ecommerce/Ecommerce&action=procedure&procedure=$procedure&session_id=$session_id";
+        //echo "$procedure" . json_encode($result);
+        //echo $result["response"];
+        if($remoteCall){
+            echo  json_encode($result["response"], JSON_PRETTY_PRINT);
+            return null;
+        }else
+            return $result["response"];
+    }
+    public function getCurrencies($remoteCall = false){
+        return $this->proxyMethod("getCurrencies", $remoteCall);
+    }
+    
+    public function getFamilies($remoteCall = false){
+        return $this->proxyMethod("getFamilies", $remoteCall);
+    }
+    
+    public function getCategories($familyName = false, $remoteCall = false){
+        return $this->proxyMethod("getCategories" . ($familyName ? "&familyName=$familyName" : ""), $remoteCall);
+    }
+
+    public function getItems($categoryName = false, $remoteCall = false){
+        return $this->proxyMethod("getItems" . ($categoryName ? "&categoryName=$categoryName" : ""), $remoteCall);
+    }
+}
+
 class formsController{
     public $user = false;
     public $interface = "default";
@@ -55,11 +85,18 @@ class formsController{
         
         $action = $this->action = $this->path =  $_GET["action"];
 
-        if(!file_exists('models/forms/' . $this->action . '.php'))
-            throw new Exception("model " . 'models/forms/' . $this->action . '.php' . " is not found");
-        require 'models/forms/' . $this->action . '.php';
+        switch($this->action){
+        case "products" :
+            $data = new APIProxy();
+            break;
+        default:
+            if(!file_exists('models/forms/' . $this->action . '.php'))
+                throw new Exception("model " . 'models/forms/' . $this->action . '.php' . " is not found");
+            require 'models/forms/' . $this->action . '.php';
         
-        $data = new $action;
+            $data = new $action;
+            break;
+        }
             
         $this->user = $user;   
         $this->config = config();

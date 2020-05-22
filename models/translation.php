@@ -62,9 +62,9 @@ class translation{
     //translate term(label) to language with whic model is initialized
     public function translateLabel($label){
         //      echo $label . $this->terms[$label]["Translated"] . $this->lang;
-        if(key_exists($label, $this->terms) && $this->terms[$label][Translated]){
+        if(key_exists($label, $this->terms) && $this->terms[$label]["Translated"]){
             $lang = $this->lang;
-            return $this->terms[$label[$lang]];
+            return $this->terms[$label][$lang];
         }else
             return $label;
     }
