@@ -53,7 +53,43 @@ class Session{
     }
 }
 
+function API_request($url, $type, $body){
+    $config = $GLOBALS["config"];
+    $ch = curl_init($config["EnterpriseUniversalAPI"]["address"] . "index.php?" . $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    if($type == "POST"){
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode($body));
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_POST, 1);
+    }
+    $output = curl_exec($ch);
+    //echo $output, json_encode($ch);
+    if (curl_errno($ch)) {
+        $error_msg = curl_error($ch);
+        echo $error_msg;
+    }
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    //    echo $httpcode;
+    // close curl resource to free up system resources
+    curl_close($ch);
+    return [
+        "response" => json_decode($output, true),
+        "statusCode" => $httpcode
+    ];
+}
+
 $config = $GLOBALS["config"] = config();
+$result = API_request('page=api&module=auth&action=login', "POST", [
+    "CompanyID" => $config["EnterpriseUniversalAPI"]["CompanyID"],
+    "DivisionID" => $config["EnterpriseUniversalAPI"]["DivisionID"],
+    "DepartmentID" => $config["EnterpriseUniversalAPI"]["DepartmentID"],
+    "EmployeeID" => $config["EnterpriseUniversalAPI"]["EmployeeID"],
+    "EmployeePassword" => $config["EnterpriseUniversalAPI"]["EmployeePassword"],
+    "language" => $config["EnterpriseUniversalAPI"]["language"]
+], $config);
+
+Session::set("session_id", $result["response"]["session_id"]);
+
 $capsule->addConnection([
     "driver" => "mysql",
     "host" => $config["db_host"],

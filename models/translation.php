@@ -54,19 +54,17 @@ class translation{
     public function __construct($language){
         if($language)
             $this->lang = $language;
-        $result = $GLOBALS["capsule"]::select("SELECT ObjID,ObjDescription," . $language . ",Translated from translation", array());
-
-        foreach($result as $row) {
-            $this->terms[$row->ObjID] = $row;
-        }            
+        $session_id = Session::get("session_id");
+        $result = API_request("page=api&module=forms&path=SystemSetup/Application/Interface&action=procedure&procedure=getTranslation&session_id=$session_id&language=$language", "GET", null);
+        $this->terms = $result["response"];
     }
 
     //translate term(label) to language with whic model is initialized
     public function translateLabel($label){
         //      echo $label . $this->terms[$label]["Translated"] . $this->lang;
-        if(key_exists($label, $this->terms) && $this->terms[$label]->Translated){
+        if(key_exists($label, $this->terms) && $this->terms[$label][Translated]){
             $lang = $this->lang;
-            return $this->terms[$label]->$lang;
+            return $this->terms[$label[$lang]];
         }else
             return $label;
     }
