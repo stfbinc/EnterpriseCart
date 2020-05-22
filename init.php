@@ -73,7 +73,7 @@ function API_request($url, $type, $body){
     // close curl resource to free up system resources
     curl_close($ch);
     return [
-        "response" => json_decode($output, true),
+        "response" => json_decode($output),
         "statusCode" => $httpcode
     ];
 }
@@ -88,7 +88,7 @@ $result = API_request('page=api&module=auth&action=login', "POST", [
     "language" => $config["EnterpriseUniversalAPI"]["language"]
 ], $config);
 
-Session::set("session_id", $result["response"]["session_id"]);
+Session::set("session_id", $result["response"]->session_id);
 
 $capsule->addConnection([
     "driver" => "mysql",
