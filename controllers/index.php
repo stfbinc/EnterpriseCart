@@ -37,7 +37,7 @@ require_once 'models/translation.php';
 //require 'models/drillDowner.php';
 require_once 'models/linksMaker.php';
 require_once 'views/format.php';
-require_once 'models/forms/index.php';
+require_once 'models/APIProxy.php';
 require_once 'api.php';
 
 class indexController{
@@ -89,7 +89,7 @@ class indexController{
             //$security = new Security($this->user["accesspermissions"], []);
             //$translation = new translation($this->user["language"]);
             $translation = new translation($user["language"]);
-            $data = new index();
+            $data = new APIProxy();
             $this->dashboardTitle = $translation->translateLabel($this->dashboardTitle);
             $this->breadCrumbTitle = $translation->translateLabel($this->breadCrumbTitle);
             $oscope = $this;
