@@ -6,10 +6,6 @@ function config(){
         "title" => 'Integral Accounting X',
         "software" => "Cart",
         "loginForm" => "login",
-        "db_host" => "localhost",
-        "db_user" => "enterprise",
-        "db_password" => "enterprise",
-        "db_base" => "enterprise",
         "loginLogo" => "assets/images/stfb-logo.gif",
         "mediumLogo" => "assets/images/stfb-logo.gif",
         "smallLogo" => "assets/images/stfblogosm.jpg",
@@ -17,12 +13,13 @@ function config(){
         "defaultDivisionID" => "DEFAULT",
         "defaultDepartmentID" => "DEFAULT",
         "EnterpriseUniversalAPI" => [
-            "address" => "http://localhost/EnterpriseUniversalAPI",
-            "CompanyID" => "Dinos",
+            "address" => "https://stfb.net/EnterpriseUniversalAPI/",
+            "CompanyID" => "DINOS",
             "DivisionID" => "DEFAULT",
             "DepartmentID" => "DEFAULT",
             "EmployeeID" => "Demo",
-            "EmployeePassword" => "Demo"
+            "EmployeePassword" => "Demo",
+            "language" => "english"
         ],
         "EnterpriseXURL" => "/EnterpriseX",
         "EnterpriseXEmployeeID" => "Demo",
