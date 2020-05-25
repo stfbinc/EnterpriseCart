@@ -61,6 +61,8 @@ class formsController{
         case "products" :
         case "index":
         case "search" :
+        case "order":
+        case "account":
             $data = new APIProxy();
             break;
         default:

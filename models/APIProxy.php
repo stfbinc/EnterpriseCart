@@ -66,6 +66,7 @@ class APIProxy {
         return $this->proxyMethod("getItems" . ($categoryName ? "&categoryName=$categoryName" : ""), $remoteCall);
     }
 
+    //Search API
     public function searchProducts($remoteCall = false){
         $getParams = "";
         $postBody =[];
@@ -81,6 +82,16 @@ class APIProxy {
             $getParams = "&text={$_GET["text"]}&family={$_GET["family"]}";
             return $this->proxyMethod("searchProducts$getParams", $remoteCall, "GET", $postBody);
         }
+    }
+
+    //Account API
+    public function getTransactions($remoteCall = false){
+        $user = Session::get("user");
+        return $this->proxyMethod("getTransactions&CustomerID={$user["Customer"]->CustomerID}", $remoteCall);
+    }
+    public function getInstallations($remoteCall = false){
+        $user = Session::get("user");
+        return $this->proxyMethod("getInstallations&CustomerID={$user["Customer"]->CustomerID}", $remoteCall);
     }
 }
 

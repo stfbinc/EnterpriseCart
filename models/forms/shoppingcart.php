@@ -25,36 +25,21 @@
   Calls:
   MySql Database
    
-  Last Modified: 11/04/2019
+  Last Modified: 25/05/2020
   Last Modified by: Nikita Zaharov
 */
 
-class shoppingcart{
-    public function getCurrencies($remoteCall = false){
-        $user = Session::get("user");
-        $defaultCompany = Session::get("defaultCompany");
-        
-        $res = [];
-        $result = DB::select("SELECT * from currencytypes WHERE CompanyID=? AND DivisionID=? AND DepartmentID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"]));
+require_once 'models/APIProxy.php';
 
-        foreach($result as $record)
-            $res[$record->CurrencyID] = $record;
-
-        if($remoteCall)
-            echo json_encode($res, JSON_PRETTY_PRINT);
-        return $res;
-    }
-    
+class shoppingcart extends APIProxy{
     //Shopping cart procedures
     public function shoppingCartAddItem(){
         $user = Session::get("user");
         $defaultCompany = Session::get("defaultCompany");
         $res = [];
-        $id = $_POST["ItemID"];
         $qty = key_exists("qty", $_POST) ? $_POST["qty"] : 1;
         
-        $result = DB::select("SELECT * from inventoryitems WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND ItemID=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $id));
-
+        $result = $this->proxyMethod("getInventoryItem&ItemID={$_POST["ItemID"]}", false);
         $item = $result[0];
         
         $shoppingCart = Session::get("shoppingCart");
