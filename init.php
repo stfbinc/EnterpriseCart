@@ -27,6 +27,9 @@ class Session{
 function API_request($url, $type, $body){
     $config = $GLOBALS["config"];
     $ch = curl_init($config["EnterpriseUniversalAPI"]["address"] . "index.php?" . $url);
+    $certificate_location = "./cacert.pem";
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $certificate_location);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $certificate_location);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     if($type == "POST"){
         curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode($body));
