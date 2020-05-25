@@ -63,6 +63,7 @@ class formsController{
         case "search" :
         case "order":
         case "account":
+        case "checkout":
             $data = new APIProxy();
             break;
         default:

@@ -93,6 +93,14 @@ class APIProxy {
         $user = Session::get("user");
         return $this->proxyMethod("getInstallations&CustomerID={$user["Customer"]->CustomerID}", $remoteCall);
     }
+
+    //Checkout Helpers
+    public function getPaymentMethods($remoteCall = false){
+        return $this->proxyMethod("getPaymentMethods", $remoteCall);
+    }
+    public function getShipMethods($remoteCall = false){
+        return $this->proxyMethod("getShipMethods", $remoteCall);
+    }
 }
 
 ?>

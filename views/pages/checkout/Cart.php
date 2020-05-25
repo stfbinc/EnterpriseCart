@@ -183,7 +183,7 @@
                                 <select name="PaymentMethod">
                                     <?php foreach($paymentMethods as $paymentName=>$def): ?>
                                         <?php if(property_exists($cartSettings, $paymentName) && $cartSettings->$paymentName): ?>
-                                            <option value="<?php echo $def["value"] ?>"><?php echo $def["title"] ?></option>
+                                            <option value="<?php echo $def->value ?>"><?php echo $def->title ?></option>
                                         <?php endif;  ?>
                                     <?php endforeach; ?>
                                 </select>
@@ -194,7 +194,7 @@
                                 </label>
                                 <select name="ShipMethod">
                                     <?php foreach($shipMethods as $shipName=>$def): ?>
-                                        <option value="<?php echo $def["value"] ?>"><?php echo $def["title"] ?></option>
+                                        <option value="<?php echo $def->value ?>"><?php echo $def->title ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
