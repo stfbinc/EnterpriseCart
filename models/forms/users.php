@@ -20,13 +20,15 @@
   Calls:
   sql
 
-  Last Modified: 15.03.2019
+  Last Modified: 25.05.2019
   Last Modified by: Nikita Zaharov
 */
 
 use Gregwar\Captcha\CaptchaBuilder;
 
-class users{
+require_once 'models/APIProxy.php';
+
+class users extends APIProxy{
     public $captchaBuilder = false;
 
     public function __construct(){
@@ -35,8 +37,9 @@ class users{
 
     public function login(){
         $defaultCompany = Session::get("defaultCompany");
-        $result = DB::select("SELECT * from customerinformation WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerLogin=? AND CustomerPassword=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $_POST["username"], $_POST["password"]));
-        if(!count($result) || $_POST["captcha"] != $_SESSION["captcha"]){
+        $result = $this->proxyMethod("getCustomerInformation&CustomerLogin={$_POST["username"]}&CustomerPassword={$_POST["password"]}", false);
+        //        echo json_encode($result, JSON_PRETTY_PRINT);
+        if(!count((array)$result) || $_POST["captcha"] != $_SESSION["captcha"]){
             http_response_code(401);
             $this->captchaBuilder->build();
             $_SESSION['captcha'] = $this->captchaBuilder->getPhrase();
@@ -66,7 +69,7 @@ class users{
     public function sessionUpdate(){
         $user = Session::get("user");
         $defaultCompany = Session::get("defaultCompany");
-        $result = DB::select("SELECT * from customerinformation WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerLogin=? AND CustomerPassword=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $user["Customer"]->CustomerLogin, $user["Customer"]->CustomerPassword));
+        $result = $this->proxyMethod("getCustomerInformation&CustomerLogin={$user["Customer"]["CustomerLogin"]}&CustomerPassword={$user["Customer"]["CustomerPassword"]}", false);
         if(!count($result)){
             http_response_code(401);
             echo "session updating failed";
@@ -91,9 +94,8 @@ class users{
     }
 
     public function loginWithoutCaptcha(){
-        $defaultCompany = Session::get("defaultCompany");
-        $result = DB::select("SELECT * from customerinformation WHERE CompanyID=? AND DivisionID=? AND DepartmentID=? AND CustomerLogin=? AND CustomerPassword=?", array($defaultCompany["CompanyID"], $defaultCompany["DivisionID"], $defaultCompany["DepartmentID"], $_POST["username"], $_POST["password"]));
-        if(!count($result)){
+        $result = $this->proxyMethod("getCustomerInformation&CustomerLogin={$_POST["username"]}&CustomerPassword={$_POST["password"]}", false);
+      if(!count($result)){
             http_response_code(401);
         }else{
             $user = [

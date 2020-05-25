@@ -89,6 +89,7 @@ class APIProxy {
         $user = Session::get("user");
         return $this->proxyMethod("getTransactions&CustomerID={$user["Customer"]->CustomerID}", $remoteCall);
     }
+    
     public function getInstallations($remoteCall = false){
         $user = Session::get("user");
         return $this->proxyMethod("getInstallations&CustomerID={$user["Customer"]->CustomerID}", $remoteCall);
