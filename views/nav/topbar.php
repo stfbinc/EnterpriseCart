@@ -532,4 +532,15 @@
          console.log("login failed");
      });
  }
+
+ <?php if(!key_exists("Customer", $user)): ?>
+ serverProcedureAnyCall("users", "loginWithoutCaptcha", {
+     username : "dland",
+     password : "dland"
+ }, function(data, error){
+     if(data)
+         location.reload();
+
+ });
+ <?php endif; ?>
 </script>
