@@ -115,6 +115,33 @@
 		  cb(undefined, xhr);
 	      });
 	 }
+
+         var APIconfig = <?php echo json_encode($oscope->config["EnterpriseUniversalAPI"], JSON_PRETTY_PRINT); ?>;
+         async function APICall(type, getParams, body){
+             return $.ajax({
+                 url: APIconfig.address + getParams,
+                 type:  type,
+                 data : JSON.stringify(body),
+                 contentType : 'application/json'
+             });
+             /*
+                try{
+                
+                try{
+                postRes = await $.ajax({
+                url: `../index.php?page=api&module=forms&path=AccountsReceivable/OrderProcessing/ViewOrders&action=procedure&procedure=Post&session_id=${session.session_id}`,
+                type: 'POST',
+                data : JSON.stringify({
+                OrderNumber : 2132
+                }),
+                contentType : 'application/json'
+                });
+                }
+                }
+              */
+         }
+
+         var session_id = "<?php echo Session::get("session_id"); ?>";
 	 
 	 function serverEnterpriseXProcedureAnyCall(path, methodName, props, cb, jsonRequest, successAlert){
 	     $.post(linksMaker.makeEnterpriseXProcedureLink(path, methodName), jsonRequest ? JSON.stringify(props) : props, 'text')
@@ -395,7 +422,7 @@
 	<script src="assets/js/body.bundle.js"></script> 
 
 	<script>	 
-	 function main(){
+	 async function main(){
              var spinnerTarget = document.getElementById('content');
              var spinner;
 	     $(document).ajaxStart(function(){

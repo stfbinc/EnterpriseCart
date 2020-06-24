@@ -389,7 +389,7 @@
  });
 
  var registerCaptcha = "<?php echo $oscope->captchaBuilder->getPhrase(); ?>";
- $('#registerButton').click(function(){
+ $('#registerButton').click(async function(){
      var registerform = $('#registerForm');
      var requiredFields = [
          "CustomerPhone", 
@@ -414,34 +414,31 @@
      $("#registerCaptcha").removeClass("has-error");
      
      if(success){
-         serverEnterpriseXProcedureAnyCall("AccountsReceivable/Customers/ViewCustomers", "getNewItemAllRemote", { id : "<?php echo $linksMaker->makeEnterpriseXKeyString(); ?>"}, function(data, error){
-             var values = JSON.parse(data);
-             values.CustomerID = values.CustomerFirstName = $("input[name=CustomerFirstName]").val();
-             values.CustomerLastName = $("input[name=CustomerLastName]").val();
-             values.CustomerName = $("input[name=CustomerName]").val();
-             values.CustomerEmail = $("input[name=CustomerEmail]").val();
-             values.CustomerLogin = values.CustomerPhone = $("input[name=CustomerPhone]").val();
-             values.CustomerPassword = $("input[name=CustomerPassword]").val();
-             values.CustomerWebPage = $("input[name=CustomerWebPage]").val();
-             values.CustomerAddress1 = $("input[name=CustomerAddress1]").val();
-             values.CustomerAddress2 = $("input[name=CustomerAddress2]").val();
-             values.CustomerAddress3 = $("input[name=CustomerAddress3]").val();
-             values.CustomerCounty = $("input[name=CustomerCountry]").val();
-             values.CustomerState = $("input[name=CustomerState]").val();
-             values.CustomerCity = $("input[name=CustomerCity]").val();
-             values.CustomerZip = $("input[name=CustomerZip]").val();
-             console.log(values);
-             
-             serverEnterpriseXProcedureAnyCall("AccountsReceivable/Customers/ViewCustomers", "insertItemRemote", values, function(data, error){
-                 serverProcedureAnyCall("users", "loginWithoutCaptcha", {
-                     username : values.CustomerLogin,
-                     password : values.CustomerPassword
-                 }, function(data, error){
-                     if(data)
-                         location.reload();
+         var values = await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/Customers/ViewCustomers&action=procedure&procedure=getNewItemAllRemote&session_id=${session_id}`, { id : ""});
+         values.CustomerID = values.CustomerFirstName = $("input[name=CustomerFirstName]").val();
+         values.CustomerLastName = $("input[name=CustomerLastName]").val();
+         values.CustomerName = $("input[name=CustomerName]").val();
+         values.CustomerEmail = $("input[name=CustomerEmail]").val();
+         values.CustomerLogin = values.CustomerPhone = $("input[name=CustomerPhone]").val();
+         values.CustomerPassword = $("input[name=CustomerPassword]").val();
+         values.CustomerWebPage = $("input[name=CustomerWebPage]").val();
+         values.CustomerAddress1 = $("input[name=CustomerAddress1]").val();
+         values.CustomerAddress2 = $("input[name=CustomerAddress2]").val();
+         values.CustomerAddress3 = $("input[name=CustomerAddress3]").val();
+         values.CustomerCounty = $("input[name=CustomerCountry]").val();
+         values.CustomerState = $("input[name=CustomerState]").val();
+         values.CustomerCity = $("input[name=CustomerCity]").val();
+         values.CustomerZip = $("input[name=CustomerZip]").val();
+         console.log(values);
+         
+         await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/Customers/ViewCustomers&action=procedure&procedure=insertItemRemote&session_id=${session_id}`, values);
+         serverProcedureAnyCall("users", "loginWithoutCaptcha", {
+             username : values.CustomerLogin,
+             password : values.CustomerPassword
+         }, function(data, error){
+             if(data)
+                 location.reload();
 
-                 });
-             });
          });
      }else{
          serverProcedureAnyCall("users", "getCaptcha", {}, function(data, error){
