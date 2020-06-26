@@ -169,38 +169,36 @@
 
 <script>
  <?php if(key_exists("Customer", $user)): ?>
- $("#saveButton").click(function(){
+ $("#saveButton").click(async function(){
      console.log("saved");
      //var form = $("#checkoutForm");
-     serverEnterpriseXProcedureAnyCall("AccountsReceivable/Customers/ViewCustomers", "getEditItemRemote", { id : "<?php echo $linksMaker->makeEnterpriseXKeyString() . '__' . $user["Customer"]->CustomerID; ?>", type : "Main"}, function(data, error){
-         var values = JSON.parse(data);
-         //  values.CustomerID = "<?php echo $user["Customer"]->CustomerID; ?>";
-         values.CustomerFirstName = $("input[name=CustomerFirstName]").val();
-         values.CustomerLastName = $("input[name=CustomerLastName]").val();
-         values.CustomerName = $("input[name=CustomerName]").val();
-         values.CustomerEmail = $("input[name=CustomerEmail]").val();
-         values.CustomerPhone = $("input[name=CustomerPhone]").val();
-         values.CustomerWebPage = $("input[name=CustomerWebPage]").val();
-         values.CustomerAddress1 = $("input[name=CustomerAddress1]").val();
-         values.CustomerAddress2 = $("input[name=CustomerAddress2]").val();
-         values.CustomerAddress3 = $("input[name=CustomerAddress3]").val();
-         values.CustomerCounty = $("input[name=CustomerCountry]").val();
-         values.CustomerState = $("input[name=CustomerState]").val();
-         values.CustomerCity = $("input[name=CustomerCity]").val();
-         values.CustomerZip = $("input[name=CustomerZip]").val();
-         console.log(values);
-         
-         //updating customer information
-         values.id = "<?php echo $linksMaker->makeEnterpriseXKeyString() . '__' . $user["Customer"]->CustomerID; ?>";
-         values.type = "Main";
-         serverEnterpriseXProcedureAnyCall("AccountsReceivable/Customers/ViewCustomers", "updateItemRemote", values, function(data, error){
-             serverProcedureAnyCall("users", "sessionUpdate", {}, function(data, error){
-                 onlocation(window.location);
-             });
-             //      window.location = "index.php#/?page=forms&action=account";
-             //console.log(data, error);
-         });
+     console.log("<?php echo $linksMaker->makeEnterpriseXKeyString() . '__' . $user["Customer"]->CustomerID; ?>");
+     var values = await APICall("GET", `index.php?page=api&module=forms&path=AccountsReceivable/Customers/ViewCustomers&action=get&session_id=${session_id}` + "&id=<?php echo $linksMaker->makeEnterpriseXKeyString() . '__' . $user["Customer"]->CustomerID; ?>", {});
+     //  values.CustomerID = "<?php echo $user["Customer"]->CustomerID; ?>";
+     values.CustomerFirstName = $("input[name=CustomerFirstName]").val();
+     values.CustomerLastName = $("input[name=CustomerLastName]").val();
+     values.CustomerName = $("input[name=CustomerName]").val();
+     values.CustomerEmail = $("input[name=CustomerEmail]").val();
+     values.CustomerPhone = $("input[name=CustomerPhone]").val();
+     values.CustomerWebPage = $("input[name=CustomerWebPage]").val();
+     values.CustomerAddress1 = $("input[name=CustomerAddress1]").val();
+     values.CustomerAddress2 = $("input[name=CustomerAddress2]").val();
+     values.CustomerAddress3 = $("input[name=CustomerAddress3]").val();
+     values.CustomerCounty = $("input[name=CustomerCountry]").val();
+     values.CustomerState = $("input[name=CustomerState]").val();
+     values.CustomerCity = $("input[name=CustomerCity]").val();
+     values.CustomerZip = $("input[name=CustomerZip]").val();
+     console.log(values);
+     
+     //updating customer information
+     values.id = "<?php echo $linksMaker->makeEnterpriseXKeyString() . '__' . $user["Customer"]->CustomerID; ?>";
+     values.type = "Main";
+     await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/Customers/ViewCustomers&action=update&session_id=${session_id}` + "&id=" + values.id, values);
+     serverProcedureAnyCall("users", "sessionUpdate", {}, function(data, error){
+         onlocation(window.location);
      });
+     //      window.location = "index.php#/?page=forms&action=account";
+     //console.log(data, error);
  });
  <?php endif; ?> 
 </script>
