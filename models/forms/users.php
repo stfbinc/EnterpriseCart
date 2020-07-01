@@ -69,7 +69,7 @@ class users extends APIProxy{
     public function sessionUpdate(){
         $user = Session::get("user");
         $defaultCompany = Session::get("defaultCompany");
-        $result = $this->proxyMethod("getCustomerInformation&CustomerLogin={$user["Customer"]["CustomerLogin"]}&CustomerPassword={$user["Customer"]["CustomerPassword"]}", false);
+        $result = $this->proxyMethod("getCustomerInformation&CustomerLogin={$user["Customer"]->CustomerLogin}&CustomerPassword={$user["Customer"]->CustomerPassword}", false);
         if(!count($result)){
             http_response_code(401);
             echo "session updating failed";

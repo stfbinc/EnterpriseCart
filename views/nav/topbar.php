@@ -534,13 +534,13 @@
  }
 
  <?php if(!key_exists("Customer", $user)): ?>
- serverProcedureAnyCall("users", "loginWithoutCaptcha", {
+/* serverProcedureAnyCall("users", "loginWithoutCaptcha", {
      username : "dland",
      password : "dland"
  }, function(data, error){
      if(data)
          location.reload();
 
- });
+ });*/
  <?php endif; ?>
 </script>
