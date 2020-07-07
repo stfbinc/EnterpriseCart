@@ -250,7 +250,7 @@
      }
      //      console.log(JSON.stringify(orderDetails, null, 3));
      //creating order detail records
-     var OrderHeader = await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/OrderProcessing/ViewOrdersDetail&action=procedure&procedure=insertItemsRemote&session_id=${session_id}`, orderDetails);
+     var OrderDetails = await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/OrderProcessing/ViewOrdersDetail&action=procedure&procedure=insertItemsRemote&session_id=${session_id}`, orderDetails);
      //values = JSON.parse(data);
      //recalculation order header
      await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/OrderScreens/ViewOrders&action=procedure&procedure=Recalc&session_id=${session_id}`, { OrderNumber : OrderHeader.OrderNumber});
