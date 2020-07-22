@@ -39,7 +39,7 @@ class linksMaker{
     }
     
     function makeEnterpriseXDocreportsLink($type, $id){
-        return "{$this->scope["config"]["EnterpriseXURL"]}/index.php?page=docreports&type=$type&id=$id&" . $this->makeEnterpriseXAuthParams();
+        return "index.php?page=docreports&type=$type&id=$id";
     }
     
     function makeEnterpriseXImageLink($scope, $item, $field){

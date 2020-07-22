@@ -62,5 +62,6 @@ $result = API_request('page=api&module=auth&action=login', "POST", [
     "language" => $config["EnterpriseUniversalAPI"]["language"]
 ], $config);
 
+//echo json_encode($result, JSON_PRETTY_PRINT);
 Session::set("session_id", $result["response"]->session_id);
 ?>
