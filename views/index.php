@@ -86,7 +86,7 @@
 	 //global object used for creatink links to any part of application
 	 var linksMaker = {
 	     makeEnterpriseXDocreportsLink : function(type, id){
-		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/index.php?page=docreports&type=" + type + "&id=" + id;
+		 return "index.php?page=docreports&type=" + type + "&id=" + id;
 	     },
 	     makeEnterpriseXImageLink : function(item, field){
 		 return "<?php echo $scope["config"]["EnterpriseXURL"]; ?>/uploads/" + item + "/" + field;
