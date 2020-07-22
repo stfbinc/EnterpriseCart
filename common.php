@@ -3,7 +3,7 @@ function config(){
     return array(
         "theme" => 'none',
         //"theme" => 'dark', uncomment for dark theme
-        "title" => 'Integral Accounting X',
+        "title" => 'Enterprise Cart',
         "software" => "Cart",
         "loginForm" => "login",
         "loginLogo" => "assets/images/stfb-logo.gif",
@@ -13,6 +13,7 @@ function config(){
         "defaultDivisionID" => "DEFAULT",
         "defaultDepartmentID" => "DEFAULT",
         "EnterpriseUniversalAPI" => [
+            //"address" => "http://localhost/EnterpriseUniversalAPI/",
             "address" => "https://stfb.net/EnterpriseUniversalAPI/",
             "CompanyID" => "DINOS",
             "DivisionID" => "DEFAULT",

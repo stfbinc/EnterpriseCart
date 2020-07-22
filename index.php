@@ -55,7 +55,7 @@ EOT;
 
 class app{
     public $controller = false;
-    public $title = "EnterpriseXCart";
+    public $title = "Enterprise Cart";
     public $theme = 'none';
     public $loginLogo = "";
     public $page = 'index';
