@@ -1,0 +1,20 @@
+
+Working with the Enterprise Cart via API is also going to teach you some things about the Enterprise X ERP Application.
+
+First, the Enterprise X ERP App is here:  https://www.stfb.net/EnterpriseX/index.php?page=ByPassLogin&interface=default
+
+When you enter new customers in the cart, they show up here: 
+Main Menu -> Receivables -> Customers -> View Customers
+
+The inventory is drawn from this screen here:
+Main Menu -> Inventory -> Items & Stock -> View Inventory on Hand
+
+When you enter an order transaction, it shows up here:
+Main Menu -> Receivables -> View Orders or View Orders Simple
+
+The order will also show up in the Transactions screen for the individual inventory item here:
+Main Menu -> Inventory -> Items & Stock -> View Inventory Items -> Select the item from the order, it will appear on "Transactions" tab 
+
+Shopping Cart Setup Options are here:
+Main Menu -> ECommerce -> Cart Setup -> Cart Setup
+
