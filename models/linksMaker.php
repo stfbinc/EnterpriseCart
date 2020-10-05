@@ -24,7 +24,7 @@
 class linksMaker{
     public $scope;
     public $fileNotFoundPath = "assets/img/notfound.png";
-    function linksMaker($scope){
+    function __construct($scope){
         $this->scope = $scope;
     }
 
