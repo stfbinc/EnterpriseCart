@@ -18,4 +18,4 @@
   
 * Installation
   Unpack project in some place, for example: c:\\inetpub\wwwroot\EnterpriseCart
-  and open in browser http://localhost/EnterpriseCart
+  and open in browser http://localhost/EnterpriseCart/index.php
