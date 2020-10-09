@@ -141,7 +141,7 @@
                         <!-- single-product start -->
                         <!-- single-product start -->
                         <?php foreach($items as $itemName=>$item): ?>
-                            <?php if($item->CartItem): ?>
+                            <?php //if($item->CartItem): ?>
                                 <div class="col-md-12">
                                     <div class="single-product">
                                         <div class="product-img">
@@ -168,7 +168,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php endif; ?>
+                            <?php //endif; ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
