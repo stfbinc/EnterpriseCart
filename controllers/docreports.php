@@ -59,6 +59,10 @@ class docreportsController{
         // else
         //  return response('permissions not found', 500)->header('Content-Type', 'text/plain');
 
+
+        // We can get reports for the below template types, which is defined already in the system, Simply pass the type of report you need.
+        // Ex : to get Customer Statements, you can pass the type as customerstatements.
+        
         $invoiceTemplateTypes = [
             "invoice" => "invoice",
             "invoicehistory" => "invoice",
