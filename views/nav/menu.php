@@ -27,15 +27,17 @@
                                 </li>
                             <?php endif; ?>
 
-                            <!-- Navigation menu for Reports -->
-                            <li><a href="#/?page=forms&action=report"><?php echo $translation->translateLabel("Reports"); ?></a>
-                                <ul>
-                                    <li><a href="#/?page=forms&action=report&content=orders"><?php echo $translation->translateLabel("Orders"); ?></a></li>
-                                    <li><a href="#/?page=forms&action=report&content=customerstatements"><?php echo $translation->translateLabel("Statements"); ?></a></li>
-                                    <li><a href="#/?page=forms&action=report&content=invoices"><?php echo $translation->translateLabel("Invoices"); ?></a></li>
-                                    <li><a href="#/?page=forms&action=report&content=quotes"><?php echo $translation->translateLabel("Quotes"); ?></a></li>
-                                </ul>
-                            </li>
+                            <?php if(key_exists("Customer", $user)): ?>
+                                <!-- Navigation menu for Reports -->
+                                <li><a href="#/?page=forms&action=report"><?php echo $translation->translateLabel("Reports"); ?></a>
+                                    <ul>
+                                        <li><a href="#/?page=forms&action=report&content=orders"><?php echo $translation->translateLabel("Orders"); ?></a></li>
+                                        <li><a href="#/?page=forms&action=report&content=customerstatements"><?php echo $translation->translateLabel("Statements"); ?></a></li>
+                                        <li><a href="#/?page=forms&action=report&content=invoices"><?php echo $translation->translateLabel("Invoices"); ?></a></li>
+                                        <li><a href="#/?page=forms&action=report&content=quotes"><?php echo $translation->translateLabel("Quotes"); ?></a></li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
 
                         </ul>
                     </nav>
