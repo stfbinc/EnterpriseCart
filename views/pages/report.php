@@ -64,7 +64,7 @@
                     </thead>
                     <tbody id="shoppingCartFormList" >
                     	<?php foreach($transactions as $transaction): 
-                    		if($transaction->InvoiceNumber) {
+                    		if($transaction->InvoiceNumber && $transaction->Invoiced) {
                     		?>
                             <tr>
                                 <td>
@@ -192,5 +192,3 @@
     <?php } ?>
     </div>
 </div>
-
-?>
