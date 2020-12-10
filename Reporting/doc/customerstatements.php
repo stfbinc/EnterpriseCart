@@ -8,7 +8,7 @@
     $user = json_decode(json_encode($apiResult->user), true);
     $statdata = json_decode(json_encode($apiResult->data), true);
 
-    //$currencySymbol = $apiResult->currencySymbol;
+    $currencySymbol = $apiResult->currencySymbol;
     //echo json_encode($headerData);
     //echo "<br/><br/>";
     //echo json_encode($detailData);
@@ -114,7 +114,7 @@
 		</tr>
 	    </thead>
 	    <tbody>
-		<?php if(count($statdata["transactions"])): ?>
+		<?php if( is_array($statdata) && count($statdata["transactions"])): ?>
 		    <?php 
 		    foreach($statdata["transactions"] as $row){
 			echo "<tr style=\"height:10px;\">";
@@ -122,7 +122,7 @@
 			echo "<td>" . $row["Number"] . "</td>";
 			echo "<td>" . $row["Type"] . "</td>";
 			//$data->getCurrencySymbol()["symbol"] . 
-			echo "<td>" . $data->getCurrencySymbol()["symbol"] . $row["BaseCurrAmount"] . "</td>";
+			echo "<td>" . $currencySymbol->id . $row["BaseCurrAmount"] . "</td>";
 			echo "</tr>";
 		    }
 		    ?>
@@ -130,7 +130,7 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<?php echo "<td><b>Balance: " . $data->getCurrencySymbol()["symbol"] . $row["BaseCurrAmount"] . "</b></td>"; ?>
+			<?php echo "<td><b>Balance: " . $currencySymbol->id . $row["BaseCurrAmount"] . "</b></td>"; ?>
 		    </tr>
 		<?php else: ?>
 		    <tr style="height:10px;">
