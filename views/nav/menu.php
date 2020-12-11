@@ -23,7 +23,7 @@
                             
 
                             <?php if($cartSettings->Support): ?>
-                                <li><a href="#/?page=forms&action=loadcontent&content=Support"><?php echo $translation->translateLabel("Support"); ?></a>
+                                <li><a href="#/?page=forms&action=helpdesk"><?php echo $translation->translateLabel("Support"); ?></a>
                                 </li>
                             <?php endif; ?>
 
