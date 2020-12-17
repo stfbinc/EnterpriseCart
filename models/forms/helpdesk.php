@@ -103,7 +103,7 @@ class helpdesk extends APIProxy{
         $_POST['SupportQuestion'] = $postdata['subject'];
         $_POST['SupportDescription'] = $postdata['message'];
 
-        $result = API_request("page=api&module=forms&path=API/Ecommerce/Helpdesk&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=updateRequestWithCustomer&session_id=$session_id&caseId=$caseId", "POST", $_POST, 'screenshot_attachment')["response"];
+        $result = API_request("page=api&module=forms&path=API/Ecommerce/Helpdesk&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=updateRequestWithCustomer&session_id=$session_id&caseId=$caseId", "POST", $_POST )["response"];
 
         return json_encode($result, true);
     }
@@ -122,24 +122,29 @@ class helpdesk extends APIProxy{
         $_POST['SupportQuestion'] = $_POST['subject'];
         $_POST['SupportDescription'] = $_POST['message'];
         
-        // This is the entire file that was uploaded to a temp location.
-        // $tmpfile = $_FILES['screenshot_attachment']['tmp_name'];
-        // $filename = basename($_FILES['screenshot_attachment']['name']);
+        //This is the entire file that was uploaded to a temp location.
+        $tmpfile = $_FILES['screenshot_attachment']['tmp_name'];
+        $filename = basename($_FILES['screenshot_attachment']['name']);
 
         //$file_name_with_full_path = $_FILES['screenshot_attachment']['tmp_name'];
-        // if (function_exists('curl_file_create')) { // php 5.5+
+        if (function_exists('curl_file_create')) { // php 5.5+
             
-        //     $_POST['SupportScreenShot'] = curl_file_create($tmpfile, $_FILES['screenshot_attachment']['type'], $filename);
-        // } 
+            $_POST['SupportScreenShot'] = curl_file_create($tmpfile, $_FILES['screenshot_attachment']['type'], $filename);
+        } 
 
-
+        if ( isset($_FILES['screenshot_attachment']) ) {
+            $img_name = $_FILES['screenshot_attachment']['tmp_name'];
+            $handle    = fopen($img_name, "r");
+            $data      = fread($handle, filesize($img_name));
+            $_POST['encoded_image'] = base64_encode($data);
+        }
         // $_POST['SupportScreenShot'] = '@'. $_FILES['screenshot_attachment']['tmp_name']
         //       . ';filename=' . $_FILES['screenshot_attachment']['name']
         //       . ';type='     . $_FILES['screenshot_attachment']['type'];
     
         //API/Ecommerce/Helpdesk
         //CRMHelpDesk/HelpDesk/ViewSupportRequests
-        $result = API_request("page=api&module=forms&path=API/Ecommerce/Helpdesk&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=insertRequestWithCustomer&session_id=$session_id", "POST", $_POST, 'screenshot_attachment')["response"];
+        $result = API_request("page=api&module=forms&path=API/Ecommerce/Helpdesk&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=insertRequestWithCustomer&session_id=$session_id", "POST", $_POST)["response"];
 
         return json_encode($result, true);
 
