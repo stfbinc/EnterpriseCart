@@ -24,6 +24,11 @@
 
                             <?php if($cartSettings->Support): ?>
                                 <li><a href="#/?page=forms&action=helpdesk"><?php echo $translation->translateLabel("Support"); ?></a>
+
+                                    <ul>
+                                        <li><a href="#/?page=forms&action=helpdesk&pending=1"><?php echo $translation->translateLabel("Pending Tickets"); ?></a></li>
+                                        <li><a href="#/?page=forms&action=helpdesk&closed=1"><?php echo $translation->translateLabel("Closed Tickets"); ?></a></li>
+                                    </ul>
                                 </li>
                             <?php endif; ?>
 

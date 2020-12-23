@@ -50,6 +50,16 @@ class helpdesk extends APIProxy{
         }
     }
 
+    public function getCommentsByCaseId($caseId){
+
+        $user = Session::get("user");
+        $session_id = Session::get("session_id");
+
+        $result = API_request("page=api&module=forms&path=API/Ecommerce/HelpdeskDetail&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=getTicketComments&session_id=$session_id&CaseId=".$caseId, "GET", null)["response"];
+
+        return $result;
+    }
+
     public function getTicketsByCustomer(){
 
         $user = Session::get("user");
@@ -61,7 +71,7 @@ class helpdesk extends APIProxy{
 
             $customer = $user['Customer']->CustomerID;
             $result = API_request("page=api&module=forms&action=procedure&session_id=$session_id&procedure=getTicketsByCustomer&path=API/Ecommerce/Helpdesk&customer=$customer", "GET", null);
-            
+
             return json_encode($result['response'], true);
         }
         else{
@@ -77,10 +87,7 @@ class helpdesk extends APIProxy{
 
         if(isset($user['Customer']) && $caseId){
 
-            // $this->captchaBuilder->build();
-            // $_SESSION['captcha'] = $this->captchaBuilder->getPhrase();
-
-            $customer = $user['Customer']->CustomerID;
+           $customer = $user['Customer']->CustomerID;
             $result = API_request("page=api&module=forms&action=procedure&session_id=$session_id&procedure=getTicketDetailsById&path=API/Ecommerce/Helpdesk&customer=$customer&caseId=$caseId", "GET", null);
 
             return json_encode($result['response'], true);
@@ -103,55 +110,96 @@ class helpdesk extends APIProxy{
         $_POST['SupportQuestion'] = $postdata['subject'];
         $_POST['SupportDescription'] = $postdata['message'];
 
+
+        if(file_exists($_FILES['screenshot_attachment']['tmp_name'])) {
+
+
+            //This is the entire file that was uploaded to a temp location.
+            $tmpfile = $_FILES['screenshot_attachment']['tmp_name'];
+            $filename = basename($_FILES['screenshot_attachment']['name']);
+
+            //$file_name_with_full_path = $_FILES['screenshot_attachment']['tmp_name'];
+            if (function_exists('curl_file_create')) { // php 5.5+
+                
+                $_POST['SupportScreenShot'] = curl_file_create($tmpfile, $_FILES['screenshot_attachment']['type'], $filename);
+            } 
+
+            if ( isset($_FILES['screenshot_attachment']) ) {
+                $img_name = $_FILES['screenshot_attachment']['tmp_name'];
+                $handle    = fopen($img_name, "r");
+                $data      = fread($handle, filesize($img_name));
+                $_POST['encoded_image'] = base64_encode($data);
+            }
+
+        }
+
         $result = API_request("page=api&module=forms&path=API/Ecommerce/Helpdesk&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=updateRequestWithCustomer&session_id=$session_id&caseId=$caseId", "POST", $_POST )["response"];
 
         return json_encode($result, true);
     }
 
+    public function deleteItem($id){
+
+        $user = Session::get("user");
+        $session_id = Session::get("session_id");
+
+        if($id) {
+            $result = API_request("page=api&module=forms&path=API/Ecommerce/Helpdesk&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=deleteTicketItem&session_id=$session_id&caseId=$id", "GET", null)["response"];  
+
+            return json_encode($result, true);
+        }
+        else{
+            return json_encode(array('success' => 0), true);
+        }
+        
+
+    }
 
     public function insertItem(){
 
         $user = Session::get("user");
         $session_id = Session::get("session_id");
 
-        $_POST['CustomerFirstName'] = $_POST['RequestCustomerFirstName'];
-        $_POST['CustomerLastName'] = $_POST['RequestCustomerLastName'];
-        $_POST['CustomerName'] = $_POST['RequestCustomerName'];
-        $_POST['CustomerID'] = $user['Customer']->CustomerID;
-        $_POST['CustomerEmail'] = $_POST['EmailCustomer'];
-        $_POST['SupportQuestion'] = $_POST['subject'];
-        $_POST['SupportDescription'] = $_POST['message'];
-        
-        //This is the entire file that was uploaded to a temp location.
-        $tmpfile = $_FILES['screenshot_attachment']['tmp_name'];
-        $filename = basename($_FILES['screenshot_attachment']['name']);
+        if(isset($_GET['comment_ticket'])){
+            $result = API_request("page=api&module=forms&path=API/Ecommerce/HelpdeskDetail&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=insertTicketComment&session_id=$session_id&CaseId=".$_POST["CaseId"], "POST", $_POST)["response"];
 
-        //$file_name_with_full_path = $_FILES['screenshot_attachment']['tmp_name'];
-        if (function_exists('curl_file_create')) { // php 5.5+
-            
-            $_POST['SupportScreenShot'] = curl_file_create($tmpfile, $_FILES['screenshot_attachment']['type'], $filename);
-        } 
-
-        if ( isset($_FILES['screenshot_attachment']) ) {
-            $img_name = $_FILES['screenshot_attachment']['tmp_name'];
-            $handle    = fopen($img_name, "r");
-            $data      = fread($handle, filesize($img_name));
-            $_POST['encoded_image'] = base64_encode($data);
         }
-        // $_POST['SupportScreenShot'] = '@'. $_FILES['screenshot_attachment']['tmp_name']
-        //       . ';filename=' . $_FILES['screenshot_attachment']['name']
-        //       . ';type='     . $_FILES['screenshot_attachment']['type'];
-    
-        //API/Ecommerce/Helpdesk
-        //CRMHelpDesk/HelpDesk/ViewSupportRequests
-        $result = API_request("page=api&module=forms&path=API/Ecommerce/Helpdesk&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=insertRequestWithCustomer&session_id=$session_id", "POST", $_POST)["response"];
+        else{
 
+            $_POST['CustomerFirstName'] = $_POST['RequestCustomerFirstName'];
+            $_POST['CustomerLastName'] = $_POST['RequestCustomerLastName'];
+            $_POST['CustomerName'] = $_POST['RequestCustomerName'];
+            $_POST['CustomerID'] = $user['Customer']->CustomerID;
+            $_POST['CustomerEmail'] = $_POST['EmailCustomer'];
+            $_POST['SupportQuestion'] = $_POST['subject'];
+            $_POST['SupportDescription'] = $_POST['message'];
+            
+            //This is the entire file that was uploaded to a temp location.
+            $tmpfile = $_FILES['screenshot_attachment']['tmp_name'];
+            $filename = basename($_FILES['screenshot_attachment']['name']);
+
+            //$file_name_with_full_path = $_FILES['screenshot_attachment']['tmp_name'];
+            if (function_exists('curl_file_create')) { // php 5.5+
+                
+                $_POST['SupportScreenShot'] = curl_file_create($tmpfile, $_FILES['screenshot_attachment']['type'], $filename);
+            } 
+
+            if ( isset($_FILES['screenshot_attachment']) ) {
+                $img_name = $_FILES['screenshot_attachment']['tmp_name'];
+                $handle    = fopen($img_name, "r");
+                $data      = fread($handle, filesize($img_name));
+                $_POST['encoded_image'] = base64_encode($data);
+            }
+        
+            //API/Ecommerce/Helpdesk
+            //CRMHelpDesk/HelpDesk/ViewSupportRequests
+            $result = API_request("page=api&module=forms&path=API/Ecommerce/Helpdesk&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=insertRequestWithCustomer&session_id=$session_id", "POST", $_POST)["response"];
+
+        }
         return json_encode($result, true);
-
     }
 
     public function getProducts(){
-
         $items = $this->getItems();    
         return $items;
     }
