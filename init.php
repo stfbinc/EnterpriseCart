@@ -24,6 +24,36 @@ class Session{
     }
 }
 
+
+
+function newsletter_submit($url, $type, $body){
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($body));
+    curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
+    curl_setopt($ch, CURLOPT_NOBODY, true);
+
+    // In real life you should use something like:
+    // curl_setopt($ch, CURLOPT_POSTFIELDS, 
+    //          http_build_query(array('postvar1' => 'value1')));
+
+    // Receive server response ...
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $output = curl_exec($ch);
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    curl_close ($ch);
+
+    return [
+        "response" => 'Success',
+        "statusCode" => $httpcode
+    ];
+}
+
 function API_request($url, $type, $body){
     $config = $GLOBALS["config"];
     $ch = curl_init($config["EnterpriseUniversalAPI"]["address"] . "index.php?" . $url);
@@ -43,6 +73,7 @@ function API_request($url, $type, $body){
         echo $error_msg;
     }
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    // echo $output;
     //    echo $httpcode;
     // close curl resource to free up system resources
     curl_close($ch);

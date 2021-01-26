@@ -65,6 +65,9 @@
 	     width : 200px;
 	     height : 200px;
 	 }
+	 .subscribe-title input {
+		  color: #000 !important;
+		}
 	</style>
 	<script>
 	 function formatCurrency(value, precision){
@@ -287,7 +290,7 @@
 			    <div class="footer-widget">		
                                 <h3>NEWSLETTER SIGNUP</h3>
                                 <div class="subscribe-title">                               
-                                    <form action="https://stfb.net/EnterpriseX/index.php?config=STFBEnterprise&page=help&method=newsletterSubscribe" method="post"">
+                                    <form action="http://localhost/EnterpriseX/index.php?config=common&page=help&method=newsletterSubscribe" method="post" id="subscribe-form">
 					<div class="subscribe-form">
 					    <input type="email" name="EMAIL" placeholder="Your Email.........">
 					    <button>
@@ -421,7 +424,33 @@
 	<!-- all js here -->
 	<script src="assets/js/body.bundle.js"></script> 
 
-	<script>	 
+	<script>
+	 $(document).ready(function(){
+	 	$('#subscribe-form').submit(function(){
+
+	 		var formData = new FormData(this);
+
+	 		$.ajax({
+			  url : 'index.php/?page=forms&action=helpdesk&new=true&newsletter=true',
+			  type : 'POST',
+			  data : formData,
+			  processData: false,  // tell jQuery not to process the data
+			  contentType: false,  // tell jQuery not to set contentType
+			  error: function(e) {
+			      var errors = JSON.parse(e.responseText);
+			      alert(errors.message);
+			  },
+			  success : function(e) {
+			      try {
+			        window.location.replace('index.php#/?page=forms&action=helpdesk&thankyou=1');
+			      }
+			      catch (e){}
+			  }
+			});
+	 		return false;
+	 	})
+	 });
+
 	 async function main(){
              var spinnerTarget = document.getElementById('content');
              var spinner;
