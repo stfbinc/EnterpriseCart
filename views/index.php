@@ -19,6 +19,8 @@
 	<!-- google fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Lato:400,900,700,300' rel='stylesheet'
             type='text/css'>
+			<!-- <?php echo json_encode($_SERVER); ?>
+-->
 	<!-- all css here -->
 	<!-- bootstrap v3.3.6 css 
 	     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -173,7 +175,7 @@
 		 //		     sideBarCloseAll();
 		 //		     sideBarDeselectAll();
 		 //		 }
-		 //console.log(path);
+		 console.log(path);
 		 $.get(path)
 		  .done(function(data){
 		      setTimeout(function(){

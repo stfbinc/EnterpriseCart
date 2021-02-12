@@ -26,6 +26,10 @@
    Last Modified by: Nikita Zaharov
  */
 //require 'vendor/autoload.php';
+if($_SERVER["REQUEST_URI"] == "/EnterpriseCart/"){
+	header("Location: /EnterpriseCart/index.php");
+	exit;
+}
 include './init.php';
 
 function errorHandler($message, $error){
