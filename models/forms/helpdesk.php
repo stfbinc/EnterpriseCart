@@ -164,6 +164,17 @@ class helpdesk extends APIProxy{
             $result = API_request("page=api&module=forms&path=API/Ecommerce/HelpdeskDetail&CompanyID=DINOS&DivisionID=DEFAULT&DepartmentID=DEFAULT&EmployeeID=demo&EmployeePassword=demo&action=procedure&procedure=insertTicketComment&session_id=$session_id&CaseId=".$_POST["CaseId"], "POST", $_POST)["response"];
 
         }
+        else if(isset($_GET['newsletter']) ){
+            $config = $GLOBALS['config'];
+
+            $url = $config['EnterpriseXURLConfig'].'&page=help&method=newsletterSubscribe';
+
+
+            $result = newsletter_submit($url, "POST", $_POST)["response"];
+            
+            print_r($result);
+            die();
+        }
         else{
 
             $_POST['CustomerFirstName'] = $_POST['RequestCustomerFirstName'];

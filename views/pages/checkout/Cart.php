@@ -48,6 +48,11 @@
                 </h3>
             </div>
             <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="QuoteconfirmButton">
+                    <?php echo $translation->translateLabel("Get Quote"); ?>
+                </button>
+
                 <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmButton">
                     <?php echo $translation->translateLabel("Process"); ?>
                 </button>
@@ -200,6 +205,9 @@
                             </div>
                             <?php if(key_exists("Customer", $user)): ?>
                                 <div class="order-button-payment" style="margin-top:100px">
+                                    <input type="submit" id="processquote" value="<?php echo $translation->translateLabel("Request Quotation"); ?>" style="font-size:18pt" />
+                                </div>
+                                <div class="order-button-payment" style="margin-top:100px">
                                     <input type="submit" id="processorder" value="<?php echo $translation->translateLabel("Process Order"); ?>" style="font-size:18pt" />
                                 </div>
                             <?php endif ?>
@@ -214,10 +222,64 @@
  var checkoutSubtotal = 0,
      checkoutItems;
  <?php if(key_exists("Customer", $user)): ?>
+
+ $("#QuoteconfirmButton").click(async function(){
+    //var form = $("#checkoutForm");
+     var values = await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/OrderScreens/ViewQuotes&action=procedure&procedure=getNewItemAllRemote&session_id=${session_id}`, {
+         id : "",
+         type : "..fields"
+     });
+     values.CustomerID = "<?php echo $user["Customer"]->CustomerID; ?>";
+     values.ShippingName = $("input[name=shipCustomerName]").val();
+     values.ShippingAddress1 = $("input[name=shipCustomerAddress1]").val();
+     values.ShippingAddress2 = $("input[name=shipCustomerAddress2]").val();
+     values.ShippingAddress3 = $("input[name=shipCustomerAddress3]").val();
+     values.ShippingCounty = $("input[name=shipCustomerCountry]").val();
+     values.ShippingState = $("input[name=shipCustomerState]").val();
+     values.ShippingCity = $("input[name=shipCustomerCity]").val();
+     values.ShippingZip = $("input[name=shipCustomerZip]").val();
+     values.ShipMethodID = $("input[name=ShipMethod]").val();
+     values.PaymentMethodID = $("input[name=PaymentMethod]").val();
+     values.Subtotal = values.Total = values.BalanceDue = values.TaxableSubTotal = checkoutSubtotal;
+     //creating order header
+     var OrderHeader = await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/OrderScreens/ViewQuotes&action=procedure&procedure=insertItemRemote&session_id=${session_id}`, values);
+     //getting template data for order detail
+     var values = await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/OrderProcessing/ViewQuotesDetail&action=procedure&procedure=getNewItemAllRemote&session_id=${session_id}`, {
+         id : "",
+         type : "..fields"
+     });
+     var ind, orderDetails = [], orderDetail, items = checkoutItems.items;
+     for(ind in items){
+         orderDetail = Object.assign({}, values);
+         orderDetail.ItemID = items[ind].ItemID;
+         //       console.log(items[ind].ItemID);
+         orderDetail.OrderNumber = OrderHeader.OrderNumber;
+         orderDetail.OrderQty = items[ind].counter;
+         orderDetail.Description = items[ind].ItemDescription;
+         orderDetail.ItemCost = orderDetail.ItemUnitPrice = items[ind].Price;
+         orderDetails.push(orderDetail);
+     }
+     //      console.log(JSON.stringify(orderDetails, null, 3));
+     //creating order detail records
+     var OrderDetails = await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/OrderProcessing/ViewQuotesDetail&action=procedure&procedure=insertItemsRemote&session_id=${session_id}`, orderDetails);
+     //values = JSON.parse(data);
+     //recalculation order header
+     await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/OrderScreens/ViewQuotes&action=procedure&procedure=Recalc&session_id=${session_id}`, { OrderNumber : OrderHeader.OrderNumber});
+     $("#processquote").val("<?php echo $translation->translateLabel("Print"); ?>");
+     $("#processquote").off("click");
+     $("#processquote").click(function(){
+         Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
+     });
+     Object.assign(document.createElement('a'), { target: '_blank', href: linksMaker.makeEnterpriseXDocreportsLink("order", OrderHeader.OrderNumber)}).click();
+     window.location = "index.php#/?page=forms&action=account";
+     //console.log(data, error);   
+ });
+
  $("#confirmButton").click(async function(){
      //var form = $("#checkoutForm");
      var values = await APICall("POST", `index.php?page=api&module=forms&path=AccountsReceivable/OrderScreens/ViewOrders&action=procedure&procedure=getNewItemAllRemote&session_id=${session_id}`, {
-         id : "",                                                                                                                    type : "..fields"
+         id : "",
+         type : "..fields"
      });
      values.CustomerID = "<?php echo $user["Customer"]->CustomerID; ?>";
      values.ShippingName = $("input[name=shipCustomerName]").val();

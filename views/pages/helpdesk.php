@@ -17,6 +17,10 @@
 
         require __DIR__ . "/helpdesk/view.php";
     }
+    else if(isset($_GET['thankyou'])  && $_GET['thankyou']){
+    
+        require __DIR__ . "/helpdesk/thankyou.php";
+    }
     else {
 
     $result = json_decode($data->getTicketsByCustomer());
